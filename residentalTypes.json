@@ -1,0 +1,277 @@
+{
+	"two":
+	{
+		"outPersonCount": 2,
+		"inPersonCount": 0,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 0,
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 30,
+				"K_c2": 5
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	},
+
+	"three":
+	{
+		"outPersonCounts": 3,
+		"inPersonCount": 0,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 0,
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 20,
+				"K_c2": 5
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	},
+
+	"four":
+	{
+		"outPersonCounts": 4,
+		"inPersonCount": 0,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 0,
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 15,
+				"K_c2": 5
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	},
+
+	"five":
+	{
+		"outPersonCounts": 5,
+		"inPersonCount": 0,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 0,
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 12,
+				"K_c2": 5
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	},
+
+	"one+one":
+	{
+		"outPersonCounts": 1,
+		"inPersonCount": 1,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 1,
+			"workDays":[1,2,3,4,5],
+			"outTime": 7.00,
+			"inTime": 18.00
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 25,
+				"K_c2": 10
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	},
+
+	"two+one":
+	{
+		"outPersonCounts": 2,
+		"inPersonCount": 1,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 1,
+			"workDays":[1,2,3,4,5],
+			"outTime": 7.00,
+			"inTime": 18.00
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 20,
+				"K_c2": 10
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	},
+
+	"three+one":
+	{
+		"outPersonCounts": 3,
+		"inPersonCount": 1,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 1,
+			"workDays":[1,2,3,4,5],
+			"outTime": 7.00,
+			"inTime": 18.00
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 13,
+				"K_c2": 10
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	},
+
+	"four+one":
+	{
+		"outPersonCounts": 4,
+		"inPersonCount": 1,
+		"alwaysAppliances": [],
+		"neverAppliances": [],
+		"weekSchedule":
+		{
+			"case": 1,
+			"workDays":[1,2,3,4,5],
+			"outTime": 7.00,
+			"inTime": 18.00
+		},
+		"constraints":
+		{
+			"constraintsCount": 0
+		},
+		"coefficients":
+		{
+			"endUserSide":
+			{
+				"case":1,
+				"K_c1": 12,
+				"K_c2": 10
+			},
+			"applianceSide":
+			{
+				"case":0
+			},
+			"probabilityLowerLimit":
+			{
+				"case":0
+			}
+		}
+	}
+}
