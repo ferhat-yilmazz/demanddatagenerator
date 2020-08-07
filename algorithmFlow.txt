@@ -1,0 +1,57 @@
+### Algorithm Flow Scheme ###
+##
+
+1. 		Load JSON files, assign them as a structure each one.
+2. 		Build a function for randomization. There must be two version: TRNG and PRNG
+			a. 	There must be a structure contain 2 variable: First random number pool, and second array index.
+				When array index reached last element of the array, then new random pool must be requested from “random.org”.
+			b. 	When called the randomization function, it should return array element which pointed by array index,
+				then array index must be increased by 1.
+
+## ASSIGN RESIDENT-TYPE TO END-USERS
+
+3. 		Assign resident type for each end-user. (random)
+
+## DISTRIBUTE APPLIANCES TO END-USERS
+
+4. 		For each end-user, assign appliances.
+			a. 	Copy appliances list.
+			b. 	Check "alwaysAppliances" and "neverAppliances" lists, edit appliances list.
+			c. 	Distribute remain appliances in the appliances list (random)
+					i. 	Consider dependecy rules.
+
+## BUILD USAGE VECTOR FOR EACH END-USER ##
+
+5. 		Select a day from week (random); eliminate selected day from list [1,7]
+6. 		Select an appliance from end-user appliances list (random)
+			a. 	Determine work time range.
+					i. 		Consider "needOperator" bit of the appliance.
+							If the appliance not need operator, it can be run any moment of a day.
+							But it needs operator, it can only works when someone in home.
+					ii. 	Consider end-user's constraint
+					iii. 	Consider for work time constraints
+					iv. 	Consider for confliction constraints
+					v. 		Consider if the appliance worked before in same day
+7. 		Select start time of the appliance from given work time range according to constraints (random)
+8. 		Calculate run probability value according to given coefficients and selected start time
+9. 		Check for the appliance can run in selected hour or not (random)
+			a. 	If the appliance runs:
+					i. 		Increase by one the value of count of daily work of the appliance
+					ii. 	Increase by one the value of count of weekly work of the appliance
+					iii. 	Assign work duration to related variable of periodic and non-continuous appliances
+					iv. 	Assign zero to test count of the appliance
+			b. 	If the appliance does not run:
+					i. 		Increase by one the test count of the appliance.
+10. 	When appliances in the end-user's list completed, repeat step 9. Before proceed, check value of the
+ 		test count of the appliance. If test count equal to "tryLimit" parameter, then skip the appliance.
+11. 	Repeat step 5 until all days of the week are handled.
+			i. 		Assign zero to count of daily work of each appliance for each new day.
+			ii. 	Assign zero to work duration of each related appliance for each new day.
+12. 	Repeat step 5 for each new week, until given week count is reached.
+			i. 		Assign zero to count of weekly work of each appliance for each new week.
+
+## PREPARE RESULT ##
+
+13. 	Collect data of all days for each end-user and divide data count of days. (take mean of data)
+14. 	Plot data.
+
