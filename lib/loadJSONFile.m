@@ -1,21 +1,18 @@
  %% بسم الله الرحمن الرحیم 
 
-%% ## JSON Data File Loader ##
-% 06.03.2020, Ferhat Yılmaz
+%% ## JSON File Read&Load ##
+% 07.08.2020, Ferhat Yılmaz
 
-%% How Works?
+%% Description
 %{
-	1- Open file through path defined
-	2- Read file and convert to char vector
-	3- Encode the string vector as JSON format
-	4- Assign the encoded data to related field of structure
-	5- Close the file stream
+	Function to read and load given JSON file and
+	return data in the file
 
 >> Inputs:
-	1. Char array of <dataFilePath>
+	1. <dataFilePath> : string :  path of JSON file
 
 << Outputs:
-	1. Structure of <loadedData>
+	1. <loadedData> : structure : data in the JSON file
 %}
 
 %%
