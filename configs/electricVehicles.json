@@ -1,10 +1,15 @@
-"chevyVolt":
 {
-	"batteryCapacity": 16000,
-	"charger": "chevyVoltCharger",
-	"chargeLevelPercentage":
-	{
-		"format": "choice",
-		"value": [25,50,75,100]
-	}
+  "chevyVolt": {
+    "batteryCapacity": 16000,
+    "charger": "chevyVoltCharger",
+    "chargeLevelPercentage": {
+      "format": "choice",
+      "value": [
+        25,
+        50,
+        75,
+        100
+      ]
+    }
+  }
 }
