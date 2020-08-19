@@ -2,8 +2,15 @@
   "two": {
     "outPersonCount": 2,
     "inPersonCount": 0,
-    "alwaysAppliances": [],
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 1,
     "weekSchedule": {
       "case": 0
     },
@@ -27,8 +34,15 @@
   "three": {
     "outPersonCounts": 3,
     "inPersonCount": 0,
-    "alwaysAppliances": [],
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 1,
     "weekSchedule": {
       "case": 0
     },
@@ -52,8 +66,15 @@
   "four": {
     "outPersonCounts": 4,
     "inPersonCount": 0,
-    "alwaysAppliances": [],
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 1,
     "weekSchedule": {
       "case": 0
     },
@@ -77,8 +98,15 @@
   "five": {
     "outPersonCounts": 5,
     "inPersonCount": 0,
-    "alwaysAppliances": [],
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 1,
     "weekSchedule": {
       "case": 0
     },
@@ -99,11 +127,18 @@
       }
     }
   },
-  "one+one": {
+  "one_plus_one": {
     "outPersonCounts": 1,
     "inPersonCount": 1,
-    "alwaysAppliances": [],
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 1,
     "weekSchedule": {
       "case": 1,
       "workDays": [
@@ -133,11 +168,18 @@
       }
     }
   },
-  "two+one": {
+  "two_plus_one": {
     "outPersonCounts": 2,
     "inPersonCount": 1,
-    "alwaysAppliances": [],
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 1,
     "weekSchedule": {
       "case": 1,
       "workDays": [
@@ -167,11 +209,18 @@
       }
     }
   },
-  "three+one": {
-    "outPersonCounts": 3,
-    "inPersonCount": 1,
-    "alwaysAppliances": [],
+  "two_plus_two": {
+    "outPersonCounts": 2,
+    "inPersonCount": 2,
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 2,
     "weekSchedule": {
       "case": 1,
       "workDays": [
@@ -201,11 +250,18 @@
       }
     }
   },
-  "four+one": {
+  "there_plus_two": {
     "outPersonCounts": 4,
     "inPersonCount": 1,
-    "alwaysAppliances": [],
+    "alwaysAppliances": [
+      "washingMachine",
+      "dishwashing",
+      "lamp",
+      "tv",
+      "fridge"
+    ],
     "neverAppliances": [],
+    "haveEV": 2,
     "weekSchedule": {
       "case": 1,
       "workDays": [

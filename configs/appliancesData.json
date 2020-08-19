@@ -362,13 +362,9 @@
     "type": 0,
     "needOperator": 1,
     "power": {
-      "format": "choice",
+      "format": "interval",
       "value": [
         250,
-        300,
-        350,
-        400,
-        450,
         500
       ]
     },
@@ -448,13 +444,13 @@
       "format": "choice",
       "value": [
         1000,
-        200,
-        1500
+        1500,
+        2000
       ]
     },
     "operation": {
       "mode": "non-periodic",
-      "runDuration": 15
+      "runDuration": 10
     },
     "dependency": {
       "case": 0
@@ -488,7 +484,6 @@
       "format": "choice",
       "value": [
         10,
-        15,
         35,
         60,
         90,
@@ -608,53 +603,6 @@
         "K_adu": 10,
         "K_awu": 5,
         "k_cyc": 0.05
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
-    }
-  },
-  "chevyVoltCharger": {
-    "type": 0,
-    "needOperator": 0,
-    "power": {
-      "format": "choice",
-      "value": [
-        3300
-      ]
-    },
-    "operation": {
-      "mode": "periodic",
-      "continuity": 0,
-      "runDuration": -1,
-      "waitDuration": 0,
-      "maxOperationTime": -1
-    },
-    "dependency": {
-      "case": 0
-    },
-    "constraints": {
-      "workTimeConstraint": {
-        "case": 1,
-        "lowerTime": 18,
-        "upperTime": 7
-      },
-      "conflictionConstraint": {
-        "case": 0
-      }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "all": 1,
-        "K_c1": 100,
-        "K_c2": 100
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 100,
-        "K_awu": 0,
-        "k_cyc": 0
       },
       "probabilityLowerLimit": {
         "case": 0

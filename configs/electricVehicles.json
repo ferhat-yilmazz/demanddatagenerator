@@ -1,7 +1,24 @@
 {
   "chevyVolt": {
     "batteryCapacity": 16000,
-    "charger": "chevyVoltCharger",
+    "charger": {
+      "power": {
+        "format": "choice",
+        "value": [
+          3300
+        ]
+      },
+      "constraints": {
+        "workTimeConstraint": {
+          "case": 1,
+          "lowerTime": 18,
+          "upperTime": 7
+        },
+        "conflictionConstraint": {
+          "case": 0
+        }
+      }
+    },
     "chargeLevelPercentage": {
       "format": "choice",
       "value": [
