@@ -1,7 +1,7 @@
 {
-  "two": {
-    "outPersonCount": 2,
-    "inPersonCount": 0,
+  "type1": {
+    "outPersonCount": 0,
+    "inPersonCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -31,9 +31,9 @@
       }
     }
   },
-  "three": {
-    "outPersonCounts": 3,
-    "inPersonCount": 0,
+  "type2": {
+    "outPersonCounts": 1,
+    "inPersonCount": 1,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -63,9 +63,9 @@
       }
     }
   },
-  "four": {
-    "outPersonCounts": 4,
-    "inPersonCount": 0,
+  "type3": {
+    "outPersonCounts": 1,
+    "inPersonCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -84,7 +84,7 @@
     "coefficients": {
       "endUserSide": {
         "case": 1,
-        "K_c1": 15,
+        "K_c1": 20,
         "K_c2": 5
       },
       "applianceSide": {
@@ -95,9 +95,9 @@
       }
     }
   },
-  "five": {
-    "outPersonCounts": 5,
-    "inPersonCount": 0,
+  "type4": {
+    "outPersonCounts": 2,
+    "inPersonCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -106,7 +106,7 @@
       "fridge"
     ],
     "neverAppliances": [],
-    "haveEV": 1,
+    "haveEV": 2,
     "weekSchedule": {
       "case": 0
     },
@@ -127,9 +127,9 @@
       }
     }
   },
-  "one_plus_one": {
-    "outPersonCounts": 1,
-    "inPersonCount": 1,
+  "type5": {
+    "outPersonCounts": 2,
+    "inPersonCount": 3,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -138,7 +138,7 @@
       "fridge"
     ],
     "neverAppliances": [],
-    "haveEV": 1,
+    "haveEV": 2,
     "weekSchedule": {
       "case": 1,
       "workDays": [
@@ -158,129 +158,6 @@
       "endUserSide": {
         "case": 1,
         "K_c1": 25,
-        "K_c2": 10
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
-    }
-  },
-  "two_plus_one": {
-    "outPersonCounts": 2,
-    "inPersonCount": 1,
-    "alwaysAppliances": [
-      "washingMachine",
-      "dishwashing",
-      "lamp",
-      "tv",
-      "fridge"
-    ],
-    "neverAppliances": [],
-    "haveEV": 1,
-    "weekSchedule": {
-      "case": 1,
-      "workDays": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "outTime": 7,
-      "inTime": 18
-    },
-    "constraints": {
-      "constraintsCount": 0
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_c1": 20,
-        "K_c2": 10
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
-    }
-  },
-  "two_plus_two": {
-    "outPersonCounts": 2,
-    "inPersonCount": 2,
-    "alwaysAppliances": [
-      "washingMachine",
-      "dishwashing",
-      "lamp",
-      "tv",
-      "fridge"
-    ],
-    "neverAppliances": [],
-    "haveEV": 2,
-    "weekSchedule": {
-      "case": 1,
-      "workDays": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "outTime": 7,
-      "inTime": 18
-    },
-    "constraints": {
-      "constraintsCount": 0
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_c1": 13,
-        "K_c2": 10
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
-    }
-  },
-  "there_plus_two": {
-    "outPersonCounts": 4,
-    "inPersonCount": 1,
-    "alwaysAppliances": [
-      "washingMachine",
-      "dishwashing",
-      "lamp",
-      "tv",
-      "fridge"
-    ],
-    "neverAppliances": [],
-    "haveEV": 2,
-    "weekSchedule": {
-      "case": 1,
-      "workDays": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "outTime": 7,
-      "inTime": 18
-    },
-    "constraints": {
-      "constraintsCount": 0
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_c1": 12,
         "K_c2": 10
       },
       "applianceSide": {
