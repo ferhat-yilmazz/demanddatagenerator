@@ -15,6 +15,6 @@
       "factor": 1
     }
   ],
-  "tryLimit": 2,
+  "dayPiece": 4,
   "samplePeriod": 5
 }
