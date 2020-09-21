@@ -20,5 +20,5 @@ function sampleCount = duration2sample(timeDuration)
 	
 	% Sample count of appliances determined with 'ceil' method.
 	% However, time vector generated with 'floor' method.
-	sampleCount = ceil(timeDuration/SAMPLE_PERIOD);
+	sampleCount = ceil(minutes(timeDuration)/SAMPLE_PERIOD);
 end
