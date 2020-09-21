@@ -13,7 +13,7 @@
 	for each user.
 
 >> Inputs:
-	1. <appliancesData> : structure : "initialConditions.json" config structure
+	1. <appliancesData> : structure : "appliancesData.json" config structure
 	2. <electricVehicles> : structure . "electricVehicles.json" config structure
 	4. <endUsers>: structure : A structure which describes end-users
 	5. <randMethod> : string :  Randomization method (PRNG or TRNG)
@@ -48,7 +48,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 		% Seperate appliances as <dependentAppliances> and <independentAppliances>
 		[independentAppliances, dependentAppliances] = separateAppliances(checkedAppliances, appliancesData);
 		
-		% Respectively assign appliances; firstly electric vehicles,
+		% Respectively assign appliances: firstly electric vehicles,
 		% secondly independent appliances,
 		% and finally dependent appliances
 		
@@ -68,31 +68,41 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 					% Select an EV from the list, randomly (PRNG is used for this)
 					selectedEV = datasample(evList, 1);
 					endUsers(i).ev.(string(selectedEV)) = electricVehicles.(string(selectedEV));
+					% Assign usage vector
+					endUsers(i).ev.(string(selectedEV)).charger.usageVector = generateUsageVector();
 				end
 			case 2
 				% End-user exactly have an EV
 				% Select an EV from the list, randomly (PRNG is used for this)
 				selectedEV = datasample(evList, 1);
 				endUsers(i).ev.(string(selectedEV)) = electricVehicles.(string(selectedEV));
+				% Assign usage vector
+				endUsers(i).ev.(string(selectedEV)).charger.usageVector = generateUsageVector();
 		end
 		
 		% Assign independent appliances randomly
 		for index = 1:numel(independentAppliances)
 			[randNumber, randStructure_applianceAssignment] = pickRandNumber(randStructure_applianceAssignment);
 			if randNumber
-				endUsers(i).appliances.(string(independentAppliances(index))) = [];
+				% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
+				endUsers(i).appliances.(string(independentAppliances(index))).usageVector = generateUsageVector();
+				endUsers(i).appliances.(string(independentAppliances(index))).duc = 0;
+				endUsers(i).appliances.(string(independentAppliances(index))).wuc = 0;
 			end
 		end
 		
 		% Assign dependent appliances randomly
 		for index = 1:numel(dependentAppliances)
 			dependencies = appliancesData.(string(dependentAppliances(index))).dependency.list;
-			% Check for the en-user have all dependecies
+			% Check for the end-user have all dependecies
 			dependencyCheckVector = ismember(dependencies, fieldnames(endUsers(i).appliances));
 			if sum(dependencyCheckVector) == numel(dependencyCheckVector)
 				[randNumber, randStructure_applianceAssignment] = pickRandNumber(randStructure_applianceAssignment);
 				if randNumber
-					endUsers(i).appliances.(string(dependentAppliances(index))) = [];
+					% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
+					endUsers(i).appliances.(string(dependentAppliances(index))).usageVector = generateUsageVector();
+					endUsers(i).appliances.(string(dependentAppliances(index))).duc = 0;
+					endUsers(i).appliances.(string(dependentAppliances(index))).wuc = 0;
 				end
 			end
 		end

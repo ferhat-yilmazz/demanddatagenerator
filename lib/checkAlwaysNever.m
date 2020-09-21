@@ -32,7 +32,10 @@ function [endUser, applianceList] = checkAlwaysNever(endUser, applianceList)
 	if ~isempty(endUser.properties.alwaysAppliances)
 		for index = 1:numel(endUser.properties.alwaysAppliances)
 			applianceList = removeItemFromCellArray(endUser.properties.alwaysAppliances(index), applianceList);
-			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))) = [];
+			% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
+			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).usageVector = generateUsageVector();
+			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).duc = 0;
+			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).wuc = 0;
 		end
 	end
 end
