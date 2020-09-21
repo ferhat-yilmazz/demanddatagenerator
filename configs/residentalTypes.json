@@ -79,7 +79,16 @@
       "case": 0
     },
     "constraints": {
-      "constraintsCount": 0
+      "constraintsCount": 1,
+      "c_1":{
+        "lowerTime": 14,
+        "upperTime": 2,
+        "appliancesList":[
+          "iron",
+          "washingMachine",
+          "TV"
+        ]
+      }
     },
     "coefficients": {
       "endUserSide": {
