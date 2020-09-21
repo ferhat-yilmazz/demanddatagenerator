@@ -31,5 +31,5 @@ COUNT_WEEKS = initialConditions.weekCount;
 DAY_PIECE = initialConditions.dayPiece;
 SAMPLE_PERIOD = initialConditions.samplePeriod;
 COUNT_SAMPLE_IN_HOUR = floor(60/SAMPLE_PERIOD);
-COUNT_SAMPLE_IN_DAY = 24*COUNT_SAMPLE_IN_DAY;
+COUNT_SAMPLE_IN_DAY = 24*COUNT_SAMPLE_IN_HOUR;
 TIME_VECTOR = generateTimeVector;

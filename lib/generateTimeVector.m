@@ -29,7 +29,7 @@ function timeVector = generateTimeVector()
 	assert(SAMPLE_PERIOD <= minInDay, 'Sample period not fit in a day!');
 	
 	% Convert minute vector to string vector
-	for m = 0:SAMPLE_PERIOD:minInDay
+	for m = 0:SAMPLE_PERIOD:(minInDay-SAMPLE_PERIOD)
 		minVector_string = [minVector_string, strcat(string(m), ':0')];
 	end
 	
