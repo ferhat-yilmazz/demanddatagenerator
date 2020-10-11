@@ -17,7 +17,7 @@
 	3. <randMethod> : string :  Randomization method (PRNG or TRNG)
 
 << Outputs:
-	1. <endUsers> : structure : random number structure
+	4. <endUsers>: structure : A structure which describes the end-users
 %}
 
 %%

@@ -15,7 +15,7 @@
 >> Inputs:
 	1. <appliancesData> : structure : "appliancesData.json" config structure
 	2. <electricVehicles> : structure . "electricVehicles.json" config structure
-	4. <endUsers>: structure : A structure which describes end-users
+	4. <endUsers>: structure : A structure which describes the end-users
 	5. <randMethod> : string :  Randomization method (PRNG or TRNG)
 
 << Outputs:
