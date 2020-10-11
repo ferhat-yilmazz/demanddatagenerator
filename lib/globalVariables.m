@@ -18,8 +18,6 @@ global COUNT_WEEKS
 global DAY_PIECE
 % Sample period
 global SAMPLE_PERIOD
-% Count of sample in an hour
-global COUNT_SAMPLE_IN_HOUR
 % Count of sample in a day
 global COUNT_SAMPLE_IN_DAY
 % Sample2Time vector
@@ -30,6 +28,8 @@ COUNT_END_USERS = initialConditions.endUserCount;
 COUNT_WEEKS = initialConditions.weekCount;
 DAY_PIECE = initialConditions.dayPiece;
 SAMPLE_PERIOD = initialConditions.samplePeriod;
-COUNT_SAMPLE_IN_HOUR = floor(60/SAMPLE_PERIOD);
-COUNT_SAMPLE_IN_DAY = 24*COUNT_SAMPLE_IN_HOUR;
+% Check for sample period sub-multiple of minutes in a day.
+msg = 'Please edit sample period as sub-multiple of minutes in a day!';
+assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);
+COUNT_SAMPLE_IN_DAY = (24*60)/SAMPLE_PERIOD;
 TIME_VECTOR = generateTimeVector;

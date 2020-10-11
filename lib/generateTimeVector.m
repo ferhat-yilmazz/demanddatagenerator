@@ -24,10 +24,6 @@ function timeVector = generateTimeVector()
 	% Total minute in a day
 	minInDay = 24*60;
 	
-	% Check for sample period is less than total
-	% minute in a day
-	assert(SAMPLE_PERIOD <= minInDay, 'Sample period not fit in a day!');
-	
 	% Convert minute vector to string vector
 	for m = 0:SAMPLE_PERIOD:(minInDay-SAMPLE_PERIOD)
 		minVector_string = [minVector_string, strcat(string(m), ':0')];
