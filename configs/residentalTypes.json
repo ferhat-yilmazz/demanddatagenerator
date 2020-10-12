@@ -81,6 +81,15 @@
     "constraints": {
       "constraintsCount": 1,
       "c_1":{
+		"days":[
+			1,
+			2,
+			3,
+			4,
+			5,
+			6,
+			7
+		],
         "lowerTime": 14,
         "upperTime": 2,
         "appliancesList":[
