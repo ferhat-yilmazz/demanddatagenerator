@@ -20,5 +20,5 @@ function usageVector = generateUsageVector()
 	global COUNT_SAMPLE_IN_DAY;
 	
 	% Generate usage vector filled by zero
-	usageVector = zeros(1, COUNT_SAMPLE_IN_DAY);
+	usageVector = single(zeros(1, COUNT_SAMPLE_IN_DAY));
 end

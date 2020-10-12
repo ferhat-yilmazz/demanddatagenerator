@@ -19,7 +19,7 @@
 %}
 
 %%
-function [endUser, applianceList] = checkAlwaysNever(endUser, applianceList)
+function [endUser, applianceList] = checkAlwaysNever(endUser, applianceList, countDays)
 
 	% Check for 'never owned' appliances
 	if ~isempty(endUser.properties.neverAppliances)
@@ -33,7 +33,8 @@ function [endUser, applianceList] = checkAlwaysNever(endUser, applianceList)
 		for index = 1:numel(endUser.properties.alwaysAppliances)
 			applianceList = removeItemFromCellArray(endUser.properties.alwaysAppliances(index), applianceList);
 			% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
-			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).usageVector = generateUsageVector();
+			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).usageArray =...
+																																							repmat(generateUsageVector(),countDays,1);
 			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).duc = 0;
 			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).wuc = 0;
 		end

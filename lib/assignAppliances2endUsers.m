@@ -28,6 +28,10 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 	global COUNT_END_USERS;
 	% Get rand method
 	global RAND_METHOD;
+	% Get count of weeks
+	global COUNT_WEEKS;
+	% Determine count of days
+	countDays = COUNT_WEEKS*7;
 	% Get names of appliances
 	allAppliances = fieldnames(appliancesData);
 	
@@ -43,7 +47,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 	% For each end-user
 	for i = 1:COUNT_END_USERS
 		% Check for 'always' and 'never' appliances
-		[endUsers(i), checkedAppliances] = checkAlwaysNever(endUsers(i), allAppliances);
+		[endUsers(i), checkedAppliances] = checkAlwaysNever(endUsers(i), allAppliances, countDays);
 
 
 		% Seperate appliances as <dependentAppliances> and <independentAppliances>
@@ -70,7 +74,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 					selectedEV = datasample(evList, 1);
 					endUsers(i).ev.(string(selectedEV)) = electricVehicles.(string(selectedEV));
 					% Assign usage vector
-					endUsers(i).ev.(string(selectedEV)).charger.usageVector = generateUsageVector();
+					endUsers(i).ev.(string(selectedEV)).charger.usageArray = repmat(generateUsageVector(),countDays,1);
 				end
 			case 2
 				% End-user exactly have an EV
@@ -78,7 +82,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 				selectedEV = datasample(evList, 1);
 				endUsers(i).ev.(string(selectedEV)) = electricVehicles.(string(selectedEV));
 				% Assign usage vector
-				endUsers(i).ev.(string(selectedEV)).charger.usageVector = generateUsageVector();
+				endUsers(i).ev.(string(selectedEV)).charger.usageArray = repmat(generateUsageVector(),countDays,1);
 		end
 		
 		% Assign independent appliances randomly
@@ -86,7 +90,8 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 			[randNumber, randStructure_applianceAssignment] = pickRandNumber(randStructure_applianceAssignment);
 			if randNumber
 				% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
-				endUsers(i).appliances.(string(independentAppliances(index))).usageVector = generateUsageVector();
+				endUsers(i).appliances.(string(independentAppliances(index))).usageArray =...
+																																			repmat(generateUsageVector(),countDays,1);
 				endUsers(i).appliances.(string(independentAppliances(index))).duc = 0;
 				endUsers(i).appliances.(string(independentAppliances(index))).wuc = 0;
 			end
@@ -101,7 +106,8 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 				[randNumber, randStructure_applianceAssignment] = pickRandNumber(randStructure_applianceAssignment);
 				if randNumber
 					% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
-					endUsers(i).appliances.(string(dependentAppliances(index))).usageVector = generateUsageVector();
+					endUsers(i).appliances.(string(dependentAppliances(index))).usageArray =...
+																																			repmat(generateUsageVector(),countDays,1);
 					endUsers(i).appliances.(string(dependentAppliances(index))).duc = 0;
 					endUsers(i).appliances.(string(dependentAppliances(index))).wuc = 0;
 				end

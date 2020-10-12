@@ -21,6 +21,8 @@
 function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 	% Count of end-users
 	global COUNT_END_USERS;
+	% Count of weeks
+	global COUNT_WEEKS;
 	
 	% Make an iteration for each end-user
 	for i = 1:COUNT_END_USERS
@@ -35,6 +37,8 @@ function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 			for j = 1:endUser_constraintCount
 				% Build constraint id
 				constraintID = strcat('c_', string(j));
+				% Get days which the constraint is active
+				constraintDays = endUsers(i).properties.constraints.(constraintID).days;
 				% Get time limits of constraint
 				lowerTime = double2duration(endUsers(i).properties.constraints.(constraintID).lowerTime);
 				upperTime = double2duration(endUsers(i).properties.constraints.(constraintID).upperTime);
@@ -47,14 +51,18 @@ function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 				for k = 1:numel(constraintedAppliances)
 					% Check if the appliance belongs to the end-user
 					if ismember(constraintedAppliances(k), endUser_appliances)
-						% Assign -1 to "unworked" region
-						endUsers(i).appliances.(string(constraintedAppliances(k))).usageVector(~workTimes_logic) = -1;
+						% For each week and each specified day
+						for week_index = 1:COUNT_WEEKS
+							% Assign -1 to "unworked" region
+							row = ((week_index-1)*7)+constraintDays;
+							endUsers(i).appliances.(string(constraintedAppliances(k))).usageArray(row,~workTimes_logic) = single(-1);
+						end
 					end
 				end
 			end
 		end
 		% Check for each appliance which belong to the end-user, if they have constraint
-		% indicated in the configuration file
+		% indicated in the "appliancesData.json" configuration file
 		for m = 1:numel(endUser_appliances)
 			% Check for is there constraint
 			if appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.case
@@ -65,7 +73,7 @@ function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 				workTimes_logic = logicalInterval(lowerTime, upperTime);
 				
 				% Assign -1 to "unworked" region
-				endUsers(i).appliances.(string(endUser_appliances(m))).usageVector(~workTimes_logic) = -1;
+				endUsers(i).appliances.(string(endUser_appliances(m))).usageArray(:,~workTimes_logic) = single(-1);
 			end
 		end
 		% Check for EVs charge time constraints
@@ -84,7 +92,7 @@ function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 					workTimes_logic = logicalInterval(lowerTime, upperTime);
 
 					% Assign -1 to "unworked" region
-					endUsers(i).ev.(string(endUser_evs(n))).charger.usageVector(~workTimes_logic) = -1;
+					endUsers(i).ev.(string(endUser_evs(n))).charger.usageArray(:,~workTimes_logic) = single(-1);
 				end
 			end
 		end
