@@ -23,10 +23,11 @@
 %}
 
 %%
-function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, endUsers, randMethod)
+function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, endUsers)
 	% Get count of end-users
-	global COUNT_END_USERS
-	
+	global COUNT_END_USERS;
+	% Get rand method
+	global RAND_METHOD;
 	% Get names of appliances
 	allAppliances = fieldnames(appliancesData);
 	
@@ -37,7 +38,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 	evList = fieldnames(electricVehicles);
 	
 	% Generate randStructure to use in assignment of appliances
-	randStructure_applianceAssignment = generateRandStructure(randMethod, 0, 1);
+	randStructure_applianceAssignment = generateRandStructure(RAND_METHOD, 0, 1);
 	
 	% For each end-user
 	for i = 1:COUNT_END_USERS

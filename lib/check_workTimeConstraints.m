@@ -20,7 +20,7 @@
 %%
 function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 	% Count of end-users
-	global COUNT_END_USERS
+	global COUNT_END_USERS;
 	
 	% Make an iteration for each end-user
 	for i = 1:COUNT_END_USERS

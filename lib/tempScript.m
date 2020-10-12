@@ -20,13 +20,13 @@ initialConditions = loadJSONFile(PATH_initialConditions);
 
 % Load global variables
 globalVariables;
-randMethod = 'TRNG';
+
 % Generate structure for end-users
 endUsers = struct('type', [], 'properties', [], 'appliances', [], 'ev', []);
 % Assign types to end-users
-endUsers = assignType2endUsers(residentalTypes, endUsers, randMethod);
+endUsers = assignType2endUsers(residentalTypes, endUsers);
 % Assign appliances to end-users
-endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, endUsers, randMethod);
+endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, endUsers);
 % Check for work time constraints
 endUsers = check_workTimeConstraints(endUsers, appliancesData);
 

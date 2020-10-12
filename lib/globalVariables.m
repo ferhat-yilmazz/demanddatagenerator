@@ -11,17 +11,19 @@
 
 %% Declare global variables
 % Count of end-users
-global COUNT_END_USERS
+global COUNT_END_USERS;
 % Count of weeks
-global COUNT_WEEKS
+global COUNT_WEEKS;
 % Try limit
-global DAY_PIECE
+global DAY_PIECE;
 % Sample period
-global SAMPLE_PERIOD
+global SAMPLE_PERIOD;
 % Count of sample in a day
-global COUNT_SAMPLE_IN_DAY
+global COUNT_SAMPLE_IN_DAY;
 % Sample2Time vector
-global TIME_VECTOR
+global TIME_VECTOR;
+% Rand method
+global RAND_METHOD;
 
 %% Definition of global variables
 COUNT_END_USERS = initialConditions.endUserCount;
@@ -33,3 +35,4 @@ msg = 'Please edit sample period as sub-multiple of minutes in a day!';
 assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);
 COUNT_SAMPLE_IN_DAY = (24*60)/SAMPLE_PERIOD;
 TIME_VECTOR = generateTimeVector;
+RAND_METHOD = 'TRNG';

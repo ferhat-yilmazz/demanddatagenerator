@@ -21,17 +21,18 @@
 %}
 
 %%
-function endUsers = assignType2endUsers(residentalTypes, endUsers, randMethod)
+function endUsers = assignType2endUsers(residentalTypes, endUsers)
 	% Get count of end-users
-	global COUNT_END_USERS
-	
+	global COUNT_END_USERS;
+	% Get rand method
+	global RAND_METHOD;
 	% Get name of user types from <residentalTypes>
 	typeList = fieldnames(residentalTypes);
 	
 	% Initialize random structure to assign user types
 	% Upper limit of random numbers is determined
 	% according to count of type
-	randStructure_userTypeAssignment = generateRandStructure(randMethod, 1, numel(typeList));
+	randStructure_userTypeAssignment = generateRandStructure(RAND_METHOD, 1, numel(typeList));
 	
 	% Assign type for each end-user, randomly
 	for i = 1:COUNT_END_USERS
