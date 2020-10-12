@@ -33,8 +33,8 @@ endUsers = check_workTimeConstraints(endUsers, appliancesData);
 
 %% Clear Unnecessary variables
 clear PATH_applianceData PATH_residentalTypes PATH_electricVehicles...
-			PATH_defaultCoefficients PATH_initialConditions randMethod
+			PATH_defaultCoefficients PATH_initialConditions msg
 		
 %% Clear Global Variables
-clear global COUNT_END_USERS global COUNT_SAMPLE_IN_DAY global COUNT_SAMPLE_IN_HOUR global COUNT_WEEKS...
-	global SAMPLE_PERIOD global TRY_LIMIT
+clear global COUNT_END_USERS global COUNT_SAMPLE_IN_DAY global COUNT_WEEKS...
+	global SAMPLE_PERIOD global TRY_LIMIT global RAND_METHOD global DAY_PIECE
