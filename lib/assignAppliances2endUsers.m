@@ -92,8 +92,8 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 				% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
 				endUsers(i).appliances.(string(independentAppliances(index))).usageArray =...
 																																			repmat(generateUsageVector(),countDays,1);
-				endUsers(i).appliances.(string(independentAppliances(index))).duc = 0;
-				endUsers(i).appliances.(string(independentAppliances(index))).wuc = 0;
+				endUsers(i).appliances.(string(independentAppliances(index))).duc = uint16(0);
+				endUsers(i).appliances.(string(independentAppliances(index))).wuc = uint16(0);
 			end
 		end
 		
@@ -108,8 +108,8 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 					% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
 					endUsers(i).appliances.(string(dependentAppliances(index))).usageArray =...
 																																			repmat(generateUsageVector(),countDays,1);
-					endUsers(i).appliances.(string(dependentAppliances(index))).duc = 0;
-					endUsers(i).appliances.(string(dependentAppliances(index))).wuc = 0;
+					endUsers(i).appliances.(string(dependentAppliances(index))).duc = uint16(0);
+					endUsers(i).appliances.(string(dependentAppliances(index))).wuc = uint16(0);
 				end
 			end
 		end
