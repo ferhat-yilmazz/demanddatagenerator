@@ -16,7 +16,7 @@
 %}
 
 %%
-function loadedData = loadJSONDataFile(dataFilePath)
+function loadedData = loadJSONFile(dataFilePath)
 % Open file stream
 fileStream = fopen(dataFilePath);
 
