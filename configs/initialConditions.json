@@ -16,5 +16,5 @@
     }
   ],
   "dayPiece": 4,
-  "samplePeriod": 5
+  "samplePeriod": 0.05
 }

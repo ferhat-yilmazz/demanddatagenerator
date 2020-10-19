@@ -1,7 +1,7 @@
 {
   "type1": {
-    "outPersonCount": 0,
-    "inPersonCount": 2,
+    "employeeCount": 0,
+    "nonemployeeCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -32,8 +32,8 @@
     }
   },
   "type2": {
-    "outPersonCounts": 1,
-    "inPersonCount": 1,
+    "employeeCount": 1,
+    "nonemployeeCount": 1,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -44,7 +44,16 @@
     "neverAppliances": [],
     "haveEV": 1,
     "weekSchedule": {
-      "case": 0
+      "case": 1,
+      "workDays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "outTime": 7.00,
+      "inTime": 18.00
     },
     "constraints": {
       "constraintsCount": 0
@@ -64,8 +73,8 @@
     }
   },
   "type3": {
-    "outPersonCounts": 1,
-    "inPersonCount": 2,
+    "employeeCount": 1,
+    "nonemployeeCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -76,23 +85,32 @@
     "neverAppliances": [],
     "haveEV": 1,
     "weekSchedule": {
-      "case": 0
+      "case": 1,
+      "workDays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "outTime": 7.00,
+      "inTime": 18.00
     },
     "constraints": {
       "constraintsCount": 1,
-      "c_1":{
-		"days":[
-			1,
-			2,
-			3,
-			4,
-			5,
-			6,
-			7
-		],
-        "lowerTime": 14,
-        "upperTime": 2,
-        "appliancesList":[
+      "c_1": {
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "lowerTime": 14.00,
+        "upperTime": 2.00,
+        "appliancesList": [
           "iron",
           "washingMachine",
           "TV"
@@ -114,8 +132,8 @@
     }
   },
   "type4": {
-    "outPersonCounts": 2,
-    "inPersonCount": 2,
+    "employeeCount": 2,
+    "nonemployeeCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -126,7 +144,16 @@
     "neverAppliances": [],
     "haveEV": 2,
     "weekSchedule": {
-      "case": 0
+      "case": 1,
+      "workDays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "outTime": 7.00,
+      "inTime": 18.00
     },
     "constraints": {
       "constraintsCount": 0
@@ -146,8 +173,8 @@
     }
   },
   "type5": {
-    "outPersonCounts": 2,
-    "inPersonCount": 3,
+    "employeeCount": 2,
+    "nonemployeeCount": 3,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -166,8 +193,8 @@
         4,
         5
       ],
-      "outTime": 7,
-      "inTime": 18
+      "outTime": 7.00,
+      "inTime": 18.00
     },
     "constraints": {
       "constraintsCount": 0
