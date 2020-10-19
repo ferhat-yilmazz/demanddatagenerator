@@ -29,7 +29,7 @@ global RAND_METHOD;
 COUNT_END_USERS = initialConditions.endUserCount;
 COUNT_WEEKS = initialConditions.weekCount;
 DAY_PIECE = initialConditions.dayPiece;
-SAMPLE_PERIOD = initialConditions.samplePeriod;
+SAMPLE_PERIOD = double2duration(initialConditions.samplePeriod);
 % Check for sample period sub-multiple of minutes in a day.
 msg = 'Please edit sample period as sub-multiple of minutes in a day!';
 assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);
