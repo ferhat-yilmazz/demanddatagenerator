@@ -10,8 +10,10 @@
 	from <applianceList> list.
 
 >> Inputs:
-	1. <endUser> : structure : Structure which discrebes end-user
-	2. <applianceList> : cellArray : A list includes appliances
+	1. <appliancesData> : structure : "appliancesData.json" config structure
+	2. <endUser> : structure : Structure which discrebes end-user
+	3. <applianceList> : cellArray : A list includes appliances
+	4. <countDays> : Count of days to generate demand data
 
 << Outputs:
 	1. <endUser> : structure : Structure which discrebes end-user
@@ -19,7 +21,7 @@
 %}
 
 %%
-function [endUser, applianceList] = checkAlwaysNever(endUser, applianceList, countDays)
+function [endUser, applianceList] = checkAlwaysNever(appliancesData, endUser, applianceList, countDays)
 
 	% Check for 'never owned' appliances
 	if ~isempty(endUser.properties.neverAppliances)
@@ -32,11 +34,21 @@ function [endUser, applianceList] = checkAlwaysNever(endUser, applianceList, cou
 	if ~isempty(endUser.properties.alwaysAppliances)
 		for index = 1:numel(endUser.properties.alwaysAppliances)
 			applianceList = removeItemFromCellArray(endUser.properties.alwaysAppliances(index), applianceList);
-			% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
+			% Assign usage vector
 			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).usageArray =...
 																																							repmat(generateUsageVector(),countDays,1);
-			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).duc = uint16(0);
-			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).wuc = uint16(0);
+			% Assign <duc> (dailyUsageCount), and <wuc> (weeklyUsageCount) if the appliance is not
+			% continuous
+			if strcmp(appliancesData.(string(endUser.properties.alwaysAppliances(index))).operation.mode, 'periodic')
+				continuity = appliancesData.(string(endUser.properties.alwaysAppliances(index))).operation.continuity;
+			else
+				continuity = 0;
+			end
+
+			if ~(continuity)
+				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).duc = uint16(0);
+				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).wuc = uint16(0);
+			end
 		end
 	end
 end

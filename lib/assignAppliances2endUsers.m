@@ -47,7 +47,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 	% For each end-user
 	for i = 1:COUNT_END_USERS
 		% Check for 'always' and 'never' appliances
-		[endUsers(i), checkedAppliances] = checkAlwaysNever(endUsers(i), allAppliances, countDays);
+		[endUsers(i), checkedAppliances] = checkAlwaysNever(appliancesData, endUsers(i), allAppliances, countDays);
 
 
 		% Seperate appliances as <dependentAppliances> and <independentAppliances>
@@ -84,32 +84,52 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 				% Assign usage vector
 				endUsers(i).ev.(string(selectedEV)).charger.usageArray = repmat(generateUsageVector(),countDays,1);
 		end
-		
+
 		% Assign independent appliances randomly
 		for index = 1:numel(independentAppliances)
 			[randNumber, randStructure_applianceAssignment] = pickRandNumber(randStructure_applianceAssignment);
 			if randNumber
-				% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
+				% Assign usage vector
 				endUsers(i).appliances.(string(independentAppliances(index))).usageArray =...
 																																			repmat(generateUsageVector(),countDays,1);
-				endUsers(i).appliances.(string(independentAppliances(index))).duc = uint16(0);
-				endUsers(i).appliances.(string(independentAppliances(index))).wuc = uint16(0);
+				% Assign <duc> (dailyUsageCount), and <wuc> (weeklyUsageCount) if the appliance is not
+				% continuous
+				if strcmp(appliancesData.(string(independentAppliances(index))).operation.mode, 'periodic')
+					continuity = appliancesData.(string(independentAppliances(index))).operation.continuity;
+				else
+					continuity = 0;
+				end
+
+				if ~(continuity)
+					endUsers(i).appliances.(string(independentAppliances(index))).duc = uint16(0);
+					endUsers(i).appliances.(string(independentAppliances(index))).wuc = uint16(0);
+				end
 			end
 		end
 		
 		% Assign dependent appliances randomly
 		for index = 1:numel(dependentAppliances)
-			dependencies = appliancesData.(string(dependentAppliances(index))).dependency.list;
+			dependencies = transpose(cellstr(appliancesData.(string(dependentAppliances(index))).dependency.list));
 			% Check for the end-user have all dependecies
 			dependencyCheckVector = ismember(dependencies, fieldnames(endUsers(i).appliances));
 			if sum(dependencyCheckVector) == numel(dependencyCheckVector)
 				[randNumber, randStructure_applianceAssignment] = pickRandNumber(randStructure_applianceAssignment);
 				if randNumber
-					% Assign usage vector, duc (dailyUsageCount), and wuc(weeklyUsageCount)
+					% Assign usage vector
 					endUsers(i).appliances.(string(dependentAppliances(index))).usageArray =...
 																																			repmat(generateUsageVector(),countDays,1);
-					endUsers(i).appliances.(string(dependentAppliances(index))).duc = uint16(0);
-					endUsers(i).appliances.(string(dependentAppliances(index))).wuc = uint16(0);
+					% Assign <duc> (dailyUsageCount), and <wuc> (weeklyUsageCount) if the appliance is not
+					% continuous
+					if strcmp(appliancesData.(string(dependentAppliances(index))).operation.mode, 'periodic')
+						continuity = appliancesData.(string(dependentAppliances(index))).operation.continuity;
+					else
+						continuity = 0;
+					end
+
+					if ~(continuity)
+						endUsers(i).appliances.(string(dependentAppliances(index))).duc = uint16(0);
+						endUsers(i).appliances.(string(dependentAppliances(index))).wuc = uint16(0);
+					end
 				end
 			end
 		end
