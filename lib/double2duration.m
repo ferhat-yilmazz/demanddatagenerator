@@ -16,9 +16,19 @@
 
 %%
 function timeInDuration = double2duration(timeInDouble)
+	% Get the sample period
+	global SAMPLE_PERIOD;
+	
 	hourPart = fix(timeInDouble);
 	minutePart = fix(timeInDouble*100) - (hourPart*100);
 	
+	if hourPart == -1
+		hourPart = 0;
+		minutePart = SAMPLE_PERIOD;
+	elseif hourPart == -2
+		hourPart = 0;
+		minutePart = 0;
+	end
 	% Assume that 0 <= hourPart <= 23 AND 0 <= minutePart <= 59
 	assert((0 <= hourPart && hourPart <= 23) && (0 <= minutePart && minutePart <= 59)...
 				, 'Given value does not represent a time!');
