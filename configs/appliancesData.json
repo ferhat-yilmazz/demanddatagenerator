@@ -495,7 +495,7 @@
       "continuity": 0,
       "runDuration": -1,
       "waitDuration": 0,
-      "maxOperationTime": 5.00
+      "maxOperationLimit": 5.00
     },
     "dependency": {
       "case": 0
@@ -538,7 +538,7 @@
       "continuity": 0,
       "runDuration": -1,
       "waitDuration": 0,
-      "maxOperationTime": -1
+      "maxOperationLimit": -2
     },
     "dependency": {
       "case": 0
@@ -581,7 +581,7 @@
       "continuity": 0,
       "runDuration": 0.15,
       "waitDuration": 0.10,
-      "maxOperationTime": 5.00
+	"maxOperationLimit": 5.00
     },
     "dependency": {
       "case": 0
@@ -625,7 +625,7 @@
       "continuity": 0,
       "runDuration": -1,
       "waitDuration": 0,
-      "maxOperationTime": 5.00
+      "maxOperationLimit": 5.00
     },
     "dependency": {
       "case": 0
@@ -669,7 +669,7 @@
       "continuity": 0,
       "runDuration": -1,
       "waitDuration": 0,
-      "maxOperationTime": 5.00
+      "maxOperationLimit": 5.00
     },
     "dependency": {
       "case": 0
@@ -717,7 +717,7 @@
       "continuity": 0,
       "runDuration": -1,
       "waitDuration": 0,
-      "maxOperationTime": 5.00
+      "maxOperationLimit": 5.00
     },
     "dependency": {
       "case": 0
@@ -767,7 +767,7 @@
     "constraints": {
       "workTimeConstraint": {
         "case": 0
-      },
+	  },
       "conflictionConstraint": {
         "case": 0
       }
