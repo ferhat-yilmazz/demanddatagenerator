@@ -16,5 +16,6 @@
     }
   ],
   "dayPiece": 4,
-  "samplePeriod": 0.05
+  "samplePeriod": 0.05,
+  "globalMaxOperationLimit": 8.00
 }
