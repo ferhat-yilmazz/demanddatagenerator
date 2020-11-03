@@ -24,7 +24,7 @@
 %%
 function endUser = conflictionCheck4periodic_continuous(appliancesData, endUser, appliance, runDay, runInterval)
 	% Check for is there any appliance which conflict with the given appliance
-	if appliancesData.(appliance).constraints.conflictionConstraint.case
+	if appliancesData.(string(appliance)).constraints.conflictionConstraint.case
 		conflictAppliances = cellstr(appliancesData.(appliance).constraints.conflictionConstraint.list);
 		% Be sure <conflictAppliances> are not empty
 		assert(~isempty(conflictAppliances), string(appliance) + ' has configuration error!');
