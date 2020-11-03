@@ -37,6 +37,20 @@ function endUser = worktime_nonPeriodic(appliancesData, endUser, appliance, runD
 	mergedUsageVector = reshape(transpose(endUser.appliances.(string(appliance)).usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	totalSampleCount = numel(mergedUsageVector);
 	
+	% Get power value of charger
+	valueList = transpose(appliancesData.(string(appliance)).power.value);
+	valueFormat = appliancesData.(string(appliance)).power.format;
+	if strcmp(valueFormat, 'choice')
+		assert(numel(valueList) > 0, 'appliancesData.json:' + string(appliance) + ' <power.value> error!');
+		powerValue = datasample(valueList, 1);
+	elseif strcmp(valueFormat, 'interval')
+		assert((numel(valueList) == 2) && (valueList(1) <= valueList(2)),...
+																													'appliancesData.json:' + string(appliance) + ' <power.value> error!')
+		powerValue = datasample(valueList(1):valueList(2), 1);
+	else
+		error('appliancesData.json:' + string(appliance) + ' <power.format> undefined!');
+	end
+	
 	% Get <runDuration> of the appliance
 	runDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.runDuration));
 	
@@ -61,21 +75,18 @@ function endUser = worktime_nonPeriodic(appliancesData, endUser, appliance, runD
 			if isfield(endUser.appliances, string(conflictAppliance))
 				conflictAppliance_mergedUsageVector = reshape(transpose(endUser.appliances.(string(conflictAppliance)).usageArray),...
 																																																					1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
-				mergedUsageVector(conflictAppliance_mergedUsageVector(startPointer:endPointer) == 1) = single(-1);
+				mergedUsageVector(conflictAppliance_mergedUsageVector(startPointer:endPointer) > 0) = single(-1);
 			end
 		end
 	end
 	
-	% Consider that is there conflicted samples
-	if ~ismember(-1, mergedUsageVector(startPointer:endPointer))
-		% Consider for over run
-		if ~ismember(1, mergedUsageVector(startPointer:endPointer))
-			% Insert worktime
-			mergedUsageVector(startPointer:endPointer) = single(1);
+	% Consider that is there conflicted samples & over run
+	if all(mergedUsageVector(startPointer:endPointer) == 0)
+		% Insert worktime
+		mergedUsageVector(startPointer:endPointer) = single(powerValue);
 			
-			% Specify that the appliance worked
-			applianceIsWorked = true;
-		end
+		% Specify that the appliance worked
+		applianceIsWorked = true;
 	end
 	
 	% Reshape the <mergedUsageVector> to <usageArray>

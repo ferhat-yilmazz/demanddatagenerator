@@ -40,6 +40,20 @@ function endUser = worktime_periodic_nonContinous(appliancesData, endUser, appli
 	waitDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.waitDuration));
 	onePeriod_sample = runDuration_sample + waitDuration_sample;
 	
+	% Get power value of charger
+	valueList = transpose(appliancesData.(string(appliance)).power.value);
+	valueFormat = appliancesData.(string(appliance)).power.format;
+	if strcmp(valueFormat, 'choice')
+		assert(numel(valueList) > 0, 'appliancesData.json:' + string(appliance) + ' <power.value> error!');
+		powerValue = datasample(valueList, 1);
+	elseif strcmp(valueFormat, 'interval')
+		assert((numel(valueList) == 2) && (valueList(1) <= valueList(2)),...
+																													'appliancesData.json:' + string(appliance) + ' <power.value> error!')
+		powerValue = datasample(valueList(1):valueList(2), 1);
+	else
+		error('appliancesData.json:' + string(appliance) + ' <power.format> undefined!');
+	end
+	
 	% Determine <startPointer> and <endPointer> 
 	startPointer = (runDay-1)*COUNT_SAMPLE_IN_DAY + startSample;
 	endPointer = startPointer + onePeriod_sample - 1;
@@ -61,7 +75,7 @@ function endUser = worktime_periodic_nonContinous(appliancesData, endUser, appli
 			if isfield(endUser.appliances, string(conflictAppliance))
 				conflictAppliance_mergedUsageVector = reshape(transpose(endUser.appliances.(string(conflictAppliance)).usageArray),...
 																																																					1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
-				mergedUsageVector(conflictAppliance_mergedUsageVector(startPointer:(startPointer+operationDuration-1)) == 1) = single(-1);
+				mergedUsageVector(conflictAppliance_mergedUsageVector(startPointer:(startPointer+operationDuration-1)) > 0) = single(-1);
 			end
 		end	
 	end
@@ -81,13 +95,13 @@ function endUser = worktime_periodic_nonContinous(appliancesData, endUser, appli
 		end
 		
 		% Consider conflicted samples
-		if ~ismember(-1, mergedUsageVector(startPointer:endPointer))
+		if all(mergedUsageVector(startPointer:endPointer) ~= -1)
 			% Consider if the appliance already running
-			if ismember(1, mergedUsageVector(startPointer:endPointer))
+			if any(mergedUsageVector(startPointer:endPointer) > 0)
 				break;
 			else
 				% Insert worktime
-				mergedUsageVector(startPointer:(startPointer+runDuration_sample-1)) = single(1);
+				mergedUsageVector(startPointer:(startPointer+runDuration_sample-1)) = single(powerValue);
 				% mergedUsageVector((startPointer+runDuration_sample):(startPointer+runDuration_sample+waitDuration_sample-1)) = single(0);
 				
 				% Specify that the appliance worked

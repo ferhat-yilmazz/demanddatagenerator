@@ -33,11 +33,25 @@ function endUser = worktime_periodic_continuous(appliancesData, endUser, applian
 	% Unused samples (because constraints) are signed by -1
 	mergedUsageVector = reshape(transpose(endUser.appliances.(string(appliance)).usageArray),...
 															1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
+														
+	% Get power value of charger
+	valueList = transpose(appliancesData.(string(appliance)).power.value);
+	valueFormat = appliancesData.(string(appliance)).power.format;
+	if strcmp(valueFormat, 'choice')
+		assert(numel(valueList) > 0, 'appliancesData.json:' + string(appliance) + ' <power.value> error!');
+		powerValue = datasample(valueList, 1);
+	elseif strcmp(valueFormat, 'interval')
+		assert((numel(valueList) == 2) && (valueList(1) <= valueList(2)),...
+																													'appliancesData.json:' + string(appliance) + ' <power.value> error!')
+		powerValue = datasample(valueList(1):valueList(2), 1);
+	else
+		error('appliancesData.json:' + string(appliance) + ' <power.format> undefined!');
+	end
 	
 	% Assign worktime; it is assumed that usage of the appliance start at first sample
 	% If <runDuration> == 1 and <waitDuration> == 0; then the appliance runs non-stop
 	if (runDuration_sample == 1) && (waitDuration_sample == 0)
-		mergedUsageVector(mergedUsageVector ~= -1) = single(1);
+		mergedUsageVector(mergedUsageVector ~= -1) = single(powerValue);
 	elseif (runDuration_sample > 0) && (waitDuration_sample >= 0)
 		periodLength = runDuration_sample+waitDuration_sample;
 		periodCount = floor(numel(mergedUsageVector)/periodLength);
@@ -52,20 +66,20 @@ function endUser = worktime_periodic_continuous(appliancesData, endUser, applian
 			
 			% Check for there is not -1 along period
 			if ~ismember(-1,mergedUsageVector(startPointer:endPointer))
-				mergedUsageVector(startPointer:startPointer+runDuration_sample-1) = single(1);
+				mergedUsageVector(startPointer:startPointer+runDuration_sample-1) = single(powerValue);
 				% FIXME: Maybe following line is unneccessary
-				mergedUsageVector(startPointer+runDuration_sample:endPointer) = single(0);
+				% mergedUsageVector(startPointer+runDuration_sample:endPointer) = single(0);
 			end
 		end
 		
 		% Consider remained samples
 		if remainedSample >= runDuration_sample
 			if ~ismember(-1, mergedUsageVector(end-remainedSample+1:end-remainedSample+runDuration_sample))
-				mergedUsageVector(end-remainedSample+1:end-remainedSample+runDuration_sample) = single(1);
+				mergedUsageVector(end-remainedSample+1:end-remainedSample+runDuration_sample) = single(powerValue);
 			end
 		else
 			if ~ismember(-1, mergedUsageVector(end-remainedSample+1:end))
-				mergedUsageVector(end-remainedSample+1:end) = single(1);
+				mergedUsageVector(end-remainedSample+1:end) = single(powerValue);
 			end
 		end
 	else
