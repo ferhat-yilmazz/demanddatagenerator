@@ -21,14 +21,21 @@ function endUser = resetApplianceUsageCounter(endUser, option)
 	% Get appliances list
 	appliances = fieldnames(endUser.appliances);
 	
+	% If the appliance is periodic and continuous, pass it. <duc> and <wuc> are disabled for this
+	% type appliances
+	
 	switch option
 		case 'duc'
 			for appliance_index = 1:numel(appliances)
-				endUser.(string(appliances(appliance_index))).duc = uint16(0);
+				if isfield(endUser.appliances.(string(appliances(appliance_index))), 'duc')
+					endUser.appliances.(string(appliances(appliance_index))).duc = uint16(0);
+				end
 			end
 		case 'wuc'
 			for appliance_index = 1:numel(appliances)
-				endUser.(string(appliances(appliance_index))).wuc = uint16(0);
+				if isfield(endUser.appliances.(string(appliances(appliance_index))), 'wuc')
+					endUser.appliances.(string(appliances(appliance_index))).wuc = uint16(0);
+				end
 			end
 		otherwise
 			error('Undefined option given!!');
