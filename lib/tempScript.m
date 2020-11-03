@@ -1,4 +1,5 @@
 clear,clc
+tic
 %% Define PATH variables
 % "appliancesData.json" path
 PATH_applianceData = '../configs/appliancesData.json';
@@ -29,12 +30,15 @@ endUsers = assignType2endUsers(residentalTypes, endUsers);
 endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, endUsers);
 % Check for work time constraints
 endUsers = check_workTimeConstraints(endUsers, appliancesData);
+% Assign worktimes and power values
+endUsers = assignWorktimes2appliances(endUsers, appliancesData, initialConditions);
 
+toc
 
 %% Clear Unnecessary variables
 clear PATH_applianceData PATH_residentalTypes PATH_electricVehicles...
 			PATH_defaultCoefficients PATH_initialConditions msg
 		
 %% Clear Global Variables
-clear global COUNT_END_USERS global COUNT_SAMPLE_IN_DAY global COUNT_WEEKS...
-	global SAMPLE_PERIOD global TRY_LIMIT global RAND_METHOD global DAY_PIECE
+%clear global COUNT_END_USERS global COUNT_SAMPLE_IN_DAY global COUNT_WEEKS...
+%	global SAMPLE_PERIOD global TRY_LIMIT global RAND_METHOD global DAY_PIECE
