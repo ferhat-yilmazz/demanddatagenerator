@@ -39,6 +39,7 @@ function [endUser, applianceList] = checkAlwaysNever(appliancesData, endUser, ap
 																																							repmat(generateUsageVector(),countDays,1);
 			% Assign <duc> (dailyUsageCount), and <wuc> (weeklyUsageCount) if the appliance is not
 			% continuous
+			% Assing <tuc> (total usage count)
 			if strcmp(appliancesData.(string(endUser.properties.alwaysAppliances(index))).operation.mode, 'periodic')
 				continuity = appliancesData.(string(endUser.properties.alwaysAppliances(index))).operation.continuity;
 			else
@@ -49,6 +50,7 @@ function [endUser, applianceList] = checkAlwaysNever(appliancesData, endUser, ap
 				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).duc = uint16(0);
 				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).wuc = uint16(0);
 			end
+			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).tuc = uint16(0);
 		end
 	end
 end

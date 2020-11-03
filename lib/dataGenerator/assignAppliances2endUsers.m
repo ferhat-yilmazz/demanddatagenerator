@@ -94,6 +94,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 																																			repmat(generateUsageVector(),countDays,1);
 				% Assign <duc> (dailyUsageCount), and <wuc> (weeklyUsageCount) if the appliance is not
 				% continuous
+				% Assing <tuc> (total usage count)
 				if strcmp(appliancesData.(string(independentAppliances(index))).operation.mode, 'periodic')
 					continuity = appliancesData.(string(independentAppliances(index))).operation.continuity;
 				else
@@ -104,6 +105,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 					endUsers(i).appliances.(string(independentAppliances(index))).duc = uint16(0);
 					endUsers(i).appliances.(string(independentAppliances(index))).wuc = uint16(0);
 				end
+				endUsers(i).appliances.(string(independentAppliances(index))).tuc = uint16(0);
 			end
 		end
 		
@@ -120,6 +122,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 																																			repmat(generateUsageVector(),countDays,1);
 					% Assign <duc> (dailyUsageCount), and <wuc> (weeklyUsageCount) if the appliance is not
 					% continuous
+					% Assing <tuc> (total usage count)
 					if strcmp(appliancesData.(string(dependentAppliances(index))).operation.mode, 'periodic')
 						continuity = appliancesData.(string(dependentAppliances(index))).operation.continuity;
 					else
@@ -130,6 +133,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 						endUsers(i).appliances.(string(dependentAppliances(index))).duc = uint16(0);
 						endUsers(i).appliances.(string(dependentAppliances(index))).wuc = uint16(0);
 					end
+					endUsers(i).appliances.(string(dependentAppliances(index))).tuc = uint16(0);
 				end
 			end
 		end
