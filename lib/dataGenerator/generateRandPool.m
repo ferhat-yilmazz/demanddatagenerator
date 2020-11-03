@@ -18,9 +18,6 @@
 
 %%
 function randStructure = generateRandPool(randStructure)
-	% Add path of TRNG function
-	addpath('./trurand/');
-	
 	% Size is designated as 9999 because of "truerand()" limits
 	size = 9999;
 	

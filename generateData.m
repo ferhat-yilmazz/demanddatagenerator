@@ -1,16 +1,19 @@
 clear,clc
+addpath("./lib/dataGenerator/");
+% Add path of TRNG function
+	addpath('./lib/trueRandom/');
 tic
 %% Define PATH variables
 % "appliancesData.json" path
-PATH_applianceData = '../configs/appliancesData.json';
+PATH_applianceData = './configs/appliancesData.json';
 % "residentalTypes.json" path
-PATH_residentalTypes = '../configs/residentalTypes.json';
+PATH_residentalTypes = './configs/residentalTypes.json';
 % "electricVehicles.json" path
-PATH_electricVehicles = '../configs/electricVehicles.json';
+PATH_electricVehicles = './configs/electricVehicles.json';
 % "defaultCoefficients.json" path
-PATH_defaultCoefficients = '../configs/defaultCoefficients.json';
+PATH_defaultCoefficients = './configs/defaultCoefficients.json';
 % "initialCOnditions.json" path
-PATH_initialConditions = '../configs/initialConditions.json';
+PATH_initialConditions = './configs/initialConditions.json';
 
 %% Load config files as structure
 appliancesData = loadJSONFile(PATH_applianceData);
