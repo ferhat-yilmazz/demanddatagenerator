@@ -19,16 +19,21 @@
 %%
 function logicalVector = logicalInterval(startTime, endTime)
 	% Time vector
-	global TIME_VECTOR;
+	global COUNT_SAMPLE_IN_DAY;
+	
+	% Generate logical 0 vector
+	logicalVector = ~logical(1:COUNT_SAMPLE_IN_DAY);
+	
+	% Convert duration values to sample values
+	startSample = duration2sample(startTime);
+	endSample = duration2sample(endTime);
 	
 	% Check for the startTime is less than the endTime; otherwise there is overday case.
-	if (startTime < endTime)
-		logicalVector = (TIME_VECTOR >= startTime) & (TIME_VECTOR <= endTime);
+	if (startSample < endSample)
+		logicalVector(startSample:endSample) = true;
 	elseif (startTime > endTime)
-		logicalVector1 = TIME_VECTOR >= startTime;
-		logicalVector2 = TIME_VECTOR <= endTime;
-		logicalVector = logicalVector1 | logicalVector2;
+		logicalVector([1:endSample startSample:end]) = true;
 	else
-		logicalVector = true(1, numel(TIME_VECTOR));
+		logicalVector = ~logicalVector;
 	end
 end
