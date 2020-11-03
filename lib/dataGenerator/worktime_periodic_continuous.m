@@ -34,7 +34,7 @@ function endUser = worktime_periodic_continuous(appliancesData, endUser, applian
 	mergedUsageVector = reshape(transpose(endUser.appliances.(string(appliance)).usageArray),...
 															1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 														
-	% Get power value of charger
+	% Get power value of the appliance
 	valueList = transpose(appliancesData.(string(appliance)).power.value);
 	valueFormat = appliancesData.(string(appliance)).power.format;
 	if strcmp(valueFormat, 'choice')
@@ -46,6 +46,12 @@ function endUser = worktime_periodic_continuous(appliancesData, endUser, applian
 		powerValue = datasample(valueList(1):valueList(2), 1);
 	else
 		error('appliancesData.json:' + string(appliance) + ' <power.format> undefined!');
+	end
+	% According to type of the appliance, change sign of <powerValue>
+	% Type 0 => Consumer
+	% Type 1 => Producer
+	if appliancesData.(string(appliance)).type
+		powerValue = -powerValue;
 	end
 	
 	% Assign worktime; it is assumed that usage of the appliance start at first sample

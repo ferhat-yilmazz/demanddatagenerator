@@ -37,7 +37,7 @@ function endUser = worktime_nonPeriodic(appliancesData, endUser, appliance, runD
 	mergedUsageVector = reshape(transpose(endUser.appliances.(string(appliance)).usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	totalSampleCount = numel(mergedUsageVector);
 	
-	% Get power value of charger
+	% Get power value of the appliance
 	valueList = transpose(appliancesData.(string(appliance)).power.value);
 	valueFormat = appliancesData.(string(appliance)).power.format;
 	if strcmp(valueFormat, 'choice')
@@ -49,6 +49,12 @@ function endUser = worktime_nonPeriodic(appliancesData, endUser, appliance, runD
 		powerValue = datasample(valueList(1):valueList(2), 1);
 	else
 		error('appliancesData.json:' + string(appliance) + ' <power.format> undefined!');
+	end
+	% According to type of the appliance, change sign of <powerValue>
+	% Type 0 => Consumer
+	% Type 1 => Producer
+	if appliancesData.(string(appliance)).type
+		powerValue = -powerValue;
 	end
 	
 	% Get <runDuration> of the appliance
@@ -96,5 +102,6 @@ function endUser = worktime_nonPeriodic(appliancesData, endUser, appliance, runD
 	if applianceIsWorked
 		endUser.appliances.(string(appliance)).duc = endUser.appliances.(string(appliance)).duc + uint16(1);
 		endUser.appliances.(string(appliance)).wuc = endUser.appliances.(string(appliance)).wuc + uint16(1);
+		endUser.appliances.(string(appliance)).tuc = endUser.appliances.(string(appliance)).tuc + uint16(1);
 	end
 end
