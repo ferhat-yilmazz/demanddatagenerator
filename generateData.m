@@ -35,6 +35,10 @@ endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, endUsers)
 endUsers = check_workTimeConstraints(endUsers, appliancesData);
 % Assign worktimes and power values
 endUsers = assignWorktimes2appliances(endUsers, appliancesData, initialConditions);
+% Assign 0 to -1 filled samples
+endUsers = zero2minusOne(endUsers);
+% Build <mainUsageStructure>
+mainUsageStructure = buildMainUsageStructure(endUsers);
 
 toc
 
@@ -43,5 +47,6 @@ clear PATH_applianceData PATH_residentalTypes PATH_electricVehicles...
 			PATH_defaultCoefficients PATH_initialConditions msg
 		
 %% Clear Global Variables
-%clear global COUNT_END_USERS global COUNT_SAMPLE_IN_DAY global COUNT_WEEKS...
-%	global SAMPLE_PERIOD global TRY_LIMIT global RAND_METHOD global DAY_PIECE
+clear global COUNT_END_USERS global COUNT_SAMPLE_IN_DAY global COUNT_WEEKS...
+	global SAMPLE_PERIOD global TRY_LIMIT global RAND_METHOD global DAY_PIECE...
+	global BATTERY_LEVEL_RAND_LIMIT global GLOB_MAX_OPERATION_LIMIT
