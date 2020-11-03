@@ -40,4 +40,7 @@ function partIndex = divideUsageVector(usageVectorSize)
 	
 	% Add remains (if there is)
 	partIndex(end,2) = partIndex(end,2) + md;
+	
+	% Transpose <partIndex>
+	partIndex = transpose(partIndex);
 end
