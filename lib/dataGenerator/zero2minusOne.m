@@ -23,7 +23,7 @@ function endUsers = zero2minusOne(endUsers)
 	for user_index = 1:COUNT_END_USERS
 		% ## APPLIANCES ##
 		% Get list of appliances
-		applianceList = transpose(fieldnames(endUsers(user_index)).appliances);
+		applianceList = transpose(fieldnames(endUsers(user_index).appliances));
 		% For each appliance
 		for appliance = applianceList
 			% Assign 0 to -1 filled samples for each appliance
@@ -35,7 +35,7 @@ function endUsers = zero2minusOne(endUsers)
 		% Check for the end-user has an EV
 		if isstruct(endUsers(user_index).ev)
 			% Get list of appliances
-			evList = transpose(fieldnames(endUsers(user_index)).ev);
+			evList = transpose(fieldnames(endUsers(user_index).ev));
 			% For each EV
 			for evModel = evList
 				endUsers(user_index).ev.(string(evModel)).charger.usageArray(...
