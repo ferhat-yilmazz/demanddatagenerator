@@ -27,8 +27,16 @@ function randStructure = generateRandPool(randStructure)
 	switch randMethod
 		% If method is TRNG
 		case 'TRNG'
-			randStructure.pool = truerand(1, size, randStructure.lowerNumber, randStructure.upperNumber);
-			randStructure.index = size;
+			% Handle web connection errors
+			try
+				randStructure.pool = truerand(1, size, randStructure.lowerNumber, randStructure.upperNumber);
+				randStructure.index = size;
+			catch ME
+				warning(ME.message);
+				warning('PRNG will be used.');
+				randStructure.pool = randi([randStructure.lowerNumber, randStructure.upperNumber], 1, size);
+				randStructure.index = size;
+			end
 		% If method is PRNG
 		case 'PRNG'
 			randStructure.pool = randi([randStructure.lowerNumber, randStructure.upperNumber], 1, size);
