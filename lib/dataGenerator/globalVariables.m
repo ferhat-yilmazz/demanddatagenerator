@@ -40,5 +40,5 @@ msg = 'Please edit sample period as sub-multiple of minutes in a day!';
 assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);
 COUNT_SAMPLE_IN_DAY = (24*60)/SAMPLE_PERIOD;
 TIME_VECTOR = generateTimeVector;
-RAND_METHOD = 'PRNG';
+RAND_METHOD = 'TRNG';
 BATTERY_LEVEL_RAND_LIMIT = 100;
