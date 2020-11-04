@@ -9,7 +9,10 @@
       "tv",
       "fridge"
     ],
-    "neverAppliances": [],
+    "neverAppliances": [
+      "windTurbine",
+      "solarPanel"
+    ],
     "haveEV": 1,
     "weekSchedule": {
       "case": 0
@@ -41,7 +44,10 @@
       "tv",
       "fridge"
     ],
-    "neverAppliances": [],
+    "neverAppliances": [
+      "windTurbine",
+      "solarPanel"
+    ],
     "haveEV": 1,
     "weekSchedule": {
       "case": 1,
@@ -82,7 +88,10 @@
       "tv",
       "fridge"
     ],
-    "neverAppliances": [],
+    "neverAppliances": [
+      "windTurbine",
+      "solarPanel"
+    ],
     "haveEV": 1,
     "weekSchedule": {
       "case": 1,
@@ -141,7 +150,10 @@
       "tv",
       "fridge"
     ],
-    "neverAppliances": [],
+    "neverAppliances": [
+      "windTurbine",
+      "solarPanel"
+    ],
     "haveEV": 2,
     "weekSchedule": {
       "case": 1,
@@ -182,7 +194,10 @@
       "tv",
       "fridge"
     ],
-    "neverAppliances": [],
+    "neverAppliances": [
+      "windTurbine",
+      "solarPanel"
+    ],
     "haveEV": 2,
     "weekSchedule": {
       "case": 1,
