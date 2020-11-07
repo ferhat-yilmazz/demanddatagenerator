@@ -20,11 +20,15 @@
     "constraints": {
       "constraintsCount": 0
     },
+    "sleepTime": {
+      "case": 1,
+      "lowerTime": 24.00,
+      "upperTime": 08.00
+    },
     "coefficients": {
       "endUserSide": {
         "case": 1,
-        "K_c1": 30,
-        "K_c2": 5
+        "K_u": 30
       },
       "applianceSide": {
         "case": 0
@@ -64,11 +68,15 @@
     "constraints": {
       "constraintsCount": 0
     },
+    "sleepTime": {
+      "case": 1,
+      "lowerTime": 23.00,
+      "upperTime": 06.00
+    },
     "coefficients": {
       "endUserSide": {
         "case": 1,
-        "K_c1": 20,
-        "K_c2": 5
+        "K_u": 20
       },
       "applianceSide": {
         "case": 0
@@ -126,11 +134,15 @@
         ]
       }
     },
+    "sleepTime": {
+      "case": 1,
+      "lowerTime": 23.00,
+      "upperTime": 06.00
+    },
     "coefficients": {
       "endUserSide": {
         "case": 1,
-        "K_c1": 20,
-        "K_c2": 5
+        "K_u": 20
       },
       "applianceSide": {
         "case": 0
@@ -170,11 +182,15 @@
     "constraints": {
       "constraintsCount": 0
     },
+    "sleepTime": {
+      "case": 1,
+      "lowerTime": 23.00,
+      "upperTime": 07.00
+    },
     "coefficients": {
       "endUserSide": {
         "case": 1,
-        "K_c1": 12,
-        "K_c2": 5
+        "K_u": 12
       },
       "applianceSide": {
         "case": 0
@@ -214,11 +230,15 @@
     "constraints": {
       "constraintsCount": 0
     },
+    "sleepTime": {
+      "case": 1,
+      "lowerTime": 22.00,
+      "upperTime": 07.00
+    },
     "coefficients": {
       "endUserSide": {
         "case": 1,
-        "K_c1": 25,
-        "K_c2": 10
+        "K_u": 25
       },
       "applianceSide": {
         "case": 0
