@@ -33,8 +33,8 @@ global BATTERY_LEVEL_RAND_LIMIT;
 COUNT_END_USERS = initialConditions.endUserCount;
 COUNT_WEEKS = initialConditions.weekCount;
 DAY_PIECE = initialConditions.dayPiece;
-SAMPLE_PERIOD = minutes(double2duration(initialConditions.samplePeriod));
-GLOB_MAX_OPERATION_LIMIT = duration2sample(double2duration(initialConditions.globalMaxOperationLimit));
+SAMPLE_PERIOD = minutes(double2duration(initialConditions.samplePeriod, '24h'));
+GLOB_MAX_OPERATION_LIMIT = duration2sample(double2duration(initialConditions.globalMaxOperationLimit, 'inf'));
 % Check for sample period sub-multiple of minutes in a day.
 msg = 'Please edit sample period as sub-multiple of minutes in a day!';
 assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);

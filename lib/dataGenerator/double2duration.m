@@ -15,7 +15,7 @@
 %}
 
 %%
-function timeInDuration = double2duration(timeInDouble)
+function timeInDuration = double2duration(timeInDouble, format)
 	% Get the sample period
 	global SAMPLE_PERIOD;
 	
@@ -29,9 +29,14 @@ function timeInDuration = double2duration(timeInDouble)
 		hourPart = 0;
 		minutePart = 0;
 	end
-	% Assume that 0 <= hourPart <= 23 AND 0 <= minutePart <= 59
-	assert((0 <= hourPart && hourPart <= 23) && (0 <= minutePart && minutePart <= 59)...
-				, 'Given value does not represent a time!');
+	
+	% If <format> = '24h', then assume that 0 <= hourPart <= 23 AND 0 <= minutePart <= 59
+	if strcmp(format, '24h')
+		assert((0 <= hourPart && hourPart <= 23) && (0 <= minutePart && minutePart <= 59), 'Given value does not represent a time!');
+	elseif ~strcmp(format, 'inf')
+		% If <format> ~= '24h' and <format> ~= 'inf', then return an error
+		error('double2duration() : <format> error!');
+	end
 	
 	% Convert minute:
 	timeInMinute = hourPart*60 + minutePart;
