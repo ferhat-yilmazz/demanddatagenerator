@@ -19,7 +19,7 @@
 %%
 function randStructure = generateRandPool(randStructure)
 	% Size is designated as 9999 because of "truerand()" limits
-	size = 9999;
+	size = 500;
 	
 	% Check randomization method from structure
 	randMethod = randStructure.method;
