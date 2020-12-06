@@ -249,7 +249,7 @@
     },
     "operation": {
       "mode": "non-periodic",
-      "runDuration": 0.10
+      "runDuration": 0.20
     },
     "weeklyRunInReal": {
       "case": 1,
