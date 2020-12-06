@@ -1,7 +1,7 @@
  %% بسم الله الرحمن الرحیم 
 
 %% ## Get Random Number List ##
-% 09.10.2020, Ferhat Yılmaz
+% 09.11.2020, Ferhat Yılmaz
 
 %% Description
 %{
