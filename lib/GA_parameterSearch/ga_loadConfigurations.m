@@ -11,11 +11,11 @@
 
 %% Define PATH variables
 % "appliancesData.json" path
-PATH_applianceData = '../configs/appliancesData.json';
+PATH_applianceData = '../../configs/appliancesData.json';
 % "residentalTypes.json" path
-PATH_residentalTypes = '../configs/residentalTypes.json';
+PATH_residentalTypes = '../../configs/residentalTypes.json';
 % "initialCOnditions.json" path
-PATH_initialConditions = '../configs/initialConditions.json';
+PATH_initialConditions = '../../configs/initialConditions.json';
 
 %% Load config files as structure
 appliancesData = loadJSONFile(PATH_applianceData);
