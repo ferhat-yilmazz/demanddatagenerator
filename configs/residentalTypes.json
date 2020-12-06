@@ -22,8 +22,8 @@
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 24.00,
-      "upperTime": 08.00
+      "lowerTime": 0.00,
+      "upperTime": 8.00
     },
     "coefficients": {
       "endUserSide": {
@@ -71,7 +71,7 @@
     "sleepTime": {
       "case": 1,
       "lowerTime": 23.00,
-      "upperTime": 06.00
+      "upperTime": 6.00
     },
     "coefficients": {
       "endUserSide": {
@@ -137,7 +137,7 @@
     "sleepTime": {
       "case": 1,
       "lowerTime": 23.00,
-      "upperTime": 06.00
+      "upperTime": 6.00
     },
     "coefficients": {
       "endUserSide": {
@@ -185,7 +185,7 @@
     "sleepTime": {
       "case": 1,
       "lowerTime": 23.00,
-      "upperTime": 07.00
+      "upperTime": 7.00
     },
     "coefficients": {
       "endUserSide": {
@@ -233,7 +233,7 @@
     "sleepTime": {
       "case": 1,
       "lowerTime": 22.00,
-      "upperTime": 07.00
+      "upperTime": 7.00
     },
     "coefficients": {
       "endUserSide": {
