@@ -1,7 +1,7 @@
 {
   "type1": {
-    "employeeCount": 0,
-    "nonemployeeCount": 2,
+    "employedCount": 0,
+    "nonemployedCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -14,7 +14,7 @@
       "solarPanel"
     ],
     "haveEV": 1,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 0
     },
     "constraints": {
@@ -24,23 +24,11 @@
       "case": 1,
       "lowerTime": 0.00,
       "upperTime": 8.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 30
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "type2": {
-    "employeeCount": 1,
-    "nonemployeeCount": 1,
+    "employedCount": 1,
+    "nonemployedCount": 1,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -53,7 +41,7 @@
       "solarPanel"
     ],
     "haveEV": 1,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -62,8 +50,8 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": 7.00,
+      "upperTime": 18.00
     },
     "constraints": {
       "constraintsCount": 0
@@ -72,23 +60,11 @@
       "case": 1,
       "lowerTime": 23.00,
       "upperTime": 6.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 20
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "type3": {
-    "employeeCount": 1,
-    "nonemployeeCount": 2,
+    "employedCount": 1,
+    "nonemployedCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -101,7 +77,7 @@
       "solarPanel"
     ],
     "haveEV": 1,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -110,8 +86,8 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": 7.00,
+      "upperTime": 18.00
     },
     "constraints": {
       "constraintsCount": 1,
@@ -138,23 +114,11 @@
       "case": 1,
       "lowerTime": 23.00,
       "upperTime": 6.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 20
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "type4": {
-    "employeeCount": 2,
-    "nonemployeeCount": 2,
+    "employedCount": 2,
+    "nonemployedCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -167,7 +131,7 @@
       "solarPanel"
     ],
     "haveEV": 2,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -176,8 +140,8 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": 7.00,
+      "upperTime": 18.00
     },
     "constraints": {
       "constraintsCount": 0
@@ -186,23 +150,11 @@
       "case": 1,
       "lowerTime": 23.00,
       "upperTime": 7.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 12
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "type5": {
-    "employeeCount": 2,
-    "nonemployeeCount": 3,
+    "employedCount": 2,
+    "nonemployedCount": 3,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -215,7 +167,7 @@
       "solarPanel"
     ],
     "haveEV": 2,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -224,8 +176,8 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": 7.00,
+      "upperTime": 18.00
     },
     "constraints": {
       "constraintsCount": 0
@@ -234,18 +186,6 @@
       "case": 1,
       "lowerTime": 22.00,
       "upperTime": 7.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 25
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   }
 }
