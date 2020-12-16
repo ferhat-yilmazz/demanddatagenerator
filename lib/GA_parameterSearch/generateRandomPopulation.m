@@ -13,16 +13,18 @@
 	2. <geneCount> : integer : Minimum limit of random numbers
 	3. <geneLowLimit> : integer : Lower limit of each coefficient
 	4. <geneUpLimit> : integer : Upper limit of each coefficient
-	5. <randMethod> : string :  Randomization method.
 
 << Outputs:
 	1. <populationArray> : array : Array contains chromosomes
 %}
 
 %%
-function populationArray = generateRandomPopulation(chromosomeCount, geneCount, geneLowLimit, geneUpLimit, randMethod)
+function populationArray = generateRandomPopulation(chromosomeCount, geneCount, geneLowLimit, geneUpLimit)
+	% Get randomization method
+	global RAND_METHOD;
+	
 	% Get all genes randomly
-	randomGenes = getRandomVector(geneCount*chromosomeCount, geneLowLimit, geneUpLimit, randMethod);
+	randomGenes = getRandomVector(geneCount*chromosomeCount, geneLowLimit, geneUpLimit, RAND_METHOD);
 	
 	% Assign acquired genes to chromosomes
 	populationArray = transpose(reshape(randomGenes, [geneCount, chromosomeCount]));
