@@ -1,0 +1,11 @@
+{
+  "weekCount": 1,
+  "randomizationMethod": "PRNG",
+  "algorithm": {
+    "chromosomeCountEachPopulation": 16,
+    "geneCount": 3,
+    "geneLowerLimit": 0,
+    "geneUpperLimit": 200,
+    "terminationPercentage": 15
+  }
+}
