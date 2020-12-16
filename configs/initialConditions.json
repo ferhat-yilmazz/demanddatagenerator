@@ -18,6 +18,5 @@
   "dayPiece": 4,
   "samplePeriod": 0.05,
   "globalMaxOperationLimit": 8.00,
-  "ga_randomizationMethod": "PRNG",
-  "dg_randomizationMethod": "PRNG"
+  "randomizationMethod": "PRNG"
 }
