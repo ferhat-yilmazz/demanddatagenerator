@@ -14,10 +14,16 @@
 PATH_applianceData = '../../configs/appliancesData.json';
 % "residentalTypes.json" path
 PATH_residentalTypes = '../../configs/residentalTypes.json';
-% "initialCOnditions.json" path
+% "initialConditions.json" path
 PATH_initialConditions = '../../configs/initialConditions.json';
+% "geneticAlgorithm.json" path
+PATH_geneticAlgorithm = '../../configs/geneticAlgorithm.json';
+% "defaultValues.json" path
+PATH_defaultValues = '../../configs/defaultValues.json';
 
 %% Load config files as structure
 appliancesData = loadJSONFile(PATH_applianceData);
 residentalTypes = loadJSONFile(PATH_residentalTypes);
 initialConditions = loadJSONFile(PATH_initialConditions);
+geneticAlgorithm = loadJSONFile(PATH_geneticAlgorithm);
+defaultValues = loadJSONFile(PATH_defaultValues);
