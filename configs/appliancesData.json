@@ -12,6 +12,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 1.3
     },
     "weeklyRunInReal": {
@@ -31,19 +32,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 20,
-        "K_awu": 15
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "tumblerDryer": {
@@ -58,6 +46,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 1.00
     },
     "weeklyRunInReal": {
@@ -80,19 +69,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 20,
-        "K_awu": 15
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "dishwashing": {
@@ -108,6 +84,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 1.00
     },
     "weeklyRunInReal": {
@@ -127,19 +104,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 25,
-        "K_awu": 5
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "iron": {
@@ -154,6 +118,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 0.40
     },
     "weeklyRunInReal": {
@@ -176,19 +141,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 20,
-        "K_awu": 20
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "toaster": {
@@ -203,6 +155,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 0.45
     },
     "weeklyRunInReal": {
@@ -222,19 +175,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 20,
-        "K_awu": 10
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "microwave": {
@@ -249,6 +189,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 0.20
     },
     "weeklyRunInReal": {
@@ -268,19 +209,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 10,
-        "K_awu": 10
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "kettle": {
@@ -294,6 +222,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 0.15
     },
     "weeklyRunInReal": {
@@ -313,19 +242,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 5,
-        "K_awu": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "oven": {
@@ -340,6 +256,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 0.50
     },
     "weeklyRunInReal": {
@@ -359,19 +276,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 30,
-        "K_awu": 20
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "laptop": {
@@ -387,6 +291,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 1.00
     },
     "weeklyRunInReal": {
@@ -404,19 +309,6 @@
         "case": 0
       },
       "conflictionConstraint": {
-        "case": 0
-      }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 10,
-        "K_awu": 5
-      },
-      "probabilityLowerLimit": {
         "case": 0
       }
     }
@@ -433,6 +325,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 1.00
     },
     "weeklyRunInReal": {
@@ -450,19 +343,6 @@
         "case": 0
       },
       "conflictionConstraint": {
-        "case": 0
-      }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 10,
-        "K_awu": 5
-      },
-      "probabilityLowerLimit": {
         "case": 0
       }
     }
@@ -480,6 +360,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 2.30
     },
     "weeklyRunInReal": {
@@ -499,19 +380,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 10,
-        "K_awu": 5
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "hairDryer": {
@@ -527,6 +395,7 @@
     },
     "operation": {
       "mode": "non-periodic",
+      "continuity": 0,
       "runDuration": 0.10
     },
     "weeklyRunInReal": {
@@ -544,19 +413,6 @@
         "case": 0
       },
       "conflictionConstraint": {
-        "case": 0
-      }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 25,
-        "K_awu": 5
-      },
-      "probabilityLowerLimit": {
         "case": 0
       }
     }
@@ -598,20 +454,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 20,
-        "K_awu": 0,
-        "k_cyc": 0.05
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "tv": {
@@ -646,20 +488,6 @@
         "case": 0
       },
       "conflictionConstraint": {
-        "case": 0
-      }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 10,
-        "K_awu": 5,
-        "k_cyc": 0.05
-      },
-      "probabilityLowerLimit": {
         "case": 0
       }
     }
@@ -698,20 +526,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 10,
-        "K_awu": 5,
-        "k_cyc": 0.05
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "windTurbine": {
@@ -743,20 +557,6 @@
         "case": 0
       },
       "conflictionConstraint": {
-        "case": 0
-      }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 10,
-        "K_awu": 0,
-        "k_cyc": 0.05
-      },
-      "probabilityLowerLimit": {
         "case": 0
       }
     }
@@ -794,23 +594,6 @@
       "conflictionConstraint": {
         "case": 0
       }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "all": 1,
-        "K_c1": 100,
-        "K_c2": 100
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 20,
-        "K_awu": 10,
-        "k_cyc": 0.05
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
     }
   },
   "other": {
@@ -845,20 +628,6 @@
         "case": 0
       },
       "conflictionConstraint": {
-        "case": 0
-      }
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 0
-      },
-      "applianceSide": {
-        "case": 1,
-        "K_adu": 30,
-        "K_awu": 10,
-        "k_cyc": 0.05
-      },
-      "probabilityLowerLimit": {
         "case": 0
       }
     }
