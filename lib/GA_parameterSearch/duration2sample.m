@@ -20,5 +20,11 @@ function sampleCount = duration2sample(timeDuration)
 	
 	% Sample count of appliances determined with 'ceil' method.
 	% However, time vector generated with 'floor' method.
-	sampleCount = ceil(minutes(timeDuration)/SAMPLE_PERIOD);
+	sampleCount = uint16(ceil(minutes(timeDuration)/SAMPLE_PERIOD));
+	
+	% If <sampleCount> equals to 0 (zero), then increae by one.
+	% MATLAB does not accept zero based indexing.
+	if sampleCount == 0
+		sampleCount = sampleCount + 1;
+	end
 end
