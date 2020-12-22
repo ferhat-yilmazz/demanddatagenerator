@@ -36,14 +36,14 @@ global GENE_UP_LIMIT;
 global TERMINATION_LIMIT;
 
 %% Definition of global variables
-COUNT_WEEKS = geneticAlgorithm.weekCount;
-DAY_PIECE = initialConditions.dayPiece;
-SAMPLE_PERIOD = minutes(double2duration(initialConditions.samplePeriod, '24h'));
+COUNT_WEEKS = uint16(geneticAlgorithm.weekCount);
+DAY_PIECE = uint16(initialConditions.dayPiece);
+SAMPLE_PERIOD = uint16(minutes(double2duration(initialConditions.samplePeriod, '24h')));
 GLOB_MAX_OPERATION_LIMIT = duration2sample(double2duration(initialConditions.globalMaxOperationLimit, 'inf'));
 % Check for sample period sub-multiple of minutes in a day.
 msg = 'Please edit sample period as sub-multiple of minutes in a day!';
 assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);
-COUNT_SAMPLE_IN_DAY = (24*60)/SAMPLE_PERIOD;
+COUNT_SAMPLE_IN_DAY = uint16((24*60)/SAMPLE_PERIOD);
 TIME_VECTOR = generateTimeVector;
 RAND_METHOD = geneticAlgorithm.randomizationMethod;
 % Check randomization method is valid
