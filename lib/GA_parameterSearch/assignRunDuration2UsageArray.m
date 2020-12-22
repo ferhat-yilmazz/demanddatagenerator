@@ -22,10 +22,11 @@
 function usageArray = assignRunDuration2UsageArray(usageArray, startSample, runtimeSample)
 	% Count of sample in a day
 	global COUNT_SAMPLE_IN_DAY;
-	% Count of weeks: 1
+	% Count of weeks
+	global COUNT_WEEKS;
 	
 	% Transfor usage array to vector
-	mergedUsageVector = reshape(transpose(usageArray), 1, 7*COUNT_SAMPLE_IN_DAY);
+	mergedUsageVector = reshape(transpose(usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	sizeOfMergedUsageVector = numel(mergedUsageVector);
 	
 	% Determine <endSample>
@@ -39,5 +40,5 @@ function usageArray = assignRunDuration2UsageArray(usageArray, startSample, runt
 	end
 	
 	% Re-transform <mergedUsageVector> to <usageArray>
-	usageArray = transpose(reshape(mergedUsageVector, COUNT_SAMPLE_IN_DAY, 7));
+	usageArray = transpose(reshape(mergedUsageVector, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
 end
