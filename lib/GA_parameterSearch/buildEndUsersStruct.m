@@ -12,13 +12,16 @@
 	>> Inputs:
 	1. <appliancesData> : structure : "appliancesData.json" configuration file
 	2. <residentalTypes> : structure : "residentalTypes.json" configuration file
+	3. <default_weeklyRunInReal> : structure : Default value for real usage in a week
 
 << Outputs:
 	1. <endUsersStruct> : structure : Main end-users structure
 %}
 
 %%
-function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes)
+function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, default_weeklyRunInReal)
+	% Count of weeks
+	global COUNT_WEEKS;
 	% Count of sample in a day
 	global COUNT_SAMPLE_IN_DAY;
 	
@@ -34,12 +37,12 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes)
 	% define usage arrays and consider constraints (fill related samples by FALSE)
 	for type = types
 		% Assign employed and nonemployed counts for the kinf of end-user
-		endUsersStruct.(string(type)).employedCount = uint8(residentalTypes.(string(type)).employedCount);
-		endUsersStruct.(string(type)).nonemployedCount = uint8(residentalTypes.(string(type)).nonemployedCount);
+		endUsersStruct.(string(type)).employedCount = uint16(residentalTypes.(string(type)).employedCount);
+		endUsersStruct.(string(type)).nonemployedCount = uint16(residentalTypes.(string(type)).nonemployedCount);
 		% Assign job schedule if there is
 		if residentalTypes.(string(type)).jobSchedule.case
 			endUsersStruct.(string(type)).jobSchedule.case = true;
-			endUsersStruct.(string(type)).jobSchedule.workDays = uint8(residentalTypes.(string(type)).jobSchedule.workDays);
+			endUsersStruct.(string(type)).jobSchedule.workDays = uint16(residentalTypes.(string(type)).jobSchedule.workDays);
 			endUsersStruct.(string(type)).jobSchedule.lowerSample =...
 																										duration2sample(double2duration(residentalTypes.(string(type)).jobSchedule.lowerTime, '24h'));
 			endUsersStruct.(string(type)).jobSchedule.upperSample =...
@@ -60,12 +63,17 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes)
 				continue;
 			end
 			
-			% Assign usage array for the appliance for a week
-			endUsersStruct.(string(type)).appliances.(string(appliance)).usageArray = true(7, COUNT_SAMPLE_IN_DAY);
+			% Assign usage array for the appliance as count of weeks
+			endUsersStruct.(string(type)).appliances.(string(appliance)).usageArray = true(COUNT_WEEKS*7, COUNT_SAMPLE_IN_DAY);
 			% Assign operation information of the appliance
 			endUsersStruct.(string(type)).appliances.(string(appliance)).operation = appliancesData.(string(appliance)).operation;
 			% Assign information of  weekly run in real life
-			endUsersStruct.(string(type)).appliances.(string(appliance)).weeklyRunInReal = appliancesData.(string(appliance)).weeklyRunInReal;
+			% If there is no data for real usage in a week, then assign default usage values
+			if appliancesData.(string(appliance)).weeklyRunInReal.case
+				endUsersStruct.(string(type)).appliances.(string(appliance)).weeklyRunInReal = appliancesData.(string(appliance)).weeklyRunInReal;
+			else
+				endUsersStruct.(string(type)).appliances.(string(appliance)).weeklyRunInReal = default_weeklyRunInReal;
+			end
 			% Assing information that the appliance need operator or not to run
 			endUsersStruct.(string(type)).appliances.(string(appliance)).needOperator = appliancesData.(string(appliance)).needOperator;
 			
