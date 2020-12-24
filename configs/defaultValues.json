@@ -6,8 +6,7 @@
   },
   "weeklyRunInReal": {
     "personCount": 1,
-    "unit": "duration",
-    "value": 4.00,
-    "additionEachPerson": 1.00
+    "value": [4,0],
+    "additionEachPerson": [1,0]
   }
 }

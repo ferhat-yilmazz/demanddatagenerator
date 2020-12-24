@@ -22,8 +22,8 @@
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 0.00,
-      "upperTime": 8.00
+      "lowerTime": [0,0],
+      "upperTime": [8,0]
     }
   },
   "type2": {
@@ -50,16 +50,16 @@
         4,
         5
       ],
-      "lowerTime": 7.00,
-      "upperTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
       "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 23.00,
-      "upperTime": 6.00
+      "lowerTime": [23,0],
+      "upperTime": [6,0]
     }
   },
   "type3": {
@@ -86,8 +86,8 @@
         4,
         5
       ],
-      "lowerTime": 7.00,
-      "upperTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
       "constraintsCount": 1,
@@ -101,8 +101,8 @@
           6,
           7
         ],
-        "lowerTime": 14.00,
-        "upperTime": 2.00,
+        "lowerTime": [14,0],
+        "upperTime": [2,0],
         "appliancesList": [
           "iron",
           "washingMachine",
@@ -112,8 +112,8 @@
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 23.00,
-      "upperTime": 6.00
+      "lowerTime": [23,0],
+      "upperTime": [6,0]
     }
   },
   "type4": {
@@ -140,16 +140,16 @@
         4,
         5
       ],
-      "lowerTime": 7.00,
-      "upperTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
       "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 23.00,
-      "upperTime": 7.00
+      "lowerTime": [23,0],
+      "upperTime": [7,0]
     }
   },
   "type5": {
@@ -176,16 +176,16 @@
         4,
         5
       ],
-      "lowerTime": 7.00,
-      "upperTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
       "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 22.00,
-      "upperTime": 7.00
+      "lowerTime": [22,0],
+      "upperTime": [7,0]
     }
   }
 }
