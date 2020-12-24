@@ -38,8 +38,10 @@ global TERMINATION_LIMIT;
 %% Definition of global variables
 COUNT_WEEKS = uint16(geneticAlgorithm.weekCount);
 DAY_PIECE = uint16(initialConditions.dayPiece);
-SAMPLE_PERIOD = uint16(minutes(double2duration(initialConditions.samplePeriod, '24h')));
-GLOB_MAX_OPERATION_LIMIT = duration2sample(double2duration(initialConditions.globalMaxOperationLimit, 'inf'));
+SAMPLE_PERIOD = minutes(timeVector2duration(initialConditions.samplePeriod, '24h'));
+GLOB_MAX_OPERATION_LIMIT = duration2sample(timeVector2duration(initialConditions.globalMaxOperationLimit, 'inf'), 'inf');
+% Check for <GLOB_MAX_OPERATION_LIMIT> is greater that <SAMPLE_PERIOD>
+assert(GLOB_MAX_OPERATION_LIMIT >= SAMPLE_PERIOD, '<GLOB_MAX_OPERATION_LIMIT> cannot less than <SAMPLE_PERIOD>');
 % Check for sample period sub-multiple of minutes in a day.
 msg = 'Please edit sample period as sub-multiple of minutes in a day!';
 assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);

@@ -44,9 +44,9 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, d
 			endUsersStruct.(string(type)).jobSchedule.case = true;
 			endUsersStruct.(string(type)).jobSchedule.workDays = uint16(residentalTypes.(string(type)).jobSchedule.workDays);
 			endUsersStruct.(string(type)).jobSchedule.lowerSample =...
-																										duration2sample(double2duration(residentalTypes.(string(type)).jobSchedule.lowerTime, '24h'));
+																					 duration2sample(timeVector2duration(residentalTypes.(string(type)).jobSchedule.lowerTime, '24h'), '24h');
 			endUsersStruct.(string(type)).jobSchedule.upperSample =...
-																										duration2sample(double2duration(residentalTypes.(string(type)).jobSchedule.upperTime, '24h'));
+																					 duration2sample(timeVector2duration(residentalTypes.(string(type)).jobSchedule.upperTime, '24h'), '24h');
 		else
 			endUsersStruct.(string(type)).jobSchedule.case = false;
 		end
@@ -80,8 +80,8 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, d
 			% Consider constraints
 			%		1. Appliance worktime constraint
 			if appliancesData.(string(appliance)).constraints.workTimeConstraint.case
-				c1_lowerDuration = double2duration(appliancesData.(string(appliance)).constraints.workTimeConstraint.lowerTime, '24h');
-				c1_upperDuration = double2duration(appliancesData.(string(appliance)).constraints.workTimeConstraint.upperTime, '24h');
+				c1_lowerDuration = timeVector2duration(appliancesData.(string(appliance)).constraints.workTimeConstraint.lowerTime, '24h');
+				c1_upperDuration = timeVector2duration(appliancesData.(string(appliance)).constraints.workTimeConstraint.upperTime, '24h');
 				endUsersStruct.(string(type)).appliances.(string(appliance)).usageArray(:, ~logicalInterval(c1_lowerDuration, c1_upperDuration)) = false;
 			end
 			%		2. End-user type worktime constraint(s)
@@ -90,8 +90,8 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, d
 					constraint_id = strcat('c_', string(constraint_index));
 					if ismember(appliance, residentalTypes.(string(type)).constraints.(constraint_id).appliancesList)
 						constraintDays = transpose(uint8(residentalTypes.(string(type)).constraints.(constraint_id).days));
-						c2_lowerDuration = double2duration(residentalTypes.(string(type)).constraints.(constraint_id).lowerTime, '24h');
-						c2_upperDuration = double2duration(residentalTypes.(string(type)).constraints.(constraint_id).upperTime, '24h');
+						c2_lowerDuration = timeVector2duration(residentalTypes.(string(type)).constraints.(constraint_id).lowerTime, '24h');
+						c2_upperDuration = timeVector2duration(residentalTypes.(string(type)).constraints.(constraint_id).upperTime, '24h');
 						endUsersStruct.(string(type)).appliances.(string(appliance))...
 																													.usageArray(constraintDays,~logicalInterval(c2_lowerDuration, c2_upperDuration)) = false;
 					end
@@ -100,8 +100,8 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, d
 			%		3. End-user type sleep time constraint
 			if residentalTypes.(string(type)).sleepTime.case
 				if appliancesData.(string(appliance)).needOperator
-					c3_lowerDuration = double2duration(residentalTypes.(string(type)).sleepTime.lowerTime, '24h');
-					c3_upperDuration = double2duration(residentalTypes.(string(type)).sleepTime.upperTime, '24h');
+					c3_lowerDuration = timeVector2duration(residentalTypes.(string(type)).sleepTime.lowerTime, '24h');
+					c3_upperDuration = timeVector2duration(residentalTypes.(string(type)).sleepTime.upperTime, '24h');
 					endUsersStruct.(string(type)).appliances.(string(appliance)).usageArray(:, logicalInterval(c3_lowerDuration, c3_upperDuration)) = false;
 				end
 			end
