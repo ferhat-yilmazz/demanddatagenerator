@@ -32,8 +32,14 @@ global COUNT_GENE;
 global GENE_LOW_LIMIT;
 % Upper limit of genes
 global GENE_UP_LIMIT;
-% Termination limit of parameter search process (%-percentage)
-global TERMINATION_LIMIT;
+% Termination error percentage
+global TERMINATION_ERROR_PERCENTAGE;
+% Termination chromosome count
+global TERMINATION_CHROMOSOME_COUNT;
+% Count of chosens
+global COUNT_CHOSENS;
+% Count of elites
+global COUNT_ELITES
 
 %% Definition of global variables
 COUNT_WEEKS = uint16(geneticAlgorithm.weekCount);
@@ -50,8 +56,13 @@ TIME_VECTOR = generateTimeVector;
 RAND_METHOD = geneticAlgorithm.randomizationMethod;
 % Check randomization method is valid
 assert(strcmp(RAND_METHOD, 'TRNG') || strcmp(RAND_METHOD, 'PRNG'), "intialConditions.json:Randomization method is not valid!");
-COUNT_CHROMOSOME = uint16(geneticAlgorithm.algorithm.chromosomeCountEachPopulation);
+COUNT_CHROMOSOME = geneticAlgorithm.algorithm.chromosomeCount;
 COUNT_GENE = uint16(geneticAlgorithm.algorithm.geneCount);
-TERMINATION_LIMIT = single(geneticAlgorithm.algorithm.terminationPercentage);
 GENE_LOW_LIMIT = uint16(geneticAlgorithm.algorithm.geneLowerLimit);
 GENE_UP_LIMIT = uint16(geneticAlgorithm.algorithm.geneUpperLimit);
+TERMINATION_ERROR_PERCENTAGE = single(geneticAlgorithm.algorithm.terminationPercentage);
+TERMINATION_CHROMOSOME_COUNT = uint16(geneticAlgorithm.algorithm.terminationChromosomeCount);
+COUNT_CHOSENS = uint16(geneticAlgorithm.algorithm.chosensCount);
+COUNT_ELITES = uint16(geneticAlgorithm.algorithm.elitesCount);
+% Check for chosens and elites counts are valid
+assert(COUNT_CHOSENS + COUNT_ELITES <= COUNT_CHROMOSOME, "geneticAlgorithm.json: <chosensCount> + <elitesCount> cannot exceed <chromosomeCount>");
