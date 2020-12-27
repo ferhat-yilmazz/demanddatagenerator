@@ -197,6 +197,6 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 	virtualWeeklyUsageInMinute = double(trs * SAMPLE_PERIOD);
 	
 	% Compare real values and determined values, then return matching percentage
-	fitnessValue = ((virtualWeeklyUsageInMinute-realWeeklyUsageInMinute)/realWeeklyUsageInMinute) * 100;
+	fitnessValue = abs(((virtualWeeklyUsageInMinute-realWeeklyUsageInMinute)/realWeeklyUsageInMinute) * 100);
 	% #############################################
 end
