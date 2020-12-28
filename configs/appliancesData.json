@@ -425,8 +425,8 @@
     "operation": {
       "mode": "periodic",
       "continuity": 0,
-      "runDuration": -1,
-      "waitDuration": 0,
+      "runDuration": [-1],
+      "waitDuration": [0,0],
       "maxOperationLimit": [5,0]
     },
     "weeklyRunInReal": {
