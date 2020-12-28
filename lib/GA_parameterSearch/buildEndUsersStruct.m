@@ -37,8 +37,8 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, d
 	% define usage arrays and consider constraints (fill related samples by FALSE)
 	for type = types
 		% Assign employed and nonemployed counts for the kinf of end-user
-		endUsersStruct.(string(type)).employedCount = uint16(residentalTypes.(string(type)).employedCount);
-		endUsersStruct.(string(type)).nonemployedCount = uint16(residentalTypes.(string(type)).nonemployedCount);
+		endUsersStruct.(string(type)).employedCount = single(residentalTypes.(string(type)).employedCount);
+		endUsersStruct.(string(type)).nonemployedCount = single(residentalTypes.(string(type)).nonemployedCount);
 		% Assign job schedule if there is
 		if residentalTypes.(string(type)).jobSchedule.case
 			endUsersStruct.(string(type)).jobSchedule.case = true;

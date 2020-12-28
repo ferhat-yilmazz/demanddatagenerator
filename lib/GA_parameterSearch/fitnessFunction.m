@@ -33,10 +33,10 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 	global COUNT_SAMPLE_IN_DAY;
 	
 	% Define "daily usage count"(duc) and "weekly usage count"(wuc)
-	wuc = uint16(0);
-	duc = uint16(0);
+	wuc = single(0);
+	duc = single(0);
 	% Define total runtime sample
-	trs = uint16(0);
+	trs = single(0);
 	% Define daily run intervals
 	runIntervals_daily = divideUsageVector(COUNT_SAMPLE_IN_DAY);
 	
@@ -163,16 +163,16 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 						endUserTypeStruct.appliances.(string(appliance)).usageArray =...
 															assignRunDuration2UsageArray(endUserTypeStruct.appliances.(string(appliance)).usageArray, startSample, runtimeSample);
 						% Increase <trs> by runtime sample
-						trs = trs + runtimeSample;
+						trs = trs + single(runtimeSample);
 						% #########################################
 					end
 				end
 			end
 			% Reset <duc> for each new day
-			duc = uint16(0);
+			duc = single(0);
 		end
 		% Reset <wuc> for each new day
-		wuc = uint16(0);
+		wuc = single(0);
 	end
 	% #############################################
 	% ########## DETERMINE FITNESS VALUE ##########

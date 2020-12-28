@@ -26,14 +26,14 @@ function randVector = getRandomVector(vectorSize, minLimit, maxLimit, randMethod
 	switch randMethod
 		case 'TRNG'
 			try
-				randVector = uint16(truerand(1, vectorSize, minLimit, maxLimit));
+				randVector = single(truerand(1, vectorSize, minLimit, maxLimit));
 			catch ME
 				warning(ME.message);
 				warning('PRNG will be used as randomization method!');
-				randVector = uint16(randi([minLimit, maxLimit], 1, vectorSize));
+				randVector = single(randi([minLimit, maxLimit], 1, vectorSize));
 			end
 		case 'PRNG'
-			randVector = uint16(randi([minLimit, maxLimit], 1, vectorSize));
+			randVector = single(randi([minLimit, maxLimit], 1, vectorSize));
 		otherwise
 				error('Undefined randomization method is given.');
 	end
