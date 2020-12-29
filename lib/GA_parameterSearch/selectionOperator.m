@@ -20,7 +20,7 @@
 %%
 function [chosens, elites] = selectionOperator(fitnessVector)
 	% Count of chromosomes(count of individuals in a population)
-	global COUNT_CHROMOSOME;
+	global COUNT_CHROMOSOMES;
 	% Count of chosens
 	global COUNT_CHOSENS;
 	% Count of elites
@@ -32,7 +32,7 @@ function [chosens, elites] = selectionOperator(fitnessVector)
 	% elites = zero(1, COUNT_ELITES);  % (UNNECESSARY)
 	
 	% Build cumulative probability distribution vector
-	cpdVector = [zeros(COUNT_CHROMOSOME, 1), zeros(COUNT_CHROMOSOME, 1), (fitnessVector), (1:COUNT_CHROMOSOME)'];
+	cpdVector = [zeros(COUNT_CHROMOSOMES, 1), zeros(COUNT_CHROMOSOMES, 1), (fitnessVector), (1:COUNT_CHROMOSOMES)'];
 	% Sort <cpdVector> according to fitness value (ascending)
 	cpdVector = sortrows(cpdVector, 3);
 		

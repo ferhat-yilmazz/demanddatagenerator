@@ -25,9 +25,9 @@ global RAND_METHOD;
 % Global maximum operation duration
 global GLOB_MAX_OPERATION_LIMIT;
 % Count of chromosomes(count of individuals in a population)
-global COUNT_CHROMOSOME;
+global COUNT_CHROMOSOMES;
 % Count of genes in each chromosome (count of parameters)
-global COUNT_GENE;
+global COUNT_GENES;
 % Lower limit of genes
 global GENE_LOW_LIMIT;
 % Upper limit of genes
@@ -40,6 +40,8 @@ global TERMINATION_CHROMOSOME_COUNT;
 global COUNT_CHOSENS;
 % Count of elites
 global COUNT_ELITES
+% Count of offsprings
+global COUNT_OFFSPRINGS;
 
 %% Definition of global variables
 COUNT_WEEKS = uint16(geneticAlgorithm.weekCount);
@@ -56,8 +58,8 @@ TIME_VECTOR = generateTimeVector;
 RAND_METHOD = geneticAlgorithm.randomizationMethod;
 % Check randomization method is valid
 assert(strcmp(RAND_METHOD, 'TRNG') || strcmp(RAND_METHOD, 'PRNG'), "intialConditions.json:Randomization method is not valid!");
-COUNT_CHROMOSOME = geneticAlgorithm.algorithm.chromosomeCount;
-COUNT_GENE = uint16(geneticAlgorithm.algorithm.geneCount);
+COUNT_CHROMOSOMES = geneticAlgorithm.algorithm.chromosomeCount;
+COUNT_GENES = uint16(geneticAlgorithm.algorithm.geneCount);
 GENE_LOW_LIMIT = uint16(geneticAlgorithm.algorithm.geneLowerLimit);
 GENE_UP_LIMIT = uint16(geneticAlgorithm.algorithm.geneUpperLimit);
 TERMINATION_ERROR_PERCENTAGE = single(geneticAlgorithm.algorithm.terminationPercentage);
@@ -65,4 +67,6 @@ TERMINATION_CHROMOSOME_COUNT = uint16(geneticAlgorithm.algorithm.terminationChro
 COUNT_CHOSENS = uint16(geneticAlgorithm.algorithm.chosensCount);
 COUNT_ELITES = uint16(geneticAlgorithm.algorithm.elitesCount);
 % Check for chosens and elites counts are valid
-assert(COUNT_CHOSENS + COUNT_ELITES <= COUNT_CHROMOSOME, "geneticAlgorithm.json: <chosensCount> + <elitesCount> cannot exceed <chromosomeCount>");
+assert(COUNT_CHOSENS <= COUNT_CHROMOSOMES, "geneticAlgorithm.json: <chosensCount> cannot exceed <chromosomeCount>");
+assert(COUNT_ELITES <= COUNT_CHROMOSOMES, "geneticAlgorithm.json: <elitesCount> cannot exceed <chromosomeCount>");
+COUNT_OFFSPRINGS = COUNT_CHROMOSOMES - COUNT_ELITES;
