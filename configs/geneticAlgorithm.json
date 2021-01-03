@@ -1,14 +1,25 @@
 {
   "weekCount": 1,
   "randomizationMethod": "PRNG",
-  "algorithm": {
+  "population": {
     "chromosomeCount": 16,
     "geneCount": 3,
     "geneLowerLimit": 0,
-    "geneUpperLimit": 200,
+    "geneUpperLimit": 200
+  },
+  "selection": {
+    "chosensCount": 8,
+    "elitesCount": 2
+  },
+  "mutation": {
+    "initialChromosomePercentage": 20,
+    "effectEachChromosome": 4,
+    "initialGenePercentage": 15,
+    "effectEachGene": 5,
+    "mutationRate": 5
+  },
+  "termination": {
     "terminationPercentage": 15,
-    "terminationChromosomeCount": 12,
-    "chosensCount": 10,
-    "elitesCount": 4
+    "terminationChromosomeCount": 12
   }
 }
