@@ -69,14 +69,15 @@ function newPopulation = crossoverOperator(chosenChromosomes, chosensFitness)
 		parentFitness = [chosensFitness(twins(twins_index, 1)); chosensFitness(twins(twins_index, 2))];
 		
 		% Select crossover method randomly and apply
-		crossoverMethod = datasample(CROSSOVER_METHODS, 1);
+		crossoverMethodFile = datasample(CROSSOVER_METHODS, 1);
+		[~, crossoverMethod, ~] = fileparts(crossoverMethodFile.name);
 		
 		% Check for paramter count of the selected method	
-		switch nargin(string(crossoverMethod.name))
+		switch nargin(string(crossoverMethod))
 			case 1
-				offsprings = feval(crossoverMethod.name, parents);
+				offsprings = feval(crossoverMethod, parents);
 			case 2
-				offsprings = feval(crossoverMethod.name, parents, parentFitness);
+				offsprings = feval(crossoverMethod, parents, parentFitness);
 			otherwise
 				error("<crossoverOperator>: Crossover method parameter count error");
 		end
@@ -105,14 +106,15 @@ function newPopulation = crossoverOperator(chosenChromosomes, chosensFitness)
 		parentFitness = chosensFitness(randChromosomeIDs);
 		
 		 % Select crossover method randomly and apply
-		crossoverMethod = datasample(CROSSOVER_METHODS, 1);
+		crossoverMethodFile = datasample(CROSSOVER_METHODS, 1);
+		[~, crossoverMethod, ~] = fileparts(crossoverMethodFile.name);
 		
 		% Check for paramter count of the selected method	
-		switch nargin(string(crossoverMethod.name))
+		switch nargin(string(crossoverMethod))
 			case 1
-				offsprings = feval(crossoverMethod.name, parents);
+				offsprings = feval(crossoverMethod, parents);
 			case 2
-				offsprings = feval(crossoverMethod.name, parents, parentFitness);
+				offsprings = feval(crossoverMethod, parents, parentFitness);
 			otherwise
 				error("<crossoverOperator>: Crossover method parameter count error");
 		end
