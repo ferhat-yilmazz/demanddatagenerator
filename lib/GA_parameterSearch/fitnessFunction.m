@@ -86,8 +86,12 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 					% Get conditions
 					cond1 = logical(endUserTypeStruct.appliances.(string(appliance)).needOperator);
 					cond2 = logical(endUserTypeStruct.jobSchedule.case);
-					cond3 = ismember(runDay, endUserTypeStruct.jobSchedule.workDays) &&...
-																		isInInterval(startSample, endUserTypeStruct.jobSchedule.lowerSample, endUserTypeStruct.jobSchedule.upperSample);
+					if cond2
+						cond3 = ismember(runDay, endUserTypeStruct.jobSchedule.workDays) &&...
+															isInInterval(startSample, endUserTypeStruct.jobSchedule.lowerSample, endUserTypeStruct.jobSchedule.upperSample);
+					else
+						cond3 = false;
+					end
 					% According to diagram at above, determine run probability
 					if cond1 && cond2 && cond3
 						runProbability = (endUserTypeStruct.nonemployedCount * chromosome(1)) - (duc * chromosome(2)) - (wuc * chromosome(3));
