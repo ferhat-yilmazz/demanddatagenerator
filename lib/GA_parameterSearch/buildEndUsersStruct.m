@@ -28,27 +28,37 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, d
 	% Get names of end-users types
 	types = transpose(fieldnames(residentalTypes));
 	% Get name of appliances
-	appliancesList = transpose(fieldnames(appliancesData));
+	appliances = transpose(fieldnames(appliancesData));
 	
 	% Define <endUsersStruct>
-	endUsersStruct = struct();
+	endUsersStruct = struct('type', '',...
+													'employedCount', single(0),...
+													'nonemployedCount', single(0),...
+													'jobSchedule', struct(),...
+													'appliances', struct('name', '',...
+																							 'usageArray', [],...
+																							 'operation', struct(),...
+																							 'weeklyRunInReal', struct(),...
+																							 'needOperator', false));
 	
 	% For each end-user type, assign appliances (except never owned appliances),
 	% define usage arrays and consider constraints (fill related samples by FALSE)
-	for type = types
+	for t_idx = 1:numel(types)
+		% Assign type of the endUser
+		endUsersStruct(t_idx).type = string(types(t_idx));
 		% Assign employed and nonemployed counts for the kinf of end-user
-		endUsersStruct.(string(type)).employedCount = single(residentalTypes.(string(type)).employedCount);
-		endUsersStruct.(string(type)).nonemployedCount = single(residentalTypes.(string(type)).nonemployedCount);
+		endUsersStruct(t_idx).employedCount = single(residentalTypes.(string(types(t_idx))).employedCount);
+		endUsersStruct(t_idx).nonemployedCount = single(residentalTypes.(string(types(t_idx))).nonemployedCount);
 		% Assign job schedule if there is
-		if residentalTypes.(string(type)).jobSchedule.case
-			endUsersStruct.(string(type)).jobSchedule.case = true;
-			endUsersStruct.(string(type)).jobSchedule.workDays = uint16(residentalTypes.(string(type)).jobSchedule.workDays);
-			endUsersStruct.(string(type)).jobSchedule.lowerSample =...
-																					 duration2sample(timeVector2duration(residentalTypes.(string(type)).jobSchedule.lowerTime, '24h'), '24h');
-			endUsersStruct.(string(type)).jobSchedule.upperSample =...
-																					 duration2sample(timeVector2duration(residentalTypes.(string(type)).jobSchedule.upperTime, '24h'), '24h');
+		if residentalTypes.(string(types(t_idx))).jobSchedule.case
+			endUsersStruct(t_idx).jobSchedule.case = true;
+			endUsersStruct(t_idx).jobSchedule.workDays = uint16(residentalTypes.(string(types(t_idx))).jobSchedule.workDays);
+			endUsersStruct(t_idx).jobSchedule.lowerSample =...
+																	duration2sample(timeVector2duration(residentalTypes.(string(types(t_idx))).jobSchedule.lowerTime, '24h'), '24h');
+			endUsersStruct(t_idx).jobSchedule.upperSample =...
+																	duration2sample(timeVector2duration(residentalTypes.(string(types(t_idx))).jobSchedule.upperTime, '24h'), '24h');
 		else
-			endUsersStruct.(string(type)).jobSchedule.case = false;
+			endUsersStruct(t_idx).jobSchedule.case = false;
 		end
 		
 		% Assign appliances and their constraints such that:
@@ -56,56 +66,68 @@ function endUsersStruct = buildEndUsersStruct(appliancesData, residentalTypes, d
 		%		* Appliance worktime constraint
 		%		* End-user type worktime constraint(s)
 		%		* End-user type sleep time constraint (for appliances which need operator to run)
-		for appliance = appliancesList
+		for a_idx = 1:numel(appliances)
 			% Continue if the appliance is in the never owned appliances list for the end-user type
 			% OR an appliance is "periodic" and "continuous" run mode
-			if ismember(appliance, residentalTypes.(string(type)).neverAppliances) || logical(appliancesData.(string(appliance)).operation.continuity)
+			if ismember(appliances(a_idx), residentalTypes.(string(types(t_idx))).neverAppliances)...
+																																				|| logical(appliancesData.(string(appliances(a_idx))).operation.continuity)
 				continue;
 			end
 			
+			% Assign name of the appliance
+			endUsersStruct(t_idx).appliances(a_idx).name = string(appliances(a_idx));
 			% Assign usage array for the appliance as count of weeks
-			endUsersStruct.(string(type)).appliances.(string(appliance)).usageArray = true(COUNT_WEEKS*7, COUNT_SAMPLE_IN_DAY);
+			endUsersStruct(t_idx).appliances(a_idx).usageArray = true(COUNT_WEEKS*7, COUNT_SAMPLE_IN_DAY);
 			% Assign operation information of the appliance
-			endUsersStruct.(string(type)).appliances.(string(appliance)).operation = appliancesData.(string(appliance)).operation;
+			endUsersStruct(t_idx).appliances(a_idx).operation = appliancesData.(string(appliances(a_idx))).operation;
 			% Assign information of  weekly run in real life
 			% If there is no data for real usage in a week, then assign default usage values
-			if appliancesData.(string(appliance)).weeklyRunInReal.case
-				endUsersStruct.(string(type)).appliances.(string(appliance)).weeklyRunInReal = appliancesData.(string(appliance)).weeklyRunInReal;
+			if appliancesData.(string(appliances(a_idx))).weeklyRunInReal.case
+				endUsersStruct(t_idx).appliances(a_idx).weeklyRunInReal = appliancesData.(string(appliances(a_idx))).weeklyRunInReal;
 			else
-				endUsersStruct.(string(type)).appliances.(string(appliance)).weeklyRunInReal = default_weeklyRunInReal;
+				endUsersStruct(t_idx).appliances(a_idx).weeklyRunInReal = default_weeklyRunInReal;
 			end
 			% Assing information that the appliance need operator or not to run
-			endUsersStruct.(string(type)).appliances.(string(appliance)).needOperator = appliancesData.(string(appliance)).needOperator;
+			endUsersStruct(t_idx).appliances(a_idx).needOperator = appliancesData.(string(appliances(a_idx))).needOperator;
 			
 			% Consider constraints
 			%		1. Appliance worktime constraint
-			if appliancesData.(string(appliance)).constraints.workTimeConstraint.case
-				c1_lowerDuration = timeVector2duration(appliancesData.(string(appliance)).constraints.workTimeConstraint.lowerTime, '24h');
-				c1_upperDuration = timeVector2duration(appliancesData.(string(appliance)).constraints.workTimeConstraint.upperTime, '24h');
-				endUsersStruct.(string(type)).appliances.(string(appliance)).usageArray(:, ~logicalInterval(c1_lowerDuration, c1_upperDuration)) = false;
+			if appliancesData.(string(appliances(a_idx))).constraints.workTimeConstraint.case
+				c1_lowerDuration = timeVector2duration(appliancesData.(string(appliances(a_idx))).constraints.workTimeConstraint.lowerTime, '24h');
+				c1_upperDuration = timeVector2duration(appliancesData.(string(appliances(a_idx))).constraints.workTimeConstraint.upperTime, '24h');
+				endUsersStruct(t_idx).appliances(a_idx).usageArray(:, ~logicalInterval(c1_lowerDuration, c1_upperDuration)) = false;
 			end
 			%		2. End-user type worktime constraint(s)
-			if residentalTypes.(string(type)).constraints.constraintsCount > 0
-				for constraint_index = 1:residentalTypes.(string(type)).constraints.constraintsCount
+			if residentalTypes.(string(types(t_idx))).constraints.constraintsCount > 0
+				for constraint_index = 1:residentalTypes.(string(types(t_idx))).constraints.constraintsCount
 					constraint_id = strcat('c_', string(constraint_index));
-					if ismember(appliance, residentalTypes.(string(type)).constraints.(constraint_id).appliancesList)
-						constraintDays = transpose(uint8(residentalTypes.(string(type)).constraints.(constraint_id).days));
-						c2_lowerDuration = timeVector2duration(residentalTypes.(string(type)).constraints.(constraint_id).lowerTime, '24h');
-						c2_upperDuration = timeVector2duration(residentalTypes.(string(type)).constraints.(constraint_id).upperTime, '24h');
-						endUsersStruct.(string(type)).appliances.(string(appliance))...
+					if ismember(appliances(a_idx), residentalTypes.(string(types(t_idx))).constraints.(constraint_id).appliancesList)
+						constraintDays = transpose(uint8(residentalTypes.(string(types(t_idx))).constraints.(constraint_id).days));
+						c2_lowerDuration = timeVector2duration(residentalTypes.(string(types(t_idx))).constraints.(constraint_id).lowerTime, '24h');
+						c2_upperDuration = timeVector2duration(residentalTypes.(string(types(t_idx))).constraints.(constraint_id).upperTime, '24h');
+						endUsersStruct(t_idx).appliances(a_idx)...
 																													.usageArray(constraintDays,~logicalInterval(c2_lowerDuration, c2_upperDuration)) = false;
 					end
 				end
 			end
 			%		3. End-user type sleep time constraint
-			if residentalTypes.(string(type)).sleepTime.case
-				if appliancesData.(string(appliance)).needOperator
-					c3_lowerDuration = timeVector2duration(residentalTypes.(string(type)).sleepTime.lowerTime, '24h');
-					c3_upperDuration = timeVector2duration(residentalTypes.(string(type)).sleepTime.upperTime, '24h');
-					endUsersStruct.(string(type)).appliances.(string(appliance)).usageArray(:, logicalInterval(c3_lowerDuration, c3_upperDuration)) = false;
+			if residentalTypes.(string(types(t_idx))).sleepTime.case
+				if appliancesData.(string(appliances(a_idx))).needOperator
+					c3_lowerDuration = timeVector2duration(residentalTypes.(string(types(t_idx))).sleepTime.lowerTime, '24h');
+					c3_upperDuration = timeVector2duration(residentalTypes.(string(types(t_idx))).sleepTime.upperTime, '24h');
+					endUsersStruct(t_idx).appliances(a_idx).usageArray(:, logicalInterval(c3_lowerDuration, c3_upperDuration)) = false;
 				end
 			end
 		end
 		
+		% Check for empty appliances rows
+		emptyRows = [];
+		for appliance_row = 1:size(endUsersStruct(t_idx).appliances, 2)
+			if isempty(endUsersStruct(t_idx).appliances(appliance_row).name)
+				emptyRows = [emptyRows, appliance_row];
+			end
+		end
+		% Clear empty rows
+		endUsersStruct(t_idx).appliances(emptyRows) = [];
 	end
 end
