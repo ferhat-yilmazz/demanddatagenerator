@@ -12,7 +12,7 @@
 
 	>> Inputs:
 	1. <endUserTypeStruct> : structure : Structure of the end-user type
-	2. <appliance> : string: Name of the appliance
+	2. <applianceID> : ineger: Appliance ID (according to the endUserTypeStruct)
 	3. <chromosome> : vector : A solution or an individual
 
 << Outputs:
@@ -20,7 +20,7 @@
 %}
 
 %%
-function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome)
+function fitnessValue = fitnessFunction(endUserTypeStruct, applianceID, chromosome)
 	% Count of weeks
 	global COUNT_WEEKS;
 	% Get randomization method
@@ -57,7 +57,7 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 				% Select a sample randomly (PRNG) from runInterval (it is start sample of the appliance)
 				startSample = datasample(runInterval(1):runInterval(2), 1);
 				% Check constraints, it is possible to run at selected sample for the appliance or not
-				if endUserTypeStruct.appliances.(string(appliance)).usageArray(runDay,startSample)
+				if endUserTypeStruct.appliances(applianceID).usageArray(runDay,startSample)
 
 					%{
 						###############################################
@@ -84,7 +84,7 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 					%}
 
 					% Get conditions
-					cond1 = logical(endUserTypeStruct.appliances.(string(appliance)).needOperator);
+					cond1 = logical(endUserTypeStruct.appliances(applianceID).needOperator);
 					cond2 = logical(endUserTypeStruct.jobSchedule.case);
 					if cond2
 						cond3 = ismember(runDay, endUserTypeStruct.jobSchedule.workDays) &&...
@@ -140,11 +140,11 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 
 						%}
 
-						if strcmp(endUserTypeStruct.appliances.(string(appliance)).operation.mode, 'periodic')
+						if strcmp(endUserTypeStruct.appliances(applianceID).operation.mode, 'periodic')
 							% Specify limits of random value of runtimeduration
-							minLimit = duration2sample(timeVector2duration(endUserTypeStruct.appliances.(string(appliance)).operation.runDuration, 'inf')...
-																			+ timeVector2duration(endUserTypeStruct.appliances.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
-							applianceMaxOperationLimit = duration2sample(timeVector2duration(endUserTypeStruct.appliances.(string(appliance))...
+							minLimit = duration2sample(timeVector2duration(endUserTypeStruct.appliances(applianceID).operation.runDuration, 'inf')...
+																			+ timeVector2duration(endUserTypeStruct.appliances(applianceID).operation.waitDuration, 'inf'), 'inf');
+							applianceMaxOperationLimit = duration2sample(timeVector2duration(endUserTypeStruct.appliances(applianceID)...
 																																																			 .operation.maxOperationLimit, 'inf'), 'inf');
 							if applianceMaxOperationLimit >= minLimit
 								maxLimit = applianceMaxOperationLimit;
@@ -155,17 +155,16 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 							% Select runtime duration randomly according to limits
 							runtimeSample = randi([minLimit maxLimit]);
 							
-						elseif strcmp(endUserTypeStruct.appliances.(string(appliance)).operation.mode, 'non-periodic')
+						elseif strcmp(endUserTypeStruct.appliances(applianceID).operation.mode, 'non-periodic')
 							% Determine runtime sample
-							runtimeSample = duration2sample(timeVector2duration(endUserTypeStruct.appliances.(string(appliance))...
-																																																						 .operation.runDuration, 'inf'), 'inf');
+							runtimeSample = duration2sample(timeVector2duration(endUserTypeStruct.appliances(applianceID).operation.runDuration, 'inf'), 'inf');
 						else
 							error('appliancesData.json:' + string(appliance) + ' <operation.mode> undefined!');
 						end
 
 						% Assign runtime to usage array
-						endUserTypeStruct.appliances.(string(appliance)).usageArray =...
-															assignRunDuration2UsageArray(endUserTypeStruct.appliances.(string(appliance)).usageArray, startSample, runtimeSample);
+						endUserTypeStruct.appliances(applianceID).usageArray =...
+																		assignRunDuration2UsageArray(endUserTypeStruct.appliances(applianceID).usageArray, startSample, runtimeSample);
 						% Increase <trs> by runtime sample
 						trs = trs + single(runtimeSample);
 						% #########################################
@@ -184,17 +183,17 @@ function fitnessValue = fitnessFunction(endUserTypeStruct, appliance, chromosome
 	endUserType_userCount = endUserTypeStruct.nonemployedCount + endUserTypeStruct.employedCount;
 	
 	% Determine real weekly usage value
-	remainedPerson = endUserType_userCount - endUserTypeStruct.appliances.(string(appliance)).weeklyRunInReal.personCount;
+	remainedPerson = endUserType_userCount - endUserTypeStruct.appliances(applianceID).weeklyRunInReal.personCount;
 	if remainedPerson > 0
-		realWeeklyUsageInMinute = minutes(timeVector2duration(endUserTypeStruct.appliances.(string(appliance)).weeklyRunInReal.value, 'inf'));
+		realWeeklyUsageInMinute = minutes(timeVector2duration(endUserTypeStruct.appliances(applianceID).weeklyRunInReal.value, 'inf'));
 		% Add duration for each remained person
 		realWeeklyUsageInMinute = double(realWeeklyUsageInMinute +...
-		 (remainedPerson * (minutes(timeVector2duration(endUserTypeStruct.appliances.(string(appliance)).weeklyRunInReal.additionEachPerson, 'inf')))));
+		 (remainedPerson * (minutes(timeVector2duration(endUserTypeStruct.appliances(applianceID).weeklyRunInReal.additionEachPerson, 'inf')))));
 	elseif remainedPerson == 0
-			realWeeklyUsageInMinute = double(minutes(timeVector2duration(endUserTypeStruct.appliances.(string(appliance)).weeklyRunInReal.value, 'inf')));
+			realWeeklyUsageInMinute = double(minutes(timeVector2duration(endUserTypeStruct.appliances(applianceID).weeklyRunInReal.value, 'inf')));
 	elseif remainedPerson < 0
-		realWeeklyUsageInMinute = double((endUserType_userCount/endUserTypeStruct.appliances.(string(appliance)).weeklyRunInReal.personCount) *...
-																			 minutes(timeVector2duration(endUserTypeStruct.appliances.(string(appliance)).weeklyRunInReal.value, 'inf')));
+		realWeeklyUsageInMinute = double((endUserType_userCount/endUserTypeStruct.appliances(applianceID).weeklyRunInReal.personCount) *...
+																			 minutes(timeVector2duration(endUserTypeStruct.appliances(applianceID).weeklyRunInReal.value, 'inf')));
 	end
 	
 	% Determine virtual weekly usage value
