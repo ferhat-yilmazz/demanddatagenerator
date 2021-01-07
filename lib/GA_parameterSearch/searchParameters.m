@@ -14,7 +14,7 @@ ga_loadConfigurations;
 % Load read-only variables
 ga_readOnlyVariables;
 % Add path of crossover methods
-addpath('./crossoverMethods');
+addpath(strcat('.', filesep, 'crossoverMethods'));
 
 % Initialize coefficient structure 
 runprobabilityParameters = struct();
@@ -139,3 +139,6 @@ for endUser_idx = 1:size(endUserTypesStruct, 2)
 		runprobabilityParameters.(endUserType.type).(string(appliancesName(parameter_idx))) = parameterArray(parameter_idx, :);
 	end
 end
+
+% Save <runprobabilityParameters> to configuration file in JSON format
+writeJSONFile(runprobabilityParameters)
