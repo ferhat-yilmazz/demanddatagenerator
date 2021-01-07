@@ -11,8 +11,8 @@
 %%
 % Load configurations
 ga_loadConfigurations;
-% Load global variables
-ga_globalVariables;
+% Load read-only variables
+ga_readOnlyVariables;
 % Add path of crossover methods
 addpath('./crossoverMethods');
 
