@@ -12,16 +12,14 @@
 
 	>> Inputs:
 	1. <parents> : array : Array for parents (2x[COUNT_GENES])
+	2. <COUNT_GENES> : integer : Count of genes in each chromosome (count of parameters)
 
 << Outputs:
 	1. <offsprings> : array : Generated offsprings
 %}
 
 %%
-function offsprings = x_averageCrossover(parents)
-	% Count of genes in each chromosome (count of parameters)
-	global COUNT_GENES;
-	
+function offsprings = x_averageCrossover(parents, COUNT_GENES)
 	% Define <offsprings> array
 	offsprings = single(zeros(1, COUNT_GENES));
 	
