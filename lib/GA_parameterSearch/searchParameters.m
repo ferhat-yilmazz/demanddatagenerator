@@ -21,7 +21,7 @@ runprobabilityParameters = struct();
 
 % Define information print format
 fmt_bestChromosome = ['\n <Best Chromosome> :' repmat('  %4.4f  ', 1, COUNT_GENES)];
-fmt_top5fitness = ['\n <Top Fitness Values> : ' repmat('  %4.4f  ', 1, 5)];
+fmt_topfitnessValues = ['\n <Top Fitness Values> : ' repmat('  %4.4f  ', 1, 5)];
 
 % Build main <endUsers> structure
 endUserTypesStruct = buildEndUsersStruct(appliancesData,...
@@ -64,11 +64,11 @@ for endUser_idx = 1:size(endUserTypesStruct, 2)
 		fprintf("\n <Appliance> : %s", string(appliancesName(appliance_idx)));
 		fprintf("\n <Generation> : %i", generationCounter);
 		fprintf(fmt_bestChromosome, population(find(fitnessVector == min(fitnessVector), 1, 'first'),:));
-		fprintf(fmt_top5fitness, fitnessVector(find(fitnessVector == min(fitnessVector), 5, 'first')));
+		fprintf(fmt_topfitnessValues, fitnessVector(find(fitnessVector == min(fitnessVector), 5, 'first')));
 		fprintf("\n ««««««««««««««««««\n");
 			
 		% Termination condition
-		while ~(sum(fitnessVector <= TERMINATION_ERROR_PERCENTAGE) >= TERMINATION_CHROMOSOME_COUNT) && generationCounter <= 10
+		while ~(sum(fitnessVector <= TERMINATION_ERROR_PERCENTAGE) >= TERMINATION_CHROMOSOME_COUNT) && generationCounter < 10
 			% ## SELECTION ##
 			[chosensID, elitesID] = selectionOperator(fitnessVector, COUNT_CHROMOSOMES, COUNT_CHOSENS, COUNT_ELITES);
 			
@@ -126,7 +126,7 @@ for endUser_idx = 1:size(endUserTypesStruct, 2)
 			fprintf("\n <Appliance> : %s", string(appliancesName(appliance_idx)));
 			fprintf("\n <Generation> : %i", generationCounter);
 			fprintf(fmt_bestChromosome, population(find(fitnessVector == min(fitnessVector), 1, 'first'),:));
-			fprintf(fmt_top5fitness, fitnessVector(find(fitnessVector == min(fitnessVector), 5, 'first')));
+			fprintf(fmt_topfitnessValues, fitnessVector(find(fitnessVector == min(fitnessVector), 5, 'first')));
 			fprintf("\n ««««««««««««««««««\n");
 		end
 		
@@ -142,3 +142,6 @@ end
 
 % Save <runprobabilityParameters> to configuration file in JSON format
 writeJSONFile(runprobabilityParameters)
+
+% Clear waste variables
+clearWaste;
