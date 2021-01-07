@@ -23,24 +23,24 @@
 	1. <chosenChromosomes> : array : Chosen chromosomes array which specified
 																	 after selection operation
 	2. <chosensFitness> : array : Fitness values of chosen choromosomes respectively
+	3. <COUNT_GENES> : integer : Count of genes in each chromosome (count of parameters) 
+	4. <COUNT_CHROMOSOMES> : integer : Count of chromosomes(count of individuals in a population)
+	5. <COUNT_CHOSENS> : integer : Count of chosens
+	6. <COUNT_OFFSPRINGS> : integer : Count of offsprings 
+	7. <CROSSOVER_METHODS> : cell array : Name list of crossover methods
 
 << Outputs:
 	1. <newPopulation> : array : Array contains new generation chromosomes
 %}
 
 %%
-function newPopulation = crossoverOperator(chosenChromosomes, chosensFitness)
-	% Count of crossover methods
-	global CROSSOVER_METHODS;
-	% Count of chromosomes(count of individuals in a population)
-	global COUNT_CHROMOSOMES;
-	% Count of genes in each chromosome (count of parameters)
-	global COUNT_GENES;
-	% Count of chosens
-	global COUNT_CHOSENS;
-	% Count of offsprings
-	global COUNT_OFFSPRINGS;
-	
+function newPopulation = crossoverOperator(chosenChromosomes,...
+																					 chosensFitness,...
+																					 COUNT_GENES,...
+																					 COUNT_CHROMOSOMES,...
+																					 COUNT_CHOSENS,...
+																					 COUNT_OFFSPRINGS,...
+																					 CROSSOVER_METHODS)
 	% Build array for new generation
 	newPopulation = single(zeros(COUNT_CHROMOSOMES, COUNT_GENES));
 	
@@ -74,10 +74,10 @@ function newPopulation = crossoverOperator(chosenChromosomes, chosensFitness)
 		
 		% Check for paramter count of the selected method	
 		switch nargin(string(crossoverMethod))
-			case 1
-				offsprings = feval(crossoverMethod, parents);
 			case 2
-				offsprings = feval(crossoverMethod, parents, parentFitness);
+				offsprings = feval(crossoverMethod, parents, COUNT_GENES);
+			case 3
+				offsprings = feval(crossoverMethod, parents, parentFitness, COUNT_GENES);
 			otherwise
 				error("<crossoverOperator>: Crossover method parameter count error");
 		end
@@ -111,10 +111,10 @@ function newPopulation = crossoverOperator(chosenChromosomes, chosensFitness)
 		
 		% Check for paramter count of the selected method	
 		switch nargin(string(crossoverMethod))
-			case 1
-				offsprings = feval(crossoverMethod, parents);
 			case 2
-				offsprings = feval(crossoverMethod, parents, parentFitness);
+				offsprings = feval(crossoverMethod, parents, COUNT_GENES);
+			case 3
+				offsprings = feval(crossoverMethod, parents, parentFitness, COUNT_GENES);
 			otherwise
 				error("<crossoverOperator>: Crossover method parameter count error");
 		end

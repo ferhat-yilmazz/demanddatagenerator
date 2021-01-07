@@ -12,28 +12,27 @@
 	>> Inputs:
 	1. <population> : array : Population array which contains chromosomes
 																(except elite chromosomes)
+	2. <COUNT_GENES> : integer : Count of genes in each chromosome (count of parameters)
+	3. <COUNT_OFFSPRINGS> : integer : Count of offsprings
+	4. <MUTATION_CHROMOSOME_PERCENT> : single : Initial mutation possibility of chromosomes (%)
+	5. <MUTANT_CHROMOSOME_EFFECT> : single : Mutant chromosome effect to possibility
+	6. <MUTANT_GENE_PERCENT> : single : Initial mutation possibility of genes (%)
+	7. <MUTANT_GENE_EFFECT> : single : Mutant gene effect to possibility
+	8. <MUTATION_RATE> : single : Rate of mutation (%)
 
 << Outputs:
 	1. <mutantPopulation> : array : Mutant population array (except elite chromosomes)
 %}
 
 %%
-function population = mutationOperator(population)
-	% Count of offsprings
-	global COUNT_OFFSPRINGS;
-	% Count of genes in each chromosome (count of parameters)
-	global COUNT_GENES;
-	% Initial mutation possibility of chromosomes (%)
-	global MUTATION_CHROMOSOME_PERCENT;
-	% Mutant chromosome effect to possibility
-	global MUTANT_CHROMOSOME_EFFECT;
-	% Initial mutation possibility of genes (%)
-	global MUTATION_GENE_PERCENT;
-	% Mutant gene effect to possibility
-	global MUTANT_GENE_EFFECT;
-	% Rate of mutation (%)
-	global MUTATION_RATE;
-	
+function population = mutationOperator(population,...
+																			 COUNT_GENES,...
+																			 COUNT_OFFSPRINGS,...
+																			 MUTATION_CHROMOSOME_PERCENT,...
+																			 MUTANT_CHROMOSOME_EFFECT,...
+																			 MUTATION_GENE_PERCENT,...
+																			 MUTANT_GENE_EFFECT,...
+																			 MUTATION_RATE)
 	% Randomize chromosome IDs
 	randomChromosomeIDs = randperm(COUNT_OFFSPRINGS);
 	

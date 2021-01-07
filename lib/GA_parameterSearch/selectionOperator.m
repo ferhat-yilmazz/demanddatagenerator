@@ -11,6 +11,9 @@
 
 	>> Inputs:
 	1. <fitnessVector> : vector : Vector which contains fitness values
+	2. <COUNT_CHROMOSOMES> : integer : Count of chromosomes(count of individuals in a population)
+	3. <COUNT_CHOSENS> : integer : Count of chosens
+	4. <COUNT_ELITES> : integer : Count of elites
 
 << Outputs:
 	1. <chosens> : vector : IDs of chosen individuals
@@ -18,14 +21,7 @@
 %}
 
 %%
-function [chosens, elites] = selectionOperator(fitnessVector)
-	% Count of chromosomes(count of individuals in a population)
-	global COUNT_CHROMOSOMES;
-	% Count of chosens
-	global COUNT_CHOSENS;
-	% Count of elites
-	global COUNT_ELITES;
-
+function [chosens, elites] = selectionOperator(fitnessVector, COUNT_CHROMOSOMES, COUNT_CHOSENS, COUNT_ELITES)
 	% Define vector for chosens
 	chosens = zeros(COUNT_CHOSENS, 1);
 	% Define vector for elites
