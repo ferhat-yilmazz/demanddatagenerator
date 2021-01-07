@@ -26,7 +26,7 @@ TIME_VECTOR = generateTimeVector(SAMPLE_PERIOD);
 RAND_METHOD = geneticAlgorithm.randomizationMethod;
 % Check randomization method is valid
 assert(strcmp(RAND_METHOD, 'TRNG') || strcmp(RAND_METHOD, 'PRNG'), "intialConditions.json:Randomization method is not valid!");
-CROSSOVER_METHODS = dir('./crossoverMethods/x_*.m');
+CROSSOVER_METHODS = dir(strcat('.', filesep, 'crossoverMethods', filesep, 'x_*.m'));
 COUNT_CHROMOSOMES = geneticAlgorithm.population.chromosomeCount;
 COUNT_GENES = uint16(geneticAlgorithm.population.geneCount);
 GENE_LOW_LIMIT = uint16(geneticAlgorithm.population.geneLowerLimit);
