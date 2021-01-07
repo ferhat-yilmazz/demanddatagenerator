@@ -9,15 +9,14 @@
 	sample period.
 
 >> Inputs:
+	1. <SAMPLE_PERIOD> : integer : Sample period in minutes
 
 << Outputs:
 	1. <timeVector> : matrix : Time vector of the data
 %}
 
 %%
-function timeVector = generateTimeVector()
-	global SAMPLE_PERIOD;
-	
+function timeVector = generateTimeVector(SAMPLE_PERIOD)
 	timeVector = [];
 	minVector_string = [];
 	

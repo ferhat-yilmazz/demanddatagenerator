@@ -11,14 +11,13 @@
 >> Inputs:
 	1. <timeDuration> : duration
 	2. <mode> : string : Mode for '24h' or 'inf'
+	3. <SAMPLE_PERIOD> : Sample period in minutes
 << Outputs:
 	1. <sampleCount> : integer
 %}
 
 %%
-function sampleCount = duration2sample(timeDuration, mode)
-	global SAMPLE_PERIOD;
-	
+function sampleCount = duration2sample(timeDuration, mode, SAMPLE_PERIOD)
 	% Sample count of appliances determined with 'ceil' method.
 	% However, time vector generated with 'floor' method.
 	sampleCount = uint16(ceil(minutes(timeDuration)/SAMPLE_PERIOD));

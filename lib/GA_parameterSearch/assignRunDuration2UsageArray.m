@@ -13,18 +13,15 @@
 	2. <usageArray> : array : Usage array which belongs to the appliance
 	3. <startSample> : integer : Start sample of run duration
 	4. <runtimeSample> : integer : Runtime of the applianes (for periodic appliances)
+	5. <COUNT_SAMPLE_IN_DAY> : integer : Count of sample in a day
+	6. <COUNT_WEEKS> : integer : Count of weeks
 
 << Outputs:
 	1. <usageArray> : array : Manipulated usage array
 %}
 
 %%
-function usageArray = assignRunDuration2UsageArray(usageArray, startSample, runtimeSample)
-	% Count of sample in a day
-	global COUNT_SAMPLE_IN_DAY;
-	% Count of weeks
-	global COUNT_WEEKS;
-	
+function usageArray = assignRunDuration2UsageArray(usageArray, startSample, runtimeSample, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS)
 	% Transfor usage array to vector
 	mergedUsageVector = reshape(transpose(usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	sizeOfMergedUsageVector = numel(mergedUsageVector);

@@ -10,15 +10,14 @@
 
 >> Inputs:
 	1. <usageVectorSize> : integer : Size of usage vector
+	2. <DAY_PIECE> : integer : Count of day pieces
 	
 << Outputs:
 	1. <partIndex> : array : Index array represents parts of usage vector.
 %}
 
 %%
-function partIndex = divideUsageVector(usageVectorSize)
-	% Get count of day pieces
-	global DAY_PIECE;
+function partIndex = divideUsageVector(usageVectorSize, DAY_PIECE)
 	
 	% Check for count of parts less than or equal to size of usage vector
 	msg = 'Count of day pieces must less than or equal to size of the usage vector!';
