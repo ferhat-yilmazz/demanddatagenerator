@@ -22,7 +22,6 @@ assert(GLOB_MAX_OPERATION_LIMIT >= SAMPLE_PERIOD, '<GLOB_MAX_OPERATION_LIMIT> ca
 msg = 'Please edit sample period as sub-multiple of minutes in a day!';
 assert(mod(24*60, SAMPLE_PERIOD) == 0, msg);
 COUNT_SAMPLE_IN_DAY = uint16((24*60)/SAMPLE_PERIOD);
-TIME_VECTOR = generateTimeVector(SAMPLE_PERIOD);
 RAND_METHOD = geneticAlgorithm.randomizationMethod;
 % Check randomization method is valid
 assert(strcmp(RAND_METHOD, 'TRNG') || strcmp(RAND_METHOD, 'PRNG'), "intialConditions.json:Randomization method is not valid!");

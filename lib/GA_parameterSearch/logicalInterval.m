@@ -6,7 +6,7 @@
 %% Description
 %{
 	Function which returns a vector describes given time interval
-	as logical values in TIME_VECTOR. Limit times included.
+	as logical values in time vector. Limit times included.
 
 >> Inputs:
 	1. <startTime> : duration : Start time value
