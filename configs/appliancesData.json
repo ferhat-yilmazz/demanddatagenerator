@@ -83,7 +83,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [1,0]
+      "runDuration": [0,45]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -116,7 +116,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [0,40]
+      "runDuration": [0,30]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -152,7 +152,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [0,45]
+      "runDuration": [0,30]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -217,7 +217,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [0,15]
+      "runDuration": [0,10]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -250,7 +250,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [0,50]
+      "runDuration": [0,40]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -440,7 +440,9 @@
     },
     "constraints": {
       "workTimeConstraint": {
-        "case": 0
+        "case": 1,
+        "lowerTime": [17,0],
+        "upperTime": [5,0]
       },
       "conflictionConstraint": {
         "case": 0
