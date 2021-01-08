@@ -90,25 +90,7 @@
       "upperTime": [18,0]
     },
     "constraints": {
-      "constraintsCount": 1,
-      "c_1": {
-        "days": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "lowerTime": [14,0],
-        "upperTime": [2,0],
-        "appliancesList": [
-          "iron",
-          "washingMachine",
-          "TV"
-        ]
-      }
+      "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
