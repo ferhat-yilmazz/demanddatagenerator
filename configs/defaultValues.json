@@ -1,12 +1,12 @@
 {
-  "runProbabilityCoefficients":{
-    "userCoefficient": 50,
-    "dailyUsageCoefficient": 20,
-    "weeklyUsageCoefficient": 20
+  "runprobabilityParameters":{
+    "userTypeParameter": 50,
+    "dailyUsageParameter": 20,
+    "weeklyUsageParameter": 20
   },
   "weeklyRunInReal": {
     "personCount": 1,
-    "value": [4,0],
+    "value": [2,0],
     "additionEachPerson": [1,0]
   }
 }
