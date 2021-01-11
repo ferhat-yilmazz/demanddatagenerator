@@ -1,7 +1,7 @@
 {
   "type1": {
-    "employeeCount": 0,
-    "nonemployeeCount": 2,
+    "employedCount": 0,
+    "nonemployedCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -14,7 +14,7 @@
       "solarPanel"
     ],
     "haveEV": 1,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 0
     },
     "constraints": {
@@ -22,25 +22,13 @@
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 24.00,
-      "upperTime": 08.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 30
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
+      "lowerTime": [0,0],
+      "upperTime": [8,0]
     }
   },
   "type2": {
-    "employeeCount": 1,
-    "nonemployeeCount": 1,
+    "employedCount": 1,
+    "nonemployedCount": 1,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -53,7 +41,7 @@
       "solarPanel"
     ],
     "haveEV": 1,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -62,33 +50,21 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
       "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 23.00,
-      "upperTime": 06.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 20
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
+      "lowerTime": [23,0],
+      "upperTime": [6,0]
     }
   },
   "type3": {
-    "employeeCount": 1,
-    "nonemployeeCount": 2,
+    "employedCount": 1,
+    "nonemployedCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -101,7 +77,7 @@
       "solarPanel"
     ],
     "haveEV": 1,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -110,51 +86,21 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
-      "constraintsCount": 1,
-      "c_1": {
-        "days": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "lowerTime": 14.00,
-        "upperTime": 2.00,
-        "appliancesList": [
-          "iron",
-          "washingMachine",
-          "TV"
-        ]
-      }
+      "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 23.00,
-      "upperTime": 06.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 20
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
+      "lowerTime": [23,0],
+      "upperTime": [6,0]
     }
   },
   "type4": {
-    "employeeCount": 2,
-    "nonemployeeCount": 2,
+    "employedCount": 2,
+    "nonemployedCount": 2,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -167,7 +113,7 @@
       "solarPanel"
     ],
     "haveEV": 2,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -176,33 +122,21 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
       "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 23.00,
-      "upperTime": 07.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 12
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
+      "lowerTime": [23,0],
+      "upperTime": [7,0]
     }
   },
   "type5": {
-    "employeeCount": 2,
-    "nonemployeeCount": 3,
+    "employedCount": 2,
+    "nonemployedCount": 3,
     "alwaysAppliances": [
       "washingMachine",
       "dishwashing",
@@ -215,7 +149,7 @@
       "solarPanel"
     ],
     "haveEV": 2,
-    "weekSchedule": {
+    "jobSchedule": {
       "case": 1,
       "workDays": [
         1,
@@ -224,28 +158,16 @@
         4,
         5
       ],
-      "outTime": 7.00,
-      "inTime": 18.00
+      "lowerTime": [7,0],
+      "upperTime": [18,0]
     },
     "constraints": {
       "constraintsCount": 0
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": 22.00,
-      "upperTime": 07.00
-    },
-    "coefficients": {
-      "endUserSide": {
-        "case": 1,
-        "K_u": 25
-      },
-      "applianceSide": {
-        "case": 0
-      },
-      "probabilityLowerLimit": {
-        "case": 0
-      }
+      "lowerTime": [22,0],
+      "upperTime": [7,0]
     }
   }
 }

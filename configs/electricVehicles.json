@@ -11,8 +11,8 @@
       "constraints": {
         "workTimeConstraint": {
           "case": 1,
-          "lowerTime": 18.00,
-          "upperTime": 7.00
+          "lowerTime": [18,0],
+          "upperTime": [7,0]
         },
         "conflictionConstraint": {
           "case": 0
