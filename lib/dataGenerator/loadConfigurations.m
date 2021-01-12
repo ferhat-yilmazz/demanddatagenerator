@@ -11,15 +11,15 @@
 
 %% Define PATH variables
 % "appliancesData.json" path
-PATH_applianceData = './configs/appliancesData.json';
+PATH_applianceData = strcat('.', filesep, 'configs', filesep, 'appliancesData.json');
 % "residentalTypes.json" path
-PATH_residentalTypes = './configs/residentalTypes.json';
+PATH_residentalTypes = strcat('.', filesep, 'configs', filesep, 'residentalTypes.json');
 % "electricVehicles.json" path
-PATH_electricVehicles = './configs/electricVehicles.json';
+PATH_electricVehicles = strcat('.', filesep, 'configs', filesep, 'electricVehicles.json');
 % "defaultCoefficients.json" path
-PATH_defaultCoefficients = './configs/defaultCoefficients.json';
+PATH_defaultCoefficients = strcat('.', filesep, 'configs', filesep, 'defaultValues.json');
 % "initialCOnditions.json" path
-PATH_initialConditions = './configs/initialConditions.json';
+PATH_initialConditions = strcat('.', filesep, 'configs', filesep, 'initialConditions.json');
 
 %% Load config files as structure
 appliancesData = loadJSONFile(PATH_applianceData);

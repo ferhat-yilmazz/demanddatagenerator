@@ -1,7 +1,6 @@
-clear,clc
-addpath("./lib/dataGenerator/");
 % Add path of TRNG function
-addpath('./lib/trueRandom/');
+addpath(strcat('.', filesep, 'lib', filesep, 'trueRandom', filesep));
+
 tic
 
 % Load configurations
