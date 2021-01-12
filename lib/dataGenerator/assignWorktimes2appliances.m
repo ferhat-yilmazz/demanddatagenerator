@@ -51,16 +51,16 @@ function endUsers = assignWorktimes2appliances(endUsers, appliancesData, initial
 	% used. Maybe there is incompability for lower versions of MATLAB.
 	
 	% Generate a random structure to select start sample of appliances
-	randStructure_startSample = generateRandStructure(RAND_METHOD, 1, COUNT_SAMPLE_IN_DAY);
+	randStructure_startSample = generateRandStructure(1, COUNT_SAMPLE_IN_DAY, RAND_METHOD, 5000);
 	% Generate a random structure to determine working duration
 	% for periodic & non-continuous appliaces
-	randStructure_operationDuration = generateRandStructure(RAND_METHOD, 1, GLOB_MAX_OPERATION_LIMIT);
+	randStructure_operationDuration = generateRandStructure(1, GLOB_MAX_OPERATION_LIMIT, RAND_METHOD, 5000);
 	% Generate a random structure to get randomnumber between 0 and 100 for comparison with run
 	% probability result. If the selected random number less or equal than run probability then
 	% the appliance will run; otherwise will not.
-	randStructure_4runProbability = generateRandStructure(RAND_METHOD, 1, 100);
+	randStructure_4runProbability = generateRandStructure(1, 100, RAND_METHOD, 5000);
 	% Generate a random structure to select battery status of an EV
-	randStructure_EVBatteryLevel = generateRandStructure(RAND_METHOD, 1, BATTERY_LEVEL_RAND_LIMIT);
+	randStructure_EVBatteryLevel = generateRandStructure(1, BATTERY_LEVEL_RAND_LIMIT, RAND_METHOD, 2000);
 	
 	% For each end-user
 	for user_index = 1:COUNT_END_USERS

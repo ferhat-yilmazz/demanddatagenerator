@@ -42,7 +42,7 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 	evList = fieldnames(electricVehicles);
 	
 	% Generate randStructure to use in assignment of appliances
-	randStructure_applianceAssignment = generateRandStructure(RAND_METHOD, 0, 1);
+	randStructure_applianceAssignment = generateRandStructure(0, 1, RAND_METHOD, 5000);
 	
 	% For each end-user
 	for i = 1:COUNT_END_USERS

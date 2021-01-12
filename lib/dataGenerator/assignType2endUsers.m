@@ -32,7 +32,7 @@ function endUsers = assignType2endUsers(residentalTypes, endUsers)
 	% Initialize random structure to assign user types
 	% Upper limit of random numbers is determined
 	% according to count of type
-	randStructure_userTypeAssignment = generateRandStructure(RAND_METHOD, 1, numel(typeList));
+	randStructure_userTypeAssignment = generateRandStructure(1, numel(typeList), RAND_METHOD, COUNT_END_USERS);
 	
 	% Assign type for each end-user, randomly
 	for i = 1:COUNT_END_USERS
