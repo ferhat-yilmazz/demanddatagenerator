@@ -26,8 +26,8 @@ function endUser = worktime_periodic_continuous(appliancesData, endUser, applian
 	% Get count of sample in a day
 	global COUNT_SAMPLE_IN_DAY;
 	% Get runDuration and waitDuration of the appliance and convert to sample
-	runDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
-	waitDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
+	runDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
+	waitDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
 	
 	% Merge all usage vectors in the usage array
 	% Unused samples (because constraints) are signed by -1

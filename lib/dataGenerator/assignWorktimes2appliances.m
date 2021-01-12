@@ -164,8 +164,8 @@ function endUsers = assignWorktimes2appliances(endUsers, appliancesData, initial
 							if randomNum2compareRunProbability <= run_probability
 								% Select operation duration randomly
 								% Be sure that operation duration is enough to run the appliance least one period
-								runDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
-								waitDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
+								runDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
+								waitDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
 								onePeriod_sample = runDuration_sample + waitDuration_sample;
 								while true
 									[randomOperationDuration, randStructure_operationDuration] = pickRandNumber(randStructure_operationDuration);
@@ -173,7 +173,7 @@ function endUsers = assignWorktimes2appliances(endUsers, appliancesData, initial
 										% Limit the <operationDuration>
 										% If there is maximum operation limit belongs to the appliance, <operationDuration> updated with
 										% this limit
-										applianceOperationLimit = duration2sample(double2duration(appliancesData.(string(appliance)).operation.maxOperationLimit, 'inf'), 'inf');
+										applianceOperationLimit = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.maxOperationLimit, 'inf'), 'inf');
 										
 										if (applianceOperationLimit >= onePeriod_sample) && (randomOperationDuration > applianceOperationLimit)
 											randomOperationDuration = applianceOperationLimit;

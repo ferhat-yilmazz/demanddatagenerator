@@ -40,8 +40,8 @@ function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 				% Get days which the constraint is active
 				constraintDays = endUsers(i).properties.constraints.(constraintID).days;
 				% Get time limits of constraint
-				lowerTime = double2duration(endUsers(i).properties.constraints.(constraintID).lowerTime, '24h');
-				upperTime = double2duration(endUsers(i).properties.constraints.(constraintID).upperTime, '24h');
+				lowerTime = timeVector2duration(endUsers(i).properties.constraints.(constraintID).lowerTime, '24h');
+				upperTime = timeVector2duration(endUsers(i).properties.constraints.(constraintID).upperTime, '24h');
 				% Get appliances which applied constraint
 				constraintedAppliances = endUsers(i).properties.constraints.(constraintID).appliancesList;
 				% Build logical array describes work times according to constraint
@@ -67,8 +67,8 @@ function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 			% Check for is there constraint
 			if appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.case
 				% Get lower and upper limits of the constraint
-				lowerTime = double2duration(appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.lowerTime, '24h');
-				upperTime = double2duration(appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.upperTime, '24h');
+				lowerTime = timeVector2duration(appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.lowerTime, '24h');
+				upperTime = timeVector2duration(appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.upperTime, '24h');
 				% Build logical array describes work times according to constraint
 				workTimes_logic = logicalInterval(lowerTime, upperTime);
 				
@@ -86,8 +86,8 @@ function endUsers = check_workTimeConstraints(endUsers, appliancesData)
 				% Check for is there any constraint related with the ev
 				if endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.case
 					% Get lower and upper limits of the constraint
-					lowerTime = double2duration(endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.lowerTime, '24h');
-					upperTime = double2duration(endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.upperTime, '24h');
+					lowerTime = timeVector2duration(endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.lowerTime, '24h');
+					upperTime = timeVector2duration(endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.upperTime, '24h');
 					% Build logical array describes work times according to constraint
 					workTimes_logic = logicalInterval(lowerTime, upperTime);
 

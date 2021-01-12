@@ -39,8 +39,8 @@ function endUser = worktime_ev(evModel, endUser, runDay, batteryLevel)
 	% Determine limits of possible work samples
 	% There are 2 options: With/without workTimeConstaint
 	if endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.case
-		lowerTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.lowerTime, '24h'), '24h');
-		upperTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.upperTime, '24h'), '24h');
+		lowerTime_sample = duration2sample(timeVector2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.lowerTime, '24h'), '24h');
+		upperTime_sample = duration2sample(timeVector2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.upperTime, '24h'), '24h');
 		if lowerTime_sample >= upperTime_sample
 			lowerLimit = ((runDay-1)*COUNT_SAMPLE_IN_DAY) + lowerTime_sample;
 			upperLimit = (runDay*COUNT_SAMPLE_IN_DAY) + upperTime_sample;
