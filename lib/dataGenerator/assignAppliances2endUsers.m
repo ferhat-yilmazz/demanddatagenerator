@@ -102,10 +102,10 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 				end
 
 				if ~(continuity)
-					endUsers(i).appliances.(string(independentAppliances(index))).duc = uint16(0);
-					endUsers(i).appliances.(string(independentAppliances(index))).wuc = uint16(0);
+					endUsers(i).appliances.(string(independentAppliances(index))).duc = single(0);
+					endUsers(i).appliances.(string(independentAppliances(index))).wuc = single(0);
 				end
-				endUsers(i).appliances.(string(independentAppliances(index))).tuc = uint16(0);
+				endUsers(i).appliances.(string(independentAppliances(index))).tuc = single(0);
 			end
 		end
 		
@@ -130,10 +130,10 @@ function endUsers = assignAppliances2endUsers(appliancesData, electricVehicles, 
 					end
 
 					if ~(continuity)
-						endUsers(i).appliances.(string(dependentAppliances(index))).duc = uint16(0);
-						endUsers(i).appliances.(string(dependentAppliances(index))).wuc = uint16(0);
+						endUsers(i).appliances.(string(dependentAppliances(index))).duc = single(0);
+						endUsers(i).appliances.(string(dependentAppliances(index))).wuc = single(0);
 					end
-					endUsers(i).appliances.(string(dependentAppliances(index))).tuc = uint16(0);
+					endUsers(i).appliances.(string(dependentAppliances(index))).tuc = single(0);
 				end
 			end
 		end

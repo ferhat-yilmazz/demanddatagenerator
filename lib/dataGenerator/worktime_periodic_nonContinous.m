@@ -130,8 +130,8 @@ function endUser = worktime_periodic_nonContinous(appliancesData, endUser, appli
 	
 	% Increase by 1 <duc> and <wuc> if the appliance worked
 	if applianceIsWorked
-		endUser.appliances.(string(appliance)).duc = endUser.appliances.(string(appliance)).duc + uint16(1);
-		endUser.appliances.(string(appliance)).wuc = endUser.appliances.(string(appliance)).wuc + uint16(1);
-		endUser.appliances.(string(appliance)).tuc = endUser.appliances.(string(appliance)).tuc + uint16(1);
+		endUser.appliances.(string(appliance)).duc = endUser.appliances.(string(appliance)).duc + single(1);
+		endUser.appliances.(string(appliance)).wuc = endUser.appliances.(string(appliance)).wuc + single(1);
+		endUser.appliances.(string(appliance)).tuc = endUser.appliances.(string(appliance)).tuc + single(1);
 	end
 end

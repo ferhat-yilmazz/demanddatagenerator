@@ -47,10 +47,10 @@ function [endUser, applianceList] = checkAlwaysNever(appliancesData, endUser, ap
 			end
 
 			if ~(continuity)
-				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).duc = uint16(0);
-				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).wuc = uint16(0);
+				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).duc = single(0);
+				endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).wuc = single(0);
 			end
-			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).tuc = uint16(0);
+			endUser.appliances.(string(endUser.properties.alwaysAppliances(index))).tuc = single(0);
 		end
 	end
 end
