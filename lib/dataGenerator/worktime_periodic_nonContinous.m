@@ -36,8 +36,8 @@ function endUser = worktime_periodic_nonContinous(appliancesData, endUser, appli
 	mergedUsageVector = reshape(transpose(endUser.appliances.(string(appliance)).usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	totalSampleCount = numel(mergedUsageVector);
 	% Get <runDuration> and <waitDuration> in sample 
-	runDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'));
-	waitDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'));
+	runDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
+	waitDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
 	onePeriod_sample = runDuration_sample + waitDuration_sample;
 	
 	% Get power value of the appliance

@@ -58,7 +58,7 @@ function endUser = worktime_nonPeriodic(appliancesData, endUser, appliance, runD
 	end
 	
 	% Get <runDuration> of the appliance
-	runDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'));
+	runDuration_sample = duration2sample(double2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
 	
 	% Determine <startPointer> and <endPointer>
 	startPointer = (runDay-1)*COUNT_SAMPLE_IN_DAY + startSample;

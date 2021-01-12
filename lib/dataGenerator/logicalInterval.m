@@ -25,8 +25,8 @@ function logicalVector = logicalInterval(startTime, endTime)
 	logicalVector = ~logical(1:COUNT_SAMPLE_IN_DAY);
 	
 	% Convert duration values to sample values
-	startSample = duration2sample(startTime);
-	endSample = duration2sample(endTime);
+	startSample = duration2sample(startTime, '24h');
+	endSample = duration2sample(endTime, '24h');
 	
 	% Check for the startTime is less than the endTime; otherwise there is overday case.
 	if (startSample < endSample)

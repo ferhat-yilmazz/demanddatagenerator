@@ -39,8 +39,8 @@ function endUser = worktime_ev(evModel, endUser, runDay, batteryLevel)
 	% Determine limits of possible work samples
 	% There are 2 options: With/without workTimeConstaint
 	if endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.case
-		lowerTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.lowerTime, '24h'));
-		upperTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.upperTime, '24h'));
+		lowerTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.lowerTime, '24h'), '24h');
+		upperTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.upperTime, '24h'), '24h');
 		if lowerTime_sample >= upperTime_sample
 			lowerLimit = ((runDay-1)*COUNT_SAMPLE_IN_DAY) + lowerTime_sample;
 			upperLimit = (runDay*COUNT_SAMPLE_IN_DAY) + upperTime_sample;
@@ -73,7 +73,7 @@ function endUser = worktime_ev(evModel, endUser, runDay, batteryLevel)
 	
 	% Calculate <runDuration_sample> of the charger
 	batteryEmpty = ((100-batteryLevel)/100)*endUser.ev.(string(evModel)).batteryCapacity;
-	runDuration_sample = duration2sample(hours(batteryEmpty/powerValue));
+	runDuration_sample = duration2sample(hours(batteryEmpty/powerValue), 'inf');
 	
 	% Consider confliction constraints
 	% If there is confliction constraint
