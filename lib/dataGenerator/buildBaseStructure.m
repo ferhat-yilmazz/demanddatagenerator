@@ -91,6 +91,7 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 		% Dependency
 		baseStructure.appliances(appliance_idx).dependency.case = logical(appliancesData.(applianceName).dependency.case);
 		if baseStructure.appliances(appliance_idx).dependency.case
+			baseStructure.appliances(appliance_idx).dependency.needAll = logical(appliancesData.(applianceName).dependency.needAll);
 			dependencyList = string(appliancesData.(applianceName).dependency.list);
 			ids = zeros(1,numel(dependencyList));
 			for dependency_idx = 1:numel(dependencyList)

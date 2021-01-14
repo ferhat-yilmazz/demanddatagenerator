@@ -56,6 +56,7 @@
     },
     "dependency": {
       "case": 1,
+      "needAll": 1,
       "list": [
         "washingMachine"
       ]
@@ -126,6 +127,7 @@
     },
     "dependency": {
       "case": 1,
+      "needAll": 1,
       "list": [
         "washingMachine"
       ]
@@ -674,6 +676,7 @@
     },
     "dependency": {
       "case": 1,
+      "needAll": 0,
       "list": [
         "pc",
         "laptop"
