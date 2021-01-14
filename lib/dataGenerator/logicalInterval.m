@@ -9,30 +9,24 @@
 	as logical values in TIME_VECTOR. Limit times included.
 
 >> Inputs:
-	1. <startTime> : duration : Start time value
-	2. <endTime> : duration : End time value
+	1. <lowerSample> : integer : Start sample value
+	2. <upperSample> : integer : End sample value
+	3. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 
 << Outputs:
-	1. <logicalInterval> : vector : Logical vector describes elements located at interval
+	1. <logicalInterval> : vector : Logical vector describes given interval as true
 %}
 
 %%
-function logicalVector = logicalInterval(startTime, endTime)
-	% Time vector
-	global COUNT_SAMPLE_IN_DAY;
+function logicalVector = logicalInterval(lowerSample, upperSample, COUNT_SAMPLE_IN_DAY)	
+	% Generate logical false vector
+	logicalVector = false(1,COUNT_SAMPLE_IN_DAY);
 	
-	% Generate logical 0 vector
-	logicalVector = ~logical(1:COUNT_SAMPLE_IN_DAY);
-	
-	% Convert duration values to sample values
-	startSample = duration2sample(startTime, '24h');
-	endSample = duration2sample(endTime, '24h');
-	
-	% Check for the startTime is less than the endTime; otherwise there is overday case.
-	if (startSample < endSample)
-		logicalVector(startSample:endSample) = true;
-	elseif (startTime > endTime)
-		logicalVector([1:endSample startSample:end]) = true;
+	% Check for the <startSample> is less than the <endSample>; otherwise there is overday case.
+	if (lowerSample < upperSample)
+		logicalVector(lowerSample:upperSample) = true;
+	elseif (lowerSample > upperSample)
+		logicalVector([1:upperSample lowerSample:end]) = true;
 	else
 		logicalVector = ~logicalVector;
 	end
