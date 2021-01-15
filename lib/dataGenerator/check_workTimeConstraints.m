@@ -10,89 +10,94 @@
 	Limit times included. Other regions filled by -1.
 
 >> Inputs:
-	1. <endUsers> : structure : Structure which discrebes end-users
-	2. <applianceData> : structure : Sructure which contains appliances data
+	1. <endUsers> : structure : The structure which contains the end-users
+	2. <baseStructure> : structure : Base structure
+	3. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
+	4. <COUNT_END_USERS> : integer : Count of end-users
+	5. <COUNT_WEEKS> : integer : Count of weeks
+	6. <COUNT_DAYS> : integer : Count of the days
 
 << Outputs:
-	1. <endUser> : structure : Structure which discrebes end-user
+	1. <endUser> : structure : The structure which contains the end-users
 %}
 
 %%
-function endUsers = check_workTimeConstraints(endUsers, appliancesData)
-	% Count of end-users
-	global COUNT_END_USERS;
-	% Count of weeks
-	global COUNT_WEEKS;
-	
-	% Make an iteration for each end-user
-	for i = 1:COUNT_END_USERS
-		% Get name of appliances belong the end-user
-		endUser_appliances = fieldnames(endUsers(i).appliances);
-		% Check for work time constraints which belong to end user:
-		% NOTE: End-users' constraints only affect appliances; not EVs.
-		endUser_constraintCount = endUsers(i).properties.constraints.constraintsCount;
-		% If constraint count > 0; it means there is constaint(s).
-		if endUser_constraintCount > 0
-			% Iterate for each work time constraint
-			for j = 1:endUser_constraintCount
-				% Build constraint id
-				constraintID = strcat('c_', string(j));
-				% Get days which the constraint is active
-				constraintDays = endUsers(i).properties.constraints.(constraintID).days;
-				% Get time limits of constraint
-				lowerTime = timeVector2duration(endUsers(i).properties.constraints.(constraintID).lowerTime, '24h');
-				upperTime = timeVector2duration(endUsers(i).properties.constraints.(constraintID).upperTime, '24h');
-				% Get appliances which applied constraint
-				constraintedAppliances = endUsers(i).properties.constraints.(constraintID).appliancesList;
-				% Build logical array describes work times according to constraint
-				workTimes_logic = logicalInterval(lowerTime, upperTime);
-				
-				% Iterate for each appliance in the list to apply constraint
-				for k = 1:numel(constraintedAppliances)
-					% Check if the appliance belongs to the end-user
-					if ismember(constraintedAppliances(k), endUser_appliances)
-						% For each week and each specified day
-						for week_index = 1:COUNT_WEEKS
-							% Assign -1 to "unworked" region
-							row = ((week_index-1)*7)+constraintDays;
-							endUsers(i).appliances.(string(constraintedAppliances(k))).usageArray(row,~workTimes_logic) = single(-1);
-						end
-					end
+function endUsers = check_workTimeConstraints(endUsers, baseStructure, COUNT_SAMPLE_IN_DAY, COUNT_END_USERS, COUNT_WEEKS, COUNT_DAYS)
+	% For each end-user
+	for endUser_idx = 1:COUNT_END_USERS
+		% Get end-user type ID
+		endUserTypeID = endUsers(endUser_idx).typeID;
+		% Get count of appliances which belong to the end-user
+		applianceCount = size(endUsers(endUser_idx).appliances, 2);
+		% Get count of EVs which belong to the end-user
+		electricVehicleCount = size(endUsers(endUser_idx).EVs, 2);
+		
+		% ## Appliance worktime constraint ##
+		for appliance_idx = 1:applianceCount
+			% ApplianceID
+			applianceID = endUsers(endUser_idx).appliances(appliance_idx).applianceID;
+			% Check for appliance has a worktime constraint
+			if baseStructure.appliances(applianceID).workTimeConstraint.case
+				% Get <lowerSample> and <upperSample>
+				lowerSample = baseStructure.appliances(applianceID).workTimeConstraint.lowerSample;
+				upperSample = baseStructure.appliances(applianceID).workTimeConstraint.upperSample;
+				% Determine constrainted region
+				constraintedInterval = ~logicalInterval(lowerSample, upperSample, COUNT_SAMPLE_IN_DAY);
+				% Assign constraint for all day
+				for day_idx = 1:COUNT_DAYS
+					endUsers(endUser_idx).appliances(appliance_idx).usageArray(day_idx, constraintedInterval) = single(-1);
 				end
 			end
 		end
-		% Check for each appliance which belong to the end-user, if they have constraint
-		% indicated in the "appliancesData.json" configuration file
-		for m = 1:numel(endUser_appliances)
-			% Check for is there constraint
-			if appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.case
-				% Get lower and upper limits of the constraint
-				lowerTime = timeVector2duration(appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.lowerTime, '24h');
-				upperTime = timeVector2duration(appliancesData.(string(endUser_appliances(m))).constraints.workTimeConstraint.upperTime, '24h');
-				% Build logical array describes work times according to constraint
-				workTimes_logic = logicalInterval(lowerTime, upperTime);
-				
-				% Assign -1 to "unworked" region
-				endUsers(i).appliances.(string(endUser_appliances(m))).usageArray(:,~workTimes_logic) = single(-1);
+		
+		% ## EV worktime constraint ##
+		for ev_idx = 1:electricVehicleCount
+			% EV ID
+			evID = endUsers(endUser_idx).EVs(ev_idx).evID;
+			% Check for the EV has a worktime constraint
+			if baseStructure.electricVehicles(evID).charger.workTimeConstraint.case
+				% Get <lowerSample> and <upperSample>
+				lowerSample = baseStructure.electricVehicles(evID).charger.workTimeConstraint.lowerSample;
+				upperSample = baseStructure.electricVehicles(evID).charger.workTimeConstraint.upperSample;
+				% Determine constrainted region
+				constraintedInterval = ~logicalInterval(lowerSample, upperSample, COUNT_SAMPLE_IN_DAY);
+				% Assign constraint for all day
+				for day_idx = 1:COUNT_DAYS
+					endUsers(endUser_idx).EVs(ev_idx).usageArray(day_idx, constraintedInterval) = single(-1);
+				end
 			end
 		end
-		% Check for EVs charge time constraints
-		% Get name of EVs belong to the end-user
-		if isstruct(endUsers(i).ev)
-			endUser_evs = fieldnames(endUsers(i).ev);
-			
-			% Iterate for each ev
-			for n = 1:numel(endUser_evs)
-				% Check for is there any constraint related with the ev
-				if endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.case
-					% Get lower and upper limits of the constraint
-					lowerTime = timeVector2duration(endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.lowerTime, '24h');
-					upperTime = timeVector2duration(endUsers(i).ev.(string(endUser_evs(n))).charger.constraints.workTimeConstraint.upperTime, '24h');
-					% Build logical array describes work times according to constraint
-					workTimes_logic = logicalInterval(lowerTime, upperTime);
-
-					% Assign -1 to "unworked" region
-					endUsers(i).ev.(string(endUser_evs(n))).charger.usageArray(:,~workTimes_logic) = single(-1);
+		
+		% ## End-user constraints ##
+		% Check for the end-user has constraints
+		if baseStructure.endUserTypes(endUserTypeID).constraints.constraintsCount > 0
+			% For each constraint
+			for constraint_idx = 1:baseStructure.endUserTypes(endUserTypeID).constraints.constraintsCount
+				% Generate constraint name
+				constraintName = strcat('c_', string(constraint_idx));
+				% Constraint days
+				constraintDays = baseStructure.endUserTypes(endUserTypeID).constraints.(constraintName).days;
+				% <lowerSample> and <upperSample>
+				lowerSample = baseStructure.endUserTypes(endUserTypeID).constraints.(constraintName).lowerSample;
+				upperSample = baseStructure.endUserTypes(endUserTypeID).constraints.(constraintName).upperSample;
+				% Constrainted appliances IDs
+				constraintedAppliancesIDs = baseStructure.endUserTypes(endUserTypeID).constraints.(constraintName).list;
+				% End-users appliances IDs
+				endUserAppliancesIDs = [endUsers(endUser_idx).appliances.applianceID];
+				% Respective rows of constrainted appliances for the end-user
+				respectiveRows = find(ismember(endUserAppliancesIDs, constraintedAppliancesIDs));
+				% Determine constrainted region
+				constraintedInterval = ~logicalInterval(lowerSample, upperSample, COUNT_SAMPLE_IN_DAY);
+				% Assign constraint for <constraintDays> for each week
+				for week_idx = 1:COUNT_WEEKS
+					for day_idx = 1:numel(constraintDays)
+						dayRow = ((week_idx-1)*7) + constraintDays(day_idx);
+						% For each constrainted appliance
+						for respectiveRow_idx = 1:numel(respectiveRows)
+							% Assign <constraintedInterval> to constrainted appliances
+							endUsers(endUser_idx).appliances(respectiveRows(respectiveRow_idx)).usageArray(dayRow, constraintedInterval) = single(-1);
+						end
+					end
 				end
 			end
 		end
