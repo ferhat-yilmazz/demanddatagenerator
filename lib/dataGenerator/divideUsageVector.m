@@ -10,21 +10,18 @@
 
 >> Inputs:
 	1. <usageVectorSize> : integer : Size of usage vector
-	
+	2. <DAY_PIECE> : integer : Count of pieces of a day
+
 << Outputs:
-	1. <partIndex> : array : Index array represents parts of usage vector.
+	1. <partIndex> : array : Index array represents parts of usage vector
 %}
 
 %%
-function partIndex = divideUsageVector(usageVectorSize)
-	% Get count of day pieces
-	global DAY_PIECE;
-	
+function partIndex = divideUsageVector(usageVectorSize, DAY_PIECE)
 	% Check for count of parts less than or equal to size of usage vector
-	msg = 'Count of day pieces must less than or equal to size of the usage vector!';
-	assert(DAY_PIECE <= usageVectorSize, msg);
+	assert(DAY_PIECE <= usageVectorSize, "Count of day pieces must less than or equal to size of the usage vector");
 	
-	% Check for count of day piece si sub-multible of numel(usageVector)
+	% Check for count of day piece is sub-multible of <usageVectorSize>
 	% If not, add it last part
 	md = mod(usageVectorSize, DAY_PIECE);
 	
