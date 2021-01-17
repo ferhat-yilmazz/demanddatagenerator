@@ -14,7 +14,10 @@
           "lowerTime": [18,0],
           "upperTime": [7,0]
         },
-        "conflictionConstraint": {
+        "applianceConflictionConstraint": {
+          "case": 0
+        },
+        "evConflictionConstraint": {
           "case": 0
         }
       }

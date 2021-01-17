@@ -45,7 +45,8 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 																							'operation', struct(),...
 																							'dependency', struct(),...
 																							'workTimeConstraint', struct(),...
-																							'conflictionConstraint', struct()),...
+																							'applianceConflictionConstraint', struct(),...
+																							'evConflictionConstraint', struct()),...
 												 'electricVehicles', struct('name', '',...
 																										'batteryCapacity', single(0),...
 																										'charger', struct(),...
@@ -54,6 +55,9 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 	% ## APPLIANCES ##
 	% Get name of appliances
 	appliancesList = string(fieldnames(appliancesData));
+	% Get name of electric vehicles
+	evsList = string(fieldnames(electricVehicles));
+	
 	% For each appliance
 	for appliance_idx = 1:numel(appliancesList)
 		applianceName = appliancesList(appliance_idx);
@@ -108,15 +112,26 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 										duration2sample(timeVector2duration(appliancesData.(applianceName).constraints.workTimeConstraint.upperTime, '24h'), '24h');
 		end
 		% Confliction constraint
-		baseStructure.appliances(appliance_idx).conflictionConstraint.case =...
-																																		logical(appliancesData.(applianceName).constraints.conflictionConstraint.case);
-		if baseStructure.appliances(appliance_idx).conflictionConstraint.case
-			conflictList = string(appliancesData.(applianceName).constraints.conflictionConstraint.list);
+		baseStructure.appliances(appliance_idx).applianceConflictionConstraint.case =...
+																														logical(appliancesData.(applianceName).constraints.applianceConflictionConstraint.case);
+		if baseStructure.appliances(appliance_idx).applianceConflictionConstraint.case
+			conflictList = string(appliancesData.(applianceName).constraints.applianceConflictionConstraint.list);
 			ids = zeros(1, numel(conflictList));
 			for conflict_idx = 1:numel(conflictList)
 				ids(conflict_idx) = find(appliancesList == conflictList(conflict_idx));
 			end
-			baseStructure.appliances(appliance_idx).conflictionConstraint.list = uint8(ids);
+			baseStructure.appliances(appliance_idx).applianceConflictionConstraint.list = uint8(ids);
+		end
+		
+		baseStructure.appliances(appliance_idx).evConflictionConstraint.case =...
+																														logical(appliancesData.(applianceName).constraints.evConflictionConstraint.case);
+		if baseStructure.appliances(appliance_idx).evConflictionConstraint.case
+			conflictList = string(appliancesData.(applianceName).constraints.evConflictionConstraint.list);
+			ids = zeros(1, numel(conflictList));
+			for conflict_idx = 1:numel(conflictList)
+				ids(conflict_idx) = find(evsList == conflictList(conflict_idx));
+			end
+			baseStructure.appliances(appliance_idx).evConflictionConstraint.list = uint8(ids);
 		end
 	end
 	
@@ -188,11 +203,9 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 	end
 	
 	% ## ELECTRIC VEHICLES ##
-	% Get name of electric vehicles
-	evList = string(fieldnames(electricVehicles));
 	% For each electric vehicle
-	for ev_idx = 1:numel(evList)
-		evName = evList(ev_idx);
+	for ev_idx = 1:numel(evsList)
+		evName = evsList(ev_idx);
 		% Assign properties of the electric vehicle
 		% Name
 		baseStructure.electricVehicles(ev_idx).name = evName;
@@ -211,15 +224,26 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 										duration2sample(timeVector2duration(electricVehicles.(evName).charger.constraints.workTimeConstraint.upperTime, '24h'), '24h');
 		end
 		% Charger.confliction constraint
-		baseStructure.electricVehicles(ev_idx).charger.conflictionConstraint.case =...
-																																logical(electricVehicles.(evName).charger.constraints.conflictionConstraint.case);
-		if baseStructure.electricVehicles(ev_idx).charger.conflictionConstraint.case
-			conflictList = string(electricVehicles.(evName).charger.constraints.conflictionConstraint.list);
+		baseStructure.electricVehicles(ev_idx).charger.applianceConflictionConstraint.case =...
+																												logical(electricVehicles.(evName).charger.constraints.applianceConflictionConstraint.case);
+		if baseStructure.electricVehicles(ev_idx).charger.applianceConflictionConstraint.case
+			conflictList = string(electricVehicles.(evName).charger.constraints.applianceConflictionConstraint.list);
 			ids = zeros(1, numel(conflictList));
 			for conflict_idx = 1:numel(conflictList)
 				ids(conflict_idx) = find(appliancesList == conflictList(conflict_idx));
 			end
-			baseStructure.electricVehicles(ev_idx).charger.conflictionConstraint.list = uint8(ids);
+			baseStructure.electricVehicles(ev_idx).charger.applianceConflictionConstraint.list = uint8(ids);
+		end
+		
+		baseStructure.electricVehicles(ev_idx).charger.evConflictionConstraint.case =...
+																																logical(electricVehicles.(evName).charger.constraints.evConflictionConstraint.case);
+		if baseStructure.electricVehicles(ev_idx).charger.evConflictionConstraint.case
+			conflictList = string(electricVehicles.(evName).charger.constraints.evConflictionConstraint.list);
+			ids = zeros(1, numel(conflictList));
+			for conflict_idx = 1:numel(conflictList)
+				ids(conflict_idx) = find(evsList == conflictList(conflict_idx));
+			end
+			baseStructure.electricVehicles(ev_idx).charger.evConflictionConstraint.list = uint8(ids);
 		end
 		% Charge level percentage
 		baseStructure.electricVehicles(ev_idx).chargeLevelPercentage.format = electricVehicles.(evName).chargeLevelPercentage.format;
