@@ -159,6 +159,8 @@ function endUsers = assignAppliances2endUsers(endUsers, baseStructure, COUNT_SAM
 				endUsers(endUser_idx).EVs(assignedEV_idx).evID = assignedEVID;
 				% Assign EV name
 				endUsers(endUser_idx).EVs(assignedEV_idx).evName = baseStructure.electricVehicles(assignedEVID).name;
+				% Assign <tuc>
+				endUsers(endUser_idx).EVs(assignedEV_idx).tuc = single(0);
 				% Assign usage array
 				endUsers(endUser_idx).EVs(assignedEV_idx).usageArray = repmat(generateUsageVector(COUNT_SAMPLE_IN_DAY), COUNT_DAYS, 1);
 			end
