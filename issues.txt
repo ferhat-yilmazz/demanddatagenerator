@@ -1,0 +1,12 @@
+## Definition
+This report focus on lacks of the project. It can be sourced by software, algorithm or hardware.
+In future, it is possible to fix specified lacks.
+
+# Issue 24012021_1
+Appliances and electric vehicles can be assigned only once. Multiple assignment is not handled.
+It is clear the issue demaged the reality of generated data.
+
+# Issue 24012021_2
+Confliction checking process for appliances and electric vehicles assumes that the end-user
+have only one appliance or electric vehicle for each type. So, if there is multiple assignment
+for any appliance or electric vehicles there will be errors which abort the process.
