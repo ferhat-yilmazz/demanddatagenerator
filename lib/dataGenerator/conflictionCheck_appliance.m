@@ -17,8 +17,7 @@
 	2. <baseStructure> : structure : Base structure
 	3. <applianceIndex> : integer : Index of the appliance for the end-user
 	4. <applianceID> : integer : ID of the electric vehicle for the baseStructure
-	4. <dayIndex> : integer : Day index
-	5. <dayPartIndex> : array : Index of the day part
+	5. <dayIndex> : integer : Day index
 	6. <COUNT_WEEKS> : integer : Count of weeks
 	7. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 	
@@ -27,7 +26,7 @@
 %}
 
 %%
-function applianceUsageArray = conflictionCheck_appliance(endUser, baseStructure, applianceIndex, applianceID, dayIndex, dayPartIndex,...
+function applianceUsageArray = conflictionCheck_appliance(endUser, baseStructure, applianceIndex, applianceID, dayIndex,...
 																													COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
 	% Assign usage array of the appliance to <applianceUsageArray>
 	applianceUsageArray = endUser.appliances(applianceIndex).usageArray;
@@ -36,8 +35,8 @@ function applianceUsageArray = conflictionCheck_appliance(endUser, baseStructure
 	mergedUsageArray = reshape(transpose(applianceUsageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	
 	% Determine <lowerPointer> and <upperPointer>
-	lowerPointer = (dayIndex-1)*COUNT_SAMPLE_IN_DAY + dayPartIndex(1);
-	upperPointer = (dayIndex-1)*COUNT_SAMPLE_IN_DAY + dayPartIndex(2);
+	lowerPointer = (dayIndex-1)*COUNT_SAMPLE_IN_DAY + 1;
+	upperPointer = (dayIndex+1)*COUNT_SAMPLE_IN_DAY;
 	
 	% Firstly, check for confliction with electric vehicles
 	if baseStructure.appliances(applianceID).evConflictionConstraint.case

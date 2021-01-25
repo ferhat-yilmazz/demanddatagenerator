@@ -41,8 +41,7 @@ function evUsageArray = worktime_ev(endUser, baseStructure, evIndex, evID, dayIn
 		% It is aimed to charge battery until it is full
 		lackBatteryLevel = baseStructure.electricVehicles(evID).batteryCapacity * (1- (batteryLevel/100));
 		% Select charger power in specified "electricVehicles.json" configuration file
-		chargerPower = chooseValue(baseStructure.electricVehicles(evID).charger.power.value,...
-															 baseStructure.electricVehicles(evID).charger.power.format);
+		chargerPower = chooseValue(baseStructure.electricVehicles(evID).charger.power.value, baseStructure.electricVehicles(evID).charger.power.format);
 		% Determine how many sample takes to charge battery fully
 		chargeDuration = duration2sample(hours(lackBatteryLevel/chargerPower), 'inf');
 	end

@@ -17,7 +17,6 @@
 	3. <evIndex> : integer : Index of the electric vehicle for the end-user
 	4. <evID> : integer : ID of the electric vehicle for the baseStructure
 	4. <dayIndex> : integer : Day index
-	5. <dayPartIndex> : array : Index of the day part
 	6. <COUNT_WEEKS> : integer : Count of weeks
 	7. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 	
@@ -26,7 +25,7 @@
 %}
 
 %%
-function evUsageArray = conflictionCheck_ev(endUser, baseStructure, evIndex, evID, dayIndex, dayPartIndex, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
+function evUsageArray = conflictionCheck_ev(endUser, baseStructure, evIndex, evID, dayIndex, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
 	% Assign the usage array of the electric vehichle to <evUsageArray>
 	evUsageArray = endUser.EVs(evIndex).usageArray;
 	
@@ -34,8 +33,8 @@ function evUsageArray = conflictionCheck_ev(endUser, baseStructure, evIndex, evI
 	mergedUsageArray = reshape(transpose(evUsageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	
 	% Determine <lowerPointer> and <upperPointer>
-	lowerPointer = (dayIndex-1)* COUNT_SAMPLE_IN_DAY + dayPartIndex(1);
-	upperPointer = (dayIndex-1)*COUNT_SAMPLE_IN_DAY + dayPartIndex(2);
+	lowerPointer = (dayIndex-1)* COUNT_SAMPLE_IN_DAY + 1;
+	upperPointer = (dayIndex)*COUNT_SAMPLE_IN_DAY;
 	
 	% Firstly, check for confliction with other electric vehicles
 	if baseStructure.electricVehicles(evID).charger.evConflictionConstraint.case
