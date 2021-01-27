@@ -23,7 +23,7 @@ function writeJSONFile(sourceStructure, filePath)
 	% Get datetime of now
 	nowDateTime = datetime('now', 'Format', 'yyyyMMddHHmmss');
 	% Add prename to <nowDateTime>
-	fileName = strcat('runprobabilityParameters_', string(nowDateTime), '_.json');
+	fileName = strcat('runProbabilityParameters_', string(nowDateTime), '_.json');
 	
 	% Open file called as <fileName> at given <filePath>
 	runprobabilityParameterFile = fopen(strcat(filePath, filesep, fileName), 'w');
