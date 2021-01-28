@@ -106,7 +106,7 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 					% ###############################################
 
 					% Select a random number between [0,100] (TRNG or PRNG)
-					randomRunNumber = getRandomVector(1, 0, 100, RAND_METHOD);
+					randomRunNumber = getRandomVector(1, 1, 100, RAND_METHOD);
 
 					% Check for the appliance can run or not
 					if randomRunNumber <= runProbability
