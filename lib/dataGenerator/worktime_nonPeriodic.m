@@ -1,107 +1,69 @@
  %% بسم الله الرحمن الرحیم 
 
-%% ## Assign Worktime for Periodic & non-Continous Appliances ##
-% 18.10.2020, Ferhat Yılmaz
+%% ## Assign Worktime for Non-Periodic Appliances ##
+% 24.01.2021, Ferhat Yılmaz
 
 %% Description
 %{
-	Function to assign worktime for the given periodic and
-	non-continuous appliance. Run probability control is not included.
-	Only confliction constraints will be checked.	
-	The appliance will not run if there is confliction during work time, although
-	it passed run probability check.
+	Function to assign worktime for the given non-periodic appliance. Run
+	probability determination is not covered here. If there is any conflicted
+	appliance or electric vehicle along working samples, then the appliance
+	cannot work. Similarly, over run (run multiple times on same sample)
+	will not be allowed. In this situations the function returns without
+	any process.
 
 >> Inputs:
-	1. <appliancesData> : structure : "appliancesData.json" config structure 
-	2. <endUser>: structure : Structure of the end-user
-	3. <appliance> : string : Name of the appliance to assign worktime
-	4. <runDay>: integer : Day number which the appliance run
-	5. <startSample> : integer : The sample which appliance start working
+	1. <baseStructure> : structure : Base structure
+	2. <applianceStructure> : struct : Structure of the appliance
+	3. <dayIndex> : integer : Day index
+	4. <startSample> : integer : Sample which the apliance starts run
+	5. <COUNT_WEEKS> : integer : Count of weeks
+	6. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 	
 << Outputs:
-	1. <endUser>: structure : Structure of the the end-user
+	1. <applianceStructure> : struct : Structure of the appliance
 
 %}
 
 %%
-function endUser = worktime_nonPeriodic(appliancesData, endUser, appliance, runDay, startSample)
-	% Get count of week
-	global COUNT_WEEKS;
-	% Get count of sample in a day
-	global COUNT_SAMPLE_IN_DAY;
+function applianceStructure = worktime_nonPeriodic(baseStructure, applianceStructure, dayIndex, startSample, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
+	% Get <applianceID>
+	applianceID = applianceStructure.applianceID;
 	
-	% Define a control bit to check the appliance worked or not
-	applianceIsWorked = false;
+	% Merge the usage array ans assign it to <mergedUsageArray>
+	mergedUsageArray = reshape(transpose(applianceStructure.usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	
-	% Reshape the <usageArray> to <mergedUsageVector>
-	mergedUsageVector = reshape(transpose(endUser.appliances.(string(appliance)).usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
-	totalSampleCount = numel(mergedUsageVector);
-	
-	% Get power value of the appliance
-	valueList = transpose(appliancesData.(string(appliance)).power.value);
-	valueFormat = appliancesData.(string(appliance)).power.format;
-	if strcmp(valueFormat, 'choice')
-		assert(numel(valueList) > 0, 'appliancesData.json:' + string(appliance) + ' <power.value> error!');
-		powerValue = datasample(valueList, 1);
-	elseif strcmp(valueFormat, 'interval')
-		assert((numel(valueList) == 2) && (valueList(1) <= valueList(2)),...
-																													'appliancesData.json:' + string(appliance) + ' <power.value> error!')
-		powerValue = datasample(valueList(1):valueList(2), 1);
+	% Get requested power of the appliance
+	% Determine sign of the power value according to type of the appliance:
+	%		* Type - 1 : Producer (-)
+	%		* Type - 0 : Consumer (+)
+	if baseStructure.appliances(applianceID).type
+		requestedPower = -chooseValue(baseStructure.appliances(applianceID).power.value, baseStructure.appliances(applianceID).power.format);
 	else
-		error('appliancesData.json:' + string(appliance) + ' <power.format> undefined!');
-	end
-	% According to type of the appliance, change sign of <powerValue>
-	% Type 0 => Consumer
-	% Type 1 => Producer
-	if appliancesData.(string(appliance)).type
-		powerValue = -powerValue;
+		requestedPower = chooseValue(baseStructure.appliances(applianceID).power.value, baseStructure.appliances(applianceID).power.format);
 	end
 	
-	% Get <runDuration> of the appliance
-	runDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
+	% Get run duration of the appliance
+	runDuration = baseStructure.appliances(applianceID).operation.runDuration;
 	
 	% Determine <startPointer> and <endPointer>
-	startPointer = (runDay-1)*COUNT_SAMPLE_IN_DAY + startSample;
-	endPointer = startPointer + runDuration_sample - 1;
+	startPointer = (dayIndex - 1)*COUNT_SAMPLE_IN_DAY + startSample;
+	endPointer = startPointer + runDuration - 1;
 	
-	% Check for 'out of index'; update <operationDuration> against to risk
-	if endPointer > totalSampleCount
-		endPointer = totalSampleCount;
+	% Check for <endPointer> is not out of index
+	if endPointer > numel(mergedUsageArray)
+		endPointer = numel(mergedUsageArray);
 	end
 	
-	% Check for is there <conflictAppliances>
-	if appliancesData.(string(appliance)).constraints.conflictionConstraint.case
-		conflictAppliances = transpose(cellstr(appliancesData.(string(appliance)).constraints.conflictionConstraint.list));
-		% Be sure <conflictAppliances> are not empty
-		assert(~isempty(conflictAppliances), 'appliancesData.json:' + string(appliance) +...
-																				 ' constraints <conflictionConstraint> configuration error!');
-		
-		% For each conflict appliance which owned by the end-user
-		for conflictAppliance = conflictAppliances
-			if isfield(endUser.appliances, string(conflictAppliance))
-				conflictAppliance_mergedUsageVector = reshape(transpose(endUser.appliances.(string(conflictAppliance)).usageArray),...
-																																																					1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
-				mergedUsageVector(conflictAppliance_mergedUsageVector(startPointer:endPointer) > 0) = single(-1);
-			end
-		end
+	% Assign work time if confliction and overrun issues are valid
+	if all(mergedUsageArray(startPointer:endPointer) == 0)
+		mergedUsageArray(startPointer:endPointer) = requestedPower;
+		% Increase usage counters <duc>, <wuc> and <tuc>
+		applianceStructure.duc = applianceStructure.duc + 1;
+		applianceStructure.wuc = applianceStructure.wuc + 1;
+		applianceStructure.tuc = applianceStructure.tuc + runDuration;
 	end
 	
-	% Consider that is there conflicted samples & over run
-	if all(mergedUsageVector(startPointer:endPointer) == 0)
-		% Insert worktime
-		mergedUsageVector(startPointer:endPointer) = single(powerValue);
-			
-		% Specify that the appliance worked
-		applianceIsWorked = true;
-	end
-	
-	% Reshape the <mergedUsageVector> to <usageArray>
-	endUser.appliances.(string(appliance)).usageArray = transpose(reshape(mergedUsageVector, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
-	
-	% Increase by 1 <duc> and <wuc> if the appliance worked
-	if applianceIsWorked
-		endUser.appliances.(string(appliance)).duc = endUser.appliances.(string(appliance)).duc + single(1);
-		endUser.appliances.(string(appliance)).wuc = endUser.appliances.(string(appliance)).wuc + single(1);
-		endUser.appliances.(string(appliance)).tuc = endUser.appliances.(string(appliance)).tuc + single(1);
-	end
+	% Reshap <mergedUsageArray> and assign it to <evUsageArray>
+	applianceStructure.usageArray = transpose(reshape(mergedUsageArray, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
 end
