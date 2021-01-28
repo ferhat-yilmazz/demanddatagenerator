@@ -12,23 +12,21 @@
 	and power of the charger.
 
 >> Inputs:
-	1. <endUser> : structure : The structure of the end-user
-	2. <baseStructure> : structure : Base structure
-	3. <evIndex> : integer : Index of the electric vehicle for the end-user
-	4. <evID> : integer : ID of the electric vehicle for the baseStructure
-	4. <dayIndex> : integer : Day index
-	5. <batteryLevel> : integer : Selected battery level
-	6. <COUNT_WEEKS> : integer : Count of weeks
-	7. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
+	1. <baseStructure> : structure : Base structure
+	2. <evStructure> : structure : Structure of the electrice vehicle belongs to the end-user
+	3. <dayIndex> : integer : Day index
+	4. <batteryLevel> : integer : Selected battery level
+	5. <COUNT_WEEKS> : integer : Count of weeks
+	6. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 	
 << Outputs:
-	1. <evUsageArray> : array : Usage array of the EV
+	1. <evStructure> : array : Usage array of the EV
 %}
 
 %%
-function evUsageArray = worktime_ev(endUser, baseStructure, evIndex, evID, dayIndex, batteryLevel, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
-	% Assign the usage array of the electric vehichle to <evUsageArray>
-	evUsageArray = endUser.EVs(evIndex).usageArray;
+function evStructure = worktime_ev(baseStructure, evStructure, dayIndex, batteryLevel, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
+	% Get ID of the electric vehicle
+	evID = evStructure.evID;
 	
 	% Firstly determine charge duration according to inserted <batteryLevel> parameter
 	if batteryLevel == 100
@@ -47,7 +45,7 @@ function evUsageArray = worktime_ev(endUser, baseStructure, evIndex, evID, dayIn
 	end
 	
 	% Merge the usage array of charger of the electric vehicle
-	mergedUsageArray = reshape(transpose(evUsageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
+	mergedUsageArray = reshape(transpose(evStructure.usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
 	
 	% Determine <lowerPointer> and <upperPointer>
 	lowerPointer = (dayIndex-1)* COUNT_SAMPLE_IN_DAY + 1;
@@ -74,7 +72,9 @@ function evUsageArray = worktime_ev(endUser, baseStructure, evIndex, evID, dayIn
 	
 	% Assign usage interval with <chargerPower>
 	mergedUsageArray(runableSamples(startPointer:endPointer)) = chargerPower;
+	% Increae <tuc> value
+	evStructure.tuc = evStructure.tuc + single(numel(startPointer:endPointer));
 	
 	% Reshap <mergedUsageArray> and assign it to <evUsageArray>
-	evUsageArray = transpose(reshape(mergedUsageArray, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
+	evStructure.usageArray = transpose(reshape(mergedUsageArray, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
 end
