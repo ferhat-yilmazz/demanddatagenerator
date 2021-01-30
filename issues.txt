@@ -10,3 +10,8 @@ It is clear the issue demaged the reality of generated data.
 Confliction checking process for appliances and electric vehicles assumes that the end-user
 have only one appliance or electric vehicle for each type. So, if there is multiple assignment
 for any appliance or electric vehicles there will be errors which abort the process.
+
+# Issue 25012021_1
+Multiple assignment of same appliances or electric vehicles not handled at worktime assignment
+process.
+
