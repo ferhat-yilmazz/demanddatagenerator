@@ -165,9 +165,14 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 							else
 								maxLimit = GLOB_MAX_OPERATION_LIMIT;
 							end
-
+														
 							% Select runtime duration randomly according to limits
 							runtimeSample = randi([minLimit maxLimit]);
+							
+							% Sure that <runtimeSamle> can divided "runDuration + waitDuration" exactly
+							if mod(runtimeSample, minLimit) ~= 0
+								runtimeSample = runtimeSample - (mod(runtimeSample, minLimit));
+							end
 							
 						elseif strcmp(endUserTypeStruct.appliances(applianceID).operation.mode, 'non-periodic')
 							% Determine runtime sample
