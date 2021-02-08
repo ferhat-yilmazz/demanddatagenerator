@@ -9,7 +9,7 @@
 	probability determination is not covered here. If there is any conflicted
 	appliance or electric vehicle along working samples, then the appliance
 	cannot work. Similarly, over run (run multiple times on same sample)
-	will not be allowed. In this situations the function returns without
+	will not be allowed. In these situations the function returns without
 	any process.
 
 >> Inputs:
@@ -44,11 +44,11 @@ function applianceStructure = worktime_nonPeriodic(baseStructure, applianceStruc
 	end
 	
 	% Get run duration of the appliance
-	runDuration = baseStructure.appliances(applianceID).operation.runDuration;
+	operationDuration = baseStructure.appliances(applianceID).operation.runDuration;
 	
 	% Determine <startPointer> and <endPointer>
 	startPointer = (dayIndex - 1)*COUNT_SAMPLE_IN_DAY + startSample;
-	endPointer = startPointer + runDuration - 1;
+	endPointer = startPointer + operationDuration - 1;
 	
 	% Check for <endPointer> is not out of index
 	if endPointer > numel(mergedUsageArray)
@@ -61,7 +61,7 @@ function applianceStructure = worktime_nonPeriodic(baseStructure, applianceStruc
 		% Increase usage counters <duc>, <wuc> and <tuc>
 		applianceStructure.duc = applianceStructure.duc + 1;
 		applianceStructure.wuc = applianceStructure.wuc + 1;
-		applianceStructure.tuc = applianceStructure.tuc + runDuration;
+		applianceStructure.tuc = applianceStructure.tuc + operationDuration;
 	end
 	
 	% Reshap <mergedUsageArray> and assign it to <evUsageArray>
