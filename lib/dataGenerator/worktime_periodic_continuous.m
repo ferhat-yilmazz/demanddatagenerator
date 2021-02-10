@@ -6,94 +6,75 @@
 %% Description
 %{
 	Function to assign worktime for the given periodic and continous appliance.
-	These appliances run all day with given wait/run durations periodically. All
-	days will be merged and considered as one timeline. There is no need
-	run probability check!
+	These appliances run all day with given wait/run durations periodically.
+	There is no need run probability check.
 
 >> Inputs:
-	1. <appliancesData> : structure : "appliancesData.json" config structure 
-	2. <endUser>: structure : Structure of the end-user
-	3. <appliance> : string : Name of the appliance to assign worktime
+	1. <baseStructure> : structure : Base structure
+	2. <applianceStructure> : struct : Structure of the appliance
+	3. <dayIndex> : integer : Day index
+	4. <COUNT_WEEKS> : integer : Count of weeks
+	5. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 	
 << Outputs:
-	1. <endUser>: structure : Structure of the end-user
+	1. <applianceStructure> : struct : Structure of the appliance
+
 %}
 
 %%
-function endUser = worktime_periodic_continuous(appliancesData, endUser, appliance)
-	% Get count of week
-	global COUNT_WEEKS;
-	% Get count of sample in a day
-	global COUNT_SAMPLE_IN_DAY;
-	% Get runDuration and waitDuration of the appliance and convert to sample
-	runDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
-	waitDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
+function applianceStructure = worktime_periodic_continuous(baseStructure, applianceStructure, dayIndex, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
+	% Get <applianceID>
+	applianceID = applianceStructure.applianceID;
 	
-	% Merge all usage vectors in the usage array
-	% Unused samples (because constraints) are signed by -1
-	mergedUsageVector = reshape(transpose(endUser.appliances.(string(appliance)).usageArray),...
-															1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
-														
-	% Get power value of the appliance
-	valueList = transpose(appliancesData.(string(appliance)).power.value);
-	valueFormat = appliancesData.(string(appliance)).power.format;
-	if strcmp(valueFormat, 'choice')
-		assert(numel(valueList) > 0, 'appliancesData.json:' + string(appliance) + ' <power.value> error!');
-		powerValue = datasample(valueList, 1);
-	elseif strcmp(valueFormat, 'interval')
-		assert((numel(valueList) == 2) && (valueList(1) <= valueList(2)),...
-																													'appliancesData.json:' + string(appliance) + ' <power.value> error!')
-		powerValue = datasample(valueList(1):valueList(2), 1);
-	else
-		error('appliancesData.json:' + string(appliance) + ' <power.format> undefined!');
-	end
-	% According to type of the appliance, change sign of <powerValue>
-	% Type 0 => Consumer
-	% Type 1 => Producer
-	if appliancesData.(string(appliance)).type
-		powerValue = -powerValue;
-	end
+	% Merge the usage array ans assign it to <mergedUsageArray>
+	mergedUsageArray = reshape(transpose(applianceStructure.usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
+	cloneMergedUsageArray = mergedUsageArray;
+	totalSampleCount = COUNT_WEEKS * 7 * COUNT_SAMPLE_IN_DAY;
 	
-	% Assign worktime; it is assumed that usage of the appliance start at first sample
-	% If <runDuration> == 1 and <waitDuration> == 0; then the appliance runs non-stop
-	if (runDuration_sample == 1) && (waitDuration_sample == 0)
-		mergedUsageVector(mergedUsageVector ~= -1) = single(powerValue);
-	elseif (runDuration_sample > 0) && (waitDuration_sample >= 0)
-		periodLength = runDuration_sample+waitDuration_sample;
-		periodCount = floor(numel(mergedUsageVector)/periodLength);
-		remainedSample = mod(numel(mergedUsageVector), periodLength);
-		
-		% As many as count of period, the appliance runs and waits
-		for step = 1:periodCount
-			% Define a pointer which points first sample of period
-			startPointer = ((step-1)*periodLength) + 1;
-			% Define a pointer which points last sample of period
-			endPointer = step*periodLength;
-			
-			% Check for there is not -1 along period
-			if ~ismember(-1,mergedUsageVector(startPointer:endPointer))
-				mergedUsageVector(startPointer:startPointer+runDuration_sample-1) = single(powerValue);
-				% FIXME: Maybe following line is unneccessary
-				% mergedUsageVector(startPointer+runDuration_sample:endPointer) = single(0);
-			end
+	% Get requested power of the appliance
+	requestedPower = chooseValue(baseStructure.appliances(applianceID).power.value, baseStructure.appliances(applianceID).power.format);	
+	
+	% Get <runDuration>, <waitDuration>, and <cycleDuration>
+	runDuration = baseStructure.appliances(applianceID).operation.runDuration;
+	waitDuration = baseStructure.appliances(applianceID).operation.waitDuration;
+	cycleDuration = runDuration + waitDuration;
+	
+	% Determine <startPointer> & <endPointer>
+	startPointer = 1;
+	endPointer = startPointer + runDuration - 1;
+	cycleEnd = startPointer + runDuration + waitDuration - 1;
+	
+	% Determine how many cycle assigned and how many sample remained
+	remainedSamples = mod(totalSampleCount, cycleDuration);
+	totalCycleCount = (totalSampleCount-remainedSamples) / cycleDuration;
+	
+	for cycleNo = 1:totalCycleCount
+		% If there is no confliction, assign worktime
+		if all(cloneMergedUsageArray(startPointer:cycleEnd) == 0)
+			cloneMergedUsageArray(startPointer:endPointer) = requestedPower;
 		end
-		
-		% Consider remained samples
-		if remainedSample >= runDuration_sample
-			if ~ismember(-1, mergedUsageVector(end-remainedSample+1:end-remainedSample+runDuration_sample))
-				mergedUsageVector(end-remainedSample+1:end-remainedSample+runDuration_sample) = single(powerValue);
-			end
+		% Go step for other cycle
+		startPointer = cycleEnd + 1;
+		endPointer = startPointer + runDuration - 1;
+		cycleEnd = startPointer + runDuration + waitDuration - 1;
+	end
+	
+	% Remained samples
+	startPointer = totalSampleCount - remainedSamples + 1;
+	if all(cloneMergedUsageArray(startPointer:end) == 0)
+		if remainedSamples <= runDuration
+			cloneMergedUsageArray(startPointer:end) = requestedPower;
 		else
-			if ~ismember(-1, mergedUsageVector(end-remainedSample+1:end))
-				mergedUsageVector(end-remainedSample+1:end) = single(powerValue);
-			end
+			cloneMergedUsageArray(startPointer:(startPointer + runDuration - 1)) = requestedPower;
 		end
-	else
-		% If <runDuration> has another value, return error
-		error('appliancesData.json:' + string(appliance) + ' <runDuration> or <waitDuration> contains undefined value!');
 	end
 	
-	% Reshape merged usage vector to usage array
-	endUser.appliances.(string(appliance)).usageArray = transpose(reshape(mergedUsageVector,...
-																																COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
+	% Assign specified part of <cloneMergedUsageArray> to <mergedUsageArray>
+	lowSample = (dayIndex-1)*COUNT_SAMPLE_IN_DAY + 1;
+	upSample = (dayIndex)*COUNT_SAMPLE_IN_DAY;
+	
+	mergedUsageArray(lowSample:upSample) = cloneMergedUsageArray(lowSample:upSample);
+	
+	% Reshap <mergedUsageArray> and assign it to <evUsageArray>
+	applianceStructure.usageArray = transpose(reshape(mergedUsageArray, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
 end
