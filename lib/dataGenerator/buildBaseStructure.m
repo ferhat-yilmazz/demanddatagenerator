@@ -76,12 +76,12 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 		if baseStructure.appliances(appliance_idx).operation.periodicity
 			baseStructure.appliances(appliance_idx).operation.continuity = logical(appliancesData.(applianceName).operation.continuity);
 			baseStructure.appliances(appliance_idx).operation.runDuration =...
-																					duration2sample(timeVector2duration(appliancesData.(applianceName).operation.runDuration, 'inf'), 'inf');
+																					duration2sample(timeVector2duration(appliancesData.(applianceName).operation.runDuration, SAMPLE_PERIOD, 'inf'), SAMPLE_PERIOD, 'inf');
 			baseStructure.appliances(appliance_idx).operation.waitDuration =...
-																					duration2sample(timeVector2duration(appliancesData.(applianceName).operation.waitDuration, 'inf'), 'inf');
+																					duration2sample(timeVector2duration(appliancesData.(applianceName).operation.waitDuration, SAMPLE_PERIOD, 'inf'), SAMPLE_PERIOD, 'inf');
 			if ~baseStructure.appliances(appliance_idx).operation.continuity	
 				baseStructure.appliances(appliance_idx).operation.maxOperationLimit =...
-																		duration2sample(timeVector2duration(appliancesData.(applianceName).operation.maxOperationLimit, 'inf'), 'inf');
+																		duration2sample(timeVector2duration(appliancesData.(applianceName).operation.maxOperationLimit, SAMPLE_PERIOD, 'inf'), SAMPLE_PERIOD, 'inf');
 				if baseStructure.appliances(appliance_idx).operation.maxOperationLimit <...
 										(baseStructure.appliances(appliance_idx).operation.runDuration + baseStructure.appliances(appliance_idx).operation.waitDuration)
 					baseStructure.appliances(appliance_idx).operation.maxOperationLimit = GLOB_MAX_OPERATION_LIMIT;
@@ -90,7 +90,7 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 		else
 			baseStructure.appliances(appliance_idx).operation.continuity = false;
 			baseStructure.appliances(appliance_idx).operation.runDuration =...
-																					duration2sample(timeVector2duration(appliancesData.(applianceName).operation.runDuration, 'inf'), 'inf');
+																					duration2sample(timeVector2duration(appliancesData.(applianceName).operation.runDuration, SAMPLE_PERIOD, 'inf'), SAMPLE_PERIOD, 'inf');
 		end
 		% Dependency
 		baseStructure.appliances(appliance_idx).dependency.case = logical(appliancesData.(applianceName).dependency.case);
@@ -107,9 +107,9 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 		baseStructure.appliances(appliance_idx).workTimeConstraint.case = logical(appliancesData.(applianceName).constraints.workTimeConstraint.case);
 		if baseStructure.appliances(appliance_idx).workTimeConstraint.case
 			baseStructure.appliances(appliance_idx).workTimeConstraint.lowerSample =...
-										duration2sample(timeVector2duration(appliancesData.(applianceName).constraints.workTimeConstraint.lowerTime, '24h'), '24h');
+										duration2sample(timeVector2duration(appliancesData.(applianceName).constraints.workTimeConstraint.lowerTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 			baseStructure.appliances(appliance_idx).workTimeConstraint.upperSample =...
-										duration2sample(timeVector2duration(appliancesData.(applianceName).constraints.workTimeConstraint.upperTime, '24h'), '24h');
+										duration2sample(timeVector2duration(appliancesData.(applianceName).constraints.workTimeConstraint.upperTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 		end
 		% Confliction constraint
 		baseStructure.appliances(appliance_idx).applianceConflictionConstraint.case =...
@@ -168,9 +168,9 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 		if baseStructure.endUserTypes(endUserType_idx).jobSchedule.case
 			baseStructure.endUserTypes(endUserType_idx).jobSchedule.workDays = uint8(residentalTypes.(endUserType).jobSchedule.workDays);
 			baseStructure.endUserTypes(endUserType_idx).jobSchedule.lowerSample =...
-																						duration2sample(timeVector2duration(residentalTypes.(endUserType).jobSchedule.lowerTime, '24h'), '24h');
+																						duration2sample(timeVector2duration(residentalTypes.(endUserType).jobSchedule.lowerTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 			baseStructure.endUserTypes(endUserType_idx).jobSchedule.upperSample =...
-																						duration2sample(timeVector2duration(residentalTypes.(endUserType).jobSchedule.upperTime, '24h'), '24h');
+																						duration2sample(timeVector2duration(residentalTypes.(endUserType).jobSchedule.upperTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 		end
 		% Constraints
 		baseStructure.endUserTypes(endUserType_idx).constraints.constraintsCount = uint8(residentalTypes.(endUserType).constraints.constraintsCount);
@@ -180,9 +180,9 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 				baseStructure.endUserTypes(endUserType_idx).constraints.(constraintName).days =...
 																																						uint8(residentalTypes.(endUserType).constraints.(constraintName).days);
 				baseStructure.endUserTypes(endUserType_idx).constraints.(constraintName).lowerSample =...
-													duration2sample(timeVector2duration(residentalTypes.(endUserType).constraints.(constraintName).lowerTime, '24h'), '24h');
+													duration2sample(timeVector2duration(residentalTypes.(endUserType).constraints.(constraintName).lowerTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 				baseStructure.endUserTypes(endUserType_idx).constraints.(constraintName).upperSample =...
-													duration2sample(timeVector2duration(residentalTypes.(endUserType).constraints.(constraintName).upperTime, '24h'), '24h');
+													duration2sample(timeVector2duration(residentalTypes.(endUserType).constraints.(constraintName).upperTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 				
 				constraintApplianceList = string(residentalTypes.(endUserType).constraints.(constraintName).list);	
 				ids = zeros(1, numel(constraintApplianceList));
@@ -196,9 +196,9 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 		baseStructure.endUserTypes(endUserType_idx).sleepTime.case = logical(residentalTypes.(endUserType).sleepTime.case);
 		if baseStructure.endUserTypes(endUserType_idx).sleepTime.case
 			baseStructure.endUserTypes(endUserType_idx).sleepTime.lowerSample =...
-																							duration2sample(timeVector2duration(residentalTypes.(endUserType).sleepTime.lowerTime, '24h'), '24h');
+																							duration2sample(timeVector2duration(residentalTypes.(endUserType).sleepTime.lowerTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 			baseStructure.endUserTypes(endUserType_idx).sleepTime.upperSample =...
-																							duration2sample(timeVector2duration(residentalTypes.(endUserType).sleepTime.upperTime, '24h'), '24h');
+																							duration2sample(timeVector2duration(residentalTypes.(endUserType).sleepTime.upperTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 		end
 	end
 	
@@ -219,9 +219,9 @@ function baseStructure = buildBaseStructure(appliancesData, residentalTypes, ele
 																																		logical(electricVehicles.(evName).charger.constraints.workTimeConstraint.case);
 		if baseStructure.electricVehicles(ev_idx).charger.workTimeConstraint.case
 			baseStructure.electricVehicles(ev_idx).charger.workTimeConstraint.lowerSample =...
-										duration2sample(timeVector2duration(electricVehicles.(evName).charger.constraints.workTimeConstraint.lowerTime, '24h'), '24h');
+										duration2sample(timeVector2duration(electricVehicles.(evName).charger.constraints.workTimeConstraint.lowerTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 			baseStructure.electricVehicles(ev_idx).charger.workTimeConstraint.upperSample =...
-										duration2sample(timeVector2duration(electricVehicles.(evName).charger.constraints.workTimeConstraint.upperTime, '24h'), '24h');
+										duration2sample(timeVector2duration(electricVehicles.(evName).charger.constraints.workTimeConstraint.upperTime, SAMPLE_PERIOD, '24h'), SAMPLE_PERIOD, '24h');
 		end
 		% Charger.confliction constraint
 		baseStructure.electricVehicles(ev_idx).charger.applianceConflictionConstraint.case =...

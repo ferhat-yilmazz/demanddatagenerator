@@ -15,15 +15,14 @@
 >> Inputs:
 	1. <timeVector> : vector : Time vector such that [<hour>, <minute>] OR [-1]
 	2. <mode> : string : '24h' or 'inf'
+	3. <SAMPLE_PERIOD> : integer : Period of a sample
 
 << Outputs:
 	1. <timeInDuration> : duration : Duration value
 %}
 
 %%
-function timeInDuration = timeVector2duration(timeVector, mode)
-	global SAMPLE_PERIOD
-	
+function timeInDuration = timeVector2duration(timeVector, SAMPLE_PERIOD, mode)
 	% Check for how many item contained at <timeVector>
 	if numel(timeVector) == 1
 		if timeVector == -1

@@ -16,15 +16,16 @@
 	2. <evStructure> : structure : Structure of the electrice vehicle belongs to the end-user
 	3. <dayIndex> : integer : Day index
 	4. <batteryLevel> : integer : Selected battery level
-	5. <COUNT_WEEKS> : integer : Count of weeks
-	6. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
+	5. <SAMPLE_PERIOD> : integer : Period of a sample
+	6. <COUNT_WEEKS> : integer : Count of weeks
+	7. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 	
 << Outputs:
 	1. <evStructure> : array : Usage array of the EV
 %}
 
 %%
-function evStructure = worktime_ev(baseStructure, evStructure, dayIndex, batteryLevel, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
+function evStructure = worktime_ev(baseStructure, evStructure, dayIndex, batteryLevel, SAMPLE_PERIOD, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
 	% Get ID of the electric vehicle
 	evID = evStructure.evID;
 	
@@ -41,7 +42,7 @@ function evStructure = worktime_ev(baseStructure, evStructure, dayIndex, battery
 		% Select charger power in specified "electricVehicles.json" configuration file
 		chargerPower = chooseValue(baseStructure.electricVehicles(evID).charger.power.value, baseStructure.electricVehicles(evID).charger.power.format);
 		% Determine how many sample takes to charge battery fully
-		chargeDuration = duration2sample(hours(lackBatteryLevel/chargerPower), 'inf');
+		chargeDuration = duration2sample(hours(lackBatteryLevel/chargerPower), SAMPLE_PERIOD, 'inf');		
 	end
 	
 	% Merge the usage array of charger of the electric vehicle
