@@ -28,7 +28,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -56,6 +59,7 @@
     },
     "dependency": {
       "case": 1,
+      "needAll": 1,
       "list": [
         "washingMachine"
       ]
@@ -64,7 +68,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -98,7 +105,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -126,6 +136,7 @@
     },
     "dependency": {
       "case": 1,
+      "needAll": 1,
       "list": [
         "washingMachine"
       ]
@@ -134,7 +145,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -167,7 +181,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -200,7 +217,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -232,7 +252,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -265,7 +288,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -301,7 +327,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -336,7 +365,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -370,7 +402,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -404,7 +439,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -444,7 +482,10 @@
         "lowerTime": [17,0],
         "upperTime": [5,0]
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -479,7 +520,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -514,7 +558,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -547,7 +594,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -582,7 +632,10 @@
         "lowerTime": [7,0],
         "upperTime": [17,0]
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -617,7 +670,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -647,8 +703,11 @@
     "constraints": {
       "workTimeConstraint": {
         "case": 0
-	  },
-      "conflictionConstraint": {
+	     },
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -674,6 +733,7 @@
     },
     "dependency": {
       "case": 1,
+      "needAll": 0,
       "list": [
         "pc",
         "laptop"
@@ -683,7 +743,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }
@@ -714,7 +777,10 @@
       "workTimeConstraint": {
         "case": 0
       },
-      "conflictionConstraint": {
+      "applianceConflictionConstraint": {
+        "case": 0
+      },
+      "evConflictionConstraint": {
         "case": 0
       }
     }

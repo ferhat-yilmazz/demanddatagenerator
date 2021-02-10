@@ -21,7 +21,7 @@
 function [randNumber, randStructure] = pickRandNumber(randStructure)
 	% Check the <index> value, generate new pool it equals to zero
 	if randStructure.index <= 0
-		randStructure = generateRandPool(randStructure);
+		randStructure = generateRandPool(randStructure, randStructure.poolSize);
 	end
 	
 	% Pick a number according to index order

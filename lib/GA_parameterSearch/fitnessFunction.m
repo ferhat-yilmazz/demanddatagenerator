@@ -106,7 +106,7 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 					% ###############################################
 
 					% Select a random number between [0,100] (TRNG or PRNG)
-					randomRunNumber = getRandomVector(1, 0, 100, RAND_METHOD);
+					randomRunNumber = getRandomVector(1, 1, 100, RAND_METHOD);
 
 					% Check for the appliance can run or not
 					if randomRunNumber <= runProbability
@@ -165,9 +165,14 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 							else
 								maxLimit = GLOB_MAX_OPERATION_LIMIT;
 							end
-
+														
 							% Select runtime duration randomly according to limits
 							runtimeSample = randi([minLimit maxLimit]);
+							
+							% Sure that <runtimeSamle> can divided "runDuration + waitDuration" exactly
+							if mod(runtimeSample, minLimit) ~= 0
+								runtimeSample = runtimeSample - (mod(runtimeSample, minLimit));
+							end
 							
 						elseif strcmp(endUserTypeStruct.appliances(applianceID).operation.mode, 'non-periodic')
 							% Determine runtime sample

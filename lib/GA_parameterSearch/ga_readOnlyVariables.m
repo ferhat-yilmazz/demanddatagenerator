@@ -9,7 +9,7 @@
 	in all program and they are never changed in runtime.
 %}
 
-%% Definition of global variables
+%% Definition of variables
 COUNT_WEEKS = uint16(geneticAlgorithm.weekCount);
 DAY_PIECE = uint16(initialConditions.dayPiece);
 SAMPLE_PERIOD = minutes(timeVector2duration(initialConditions.samplePeriod, '24h', 0)); % Sample period is not necessary here!

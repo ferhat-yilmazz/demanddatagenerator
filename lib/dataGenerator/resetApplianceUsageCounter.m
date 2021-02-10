@@ -9,33 +9,26 @@
 	"appliance weekly usage counter (wuc)" optionally.  
 
 >> Inputs:
-	1. <endUser>: structure : A structure which describes the end-user
+	1. <endUserAppliances>: structure : A structure of appliances belong to the end-user
 	2. <option> : string : "duc" or "wuc" to reset (make zero)
 
 << Outputs:
-	1. <endUser>: structure : A structure which describes the end-user
+	1. <endUserAppliances>: structure : A structure of appliances belong to the end-user
 %}
 
 %%
-function endUser = resetApplianceUsageCounter(endUser, option)
-	% Get appliances list
-	appliances = fieldnames(endUser.appliances);
-	
-	% If the appliance is periodic and continuous, pass it. <duc> and <wuc> are disabled for this
-	% type appliances
+function endUserAppliances = resetApplianceUsageCounter(endUserAppliances, option)
+	% Get count of appliances
+	appliancesCount = size(endUserAppliances, 2);
 	
 	switch option
 		case 'duc'
-			for appliance_index = 1:numel(appliances)
-				if isfield(endUser.appliances.(string(appliances(appliance_index))), 'duc')
-					endUser.appliances.(string(appliances(appliance_index))).duc = uint16(0);
-				end
+			for appliance_index = 1:appliancesCount
+				endUserAppliances(appliance_index).duc = single(0);
 			end
 		case 'wuc'
-			for appliance_index = 1:numel(appliances)
-				if isfield(endUser.appliances.(string(appliances(appliance_index))), 'wuc')
-					endUser.appliances.(string(appliances(appliance_index))).wuc = uint16(0);
-				end
+			for appliance_index = 1:appliancesCount
+				endUserAppliances(appliance_index).wuc = single(0);
 			end
 		otherwise
 			error('Undefined option given!!');

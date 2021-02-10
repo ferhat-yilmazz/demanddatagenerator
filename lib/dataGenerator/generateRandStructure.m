@@ -14,27 +14,31 @@
 	Random numbers must be an integer in the range [-1e9, 1e9].
 
 >> Inputs:
-	1. <method> : string :  randomization method
-
+	1. <lowerNumber> : integer : Lower boundary of random numbers
+	2. <upperNumber> : integer : Upper boundary of random numbers
+	3. <randMethod> : string : Randomization method
+	4. <poolSize> : integer : Size of random pool
+	
 << Outputs:
-	1. <randStructure> : structure : random number structure
+	1. <randStructure> : structure : Random number structure
 %}
 
 %%
-function randStructure = generateRandStructure(method, lowerNumber, upperNumber)
+function randStructure = generateRandStructure(lowerNumber, upperNumber, RAND_METHOD, poolSize)
 	% Initialize structure
 	randStructure = struct;
 	
 	% Initialize variables
 	randStructure.pool = 0;
 	randStructure.index = 0;
+	randStructure.poolSize = poolSize;
 	
 	% Check metod name is valid
 	msg = 'Invalid method name';
-	assert((strcmp(method,'TRNG') || strcmp(method, 'PRNG')), msg);
+	assert((strcmp(RAND_METHOD,'TRNG') || strcmp(RAND_METHOD, 'PRNG')), msg);
 	
 	% Assign method name after check
-	randStructure.method = method;
+	randStructure.method = RAND_METHOD;
 	
 	% Check for limit parameters are integer
 	msg = '<lowerNumber> and <upperNumber> must be integers';

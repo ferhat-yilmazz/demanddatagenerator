@@ -12,109 +12,70 @@
 	and power of the charger.
 
 >> Inputs:
-	1. <electricVehicles> : structure : "electricVehicles.json" config structure 
-	2. <endUser>: structure : Structure of the end-user
-	3. <ev> : string : Name of the EV to assign worktime
-	4. <runDay>: integer : Day number which the EV run
-	5. <batteryLevel> : integer : The level of the battery belongs to the EV
+	1. <baseStructure> : structure : Base structure
+	2. <evStructure> : structure : Structure of the electrice vehicle belongs to the end-user
+	3. <dayIndex> : integer : Day index
+	4. <batteryLevel> : integer : Selected battery level
+	5. <SAMPLE_PERIOD> : integer : Period of a sample
+	6. <COUNT_WEEKS> : integer : Count of weeks
+	7. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
 	
 << Outputs:
-	1. <endUser>: structure : Structure of the end-user
+	1. <evStructure> : array : Usage array of the EV
 %}
 
 %%
-function endUser = worktime_ev(evModel, endUser, runDay, batteryLevel)
-	% Get count of week
-	global COUNT_WEEKS;
-	% Get count of sample in a day
-	global COUNT_SAMPLE_IN_DAY;
-	%global db1;
-	%global db2;
-	%global db3;
+function evStructure = worktime_ev(baseStructure, evStructure, dayIndex, batteryLevel, SAMPLE_PERIOD, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY)
+	% Get ID of the electric vehicle
+	evID = evStructure.evID;
 	
-	% Reshape <usageArray> to <mergedUsageVector>
-	mergedUsageVector = reshape(transpose(endUser.ev.(string(evModel)).charger.usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
-	totalSampleCount = numel(mergedUsageVector);
-	
-	% Determine limits of possible work samples
-	% There are 2 options: With/without workTimeConstaint
-	if endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.case
-		lowerTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.lowerTime, '24h'));
-		upperTime_sample = duration2sample(double2duration(endUser.ev.(string(evModel)).charger.constraints.workTimeConstraint.upperTime, '24h'));
-		if lowerTime_sample >= upperTime_sample
-			lowerLimit = ((runDay-1)*COUNT_SAMPLE_IN_DAY) + lowerTime_sample;
-			upperLimit = (runDay*COUNT_SAMPLE_IN_DAY) + upperTime_sample;
-		else
-			lowerLimit = ((runDay-1)*COUNT_SAMPLE_IN_DAY) + lowerTime_sample;
-			upperLimit = (runDay*COUNT_SAMPLE_IN_DAY) + upperTime_sample;
-		end
-		% Check for out of index
-		if upperLimit > totalSampleCount
-			upperLimit = totalSampleCount;
-		end
+	% Firstly determine charge duration according to inserted <batteryLevel> parameter
+	if batteryLevel == 100
+		% If it is already full (i.e 100) than return and do nothing
+		return;
+	elseif (batteryLevel < 0) || (batteryLevel > 100)
+		% If it grater than 100 or less than zero return error
+		error("<worktime_ev> : <batteryLevel> must be in range [0,100]");
 	else
-		lowerLimit = (runDay-1)*COUNT_SAMPLE_IN_DAY;
-		upperLimit = (runDay)*COUNT_SAMPLE_IN_DAY;
+		% It is aimed to charge battery until it is full
+		lackBatteryLevel = baseStructure.electricVehicles(evID).batteryCapacity * (1- (batteryLevel/100));
+		% Select charger power in specified "electricVehicles.json" configuration file
+		chargerPower = chooseValue(baseStructure.electricVehicles(evID).charger.power.value, baseStructure.electricVehicles(evID).charger.power.format);
+		% Determine how many sample takes to charge battery fully
+		chargeDuration = duration2sample(hours(lackBatteryLevel/chargerPower), SAMPLE_PERIOD, 'inf');		
 	end
 	
-	% Get power value of charger
-	valueList = transpose(endUser.ev.(string(evModel)).charger.power.value);
-	valueFormat = endUser.ev.(string(evModel)).charger.power.format;
-	if strcmp(valueFormat, 'choice')
-		assert(numel(valueList) > 0, 'electrictVehicles.json:' + string(evModel) + ' <chargeLevelPercentage.value> error!');
-		powerValue = datasample(valueList, 1);
-	elseif strcmp(valueFormat, 'interval')
-		assert((numel(valueList) == 2) && (valueList(1) <= valueList(2)),...
-																													'electrictVehicles.json:' + string(evModel) + ' <chargeLevelPercentage.value> error!')
-		powerValue = datasample(valueList(1):valueList(2), 1);
+	% Merge the usage array of charger of the electric vehicle
+	mergedUsageArray = reshape(transpose(evStructure.usageArray), 1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
+	
+	% Determine <lowerPointer> and <upperPointer>
+	lowerPointer = (dayIndex-1)* COUNT_SAMPLE_IN_DAY + 1;
+	upperPointer = (dayIndex)*COUNT_SAMPLE_IN_DAY;
+	
+	% Find possible <startPointer> and <endPointer> according to <chargeDuration>
+	% Find runable samples
+	runableSamples = find(mergedUsageArray == 0);
+	runableSamples = runableSamples((runableSamples >= lowerPointer) & (runableSamples <= upperPointer));
+	% Check for <runableSamples> is fit to <chargeDuration>
+	if sum(runableSamples) <= chargeDuration
+		% Assign <startPointer>
+		startPointer = 1;
+		% Assign <endPointer>
+		endPointer = numel(runableSamples);
 	else
-		error('electrictVehicles.json:' + string(evModel) + ' <chargeLevelPercentage.format> undefined!');
+		possibleStartPointers = 1:(numel(runableSamples)-chargeDuration+1);
+		% Select on of them randomly and assign as <startPointer>
+		randStartPointerIndex = randi(numel(possibleStartPointers));
+		startPointer = possibleStartPointers(randStartPointerIndex);
+		% Assign <endPinter>
+		endPointer = startPointer + chargeDuration - 1;
 	end
 	
-	% Calculate <runDuration_sample> of the charger
-	batteryEmpty = ((100-batteryLevel)/100)*endUser.ev.(string(evModel)).batteryCapacity;
-	runDuration_sample = duration2sample(hours(batteryEmpty/powerValue));
+	% Assign usage interval with <chargerPower>
+	mergedUsageArray(runableSamples(startPointer:endPointer)) = chargerPower;
+	% Increae <tuc> value
+	evStructure.tuc = evStructure.tuc + single(numel(startPointer:endPointer));
 	
-	% Consider confliction constraints
-	% If there is confliction constraint
-	if endUser.ev.(string(evModel)).charger.constraints.conflictionConstraint.case
-		% Get appliances which conflict
-		conflictAppliances = transpose(cellstr(endUser.ev.(string(evModel)).charger.constraints.conflictionConstraint.list));
-		% Be sure <conflictAppliances> is not empty
-		assert(~isempty(conflictAppliances), 'electricVehicles.json:' + string(evModel) + ' <conflictionConstraint> configuration error!');
-		
-		% For each <conflictAppliances> which owned by the end-user, fill by -1 conflicted samples
-		for conflictAppliance = conflictAppliances
-			if isfield(endUser.appliances, string(conflictAppliance))
-				conflictAppliance_mergedUsageVector = reshape(transpose(endUser.appliances.(string(conflictAppliance)).usageArray),...
-																																																					1, COUNT_WEEKS*7*COUNT_SAMPLE_IN_DAY);
-				mergedUsageVector(conflictAppliance_mergedUsageVector(lowerLimit:upperLimit) > 0) = single(-1);
-			end
-		end
-	end
-	
-	%db1 = endUser;
-	%db2 = runDay;
-	%db3 = batteryLevel;
-	% NOTE: This alagorithm aims that the EV fully charged if there is possibility
-	% Select <startSample> randomly; consider <runDuration>
-	possibleSamplesVector = find(mergedUsageVector == 0);
-	possibleSamplesVector = possibleSamplesVector((possibleSamplesVector >=lowerLimit) & (possibleSamplesVector <= upperLimit));
-	% If element count of <possibleSamplesVector> less than or equal to <runDuration_sample>,
-	% then the EV will charged for all possible samples
-	if numel(possibleSamplesVector) <= runDuration_sample
-		% Assign worktime for this option
-		mergedUsageVector(mergedUsageVector(lowerLimit:upperLimit) == 0) = single(powerValue);
-	else
-		offsetSamples = possibleSamplesVector(1:(end-runDuration_sample+1));
-		% Select a <startSample> randomly (PRNG)
-		startSample = datasample(offsetSamples, 1);
-		% Index of <startSample>
-		startSample_index = find(possibleSamplesVector == startSample);
-		% Assign worktime for this option
-		mergedUsageVector(possibleSamplesVector(startSample_index:startSample_index+runDuration_sample-1)) = single(powerValue);
-	end
-	 
-	% Reshape <mergedUsageVector> to <usageArray>
-	endUser.ev.(string(evModel)).charger.usageArray = transpose(reshape(mergedUsageVector, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
+	% Reshap <mergedUsageArray> and assign it to <evUsageArray>
+	evStructure.usageArray = transpose(reshape(mergedUsageArray, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS*7));
 end

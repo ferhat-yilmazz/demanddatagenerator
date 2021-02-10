@@ -5,42 +5,41 @@
 
 %% Description
 %{
-	Assign a type to users. Types are selected from
-	"residentalTypes.json" configuration file.
-	Assignment process is made random. (PRNG or TRNG)
-	<structure_endUsers> must be defined before call
-	of the function.
+	Assign a type to end-users. Types are selected from
+	<baseStructure.endUserTypes>
+
+	When assigning types to end-users, if wish 'TRNG' can be used.
 
 >> Inputs:
-	1. <residentalTypes> : structure : "residentalTypes.json" config structure
-	2. <structure_endUsers>: structure : A structure which describes end-users
-	3. <randMethod> : string :  Randomization method (PRNG or TRNG)
+	1. <endUsers> : structure : The structure which contains the end-users
+	2. <baseStructure> : structure : Base structure
+	3. <COUNT_END_USERS> : integer : Count of end-users
+	4. <RAND_METHOD> : string :  Randomization method (PRNG or TRNG)
 
 << Outputs:
-	4. <endUsers>: structure : A structure which describes the end-users
+	1. <endUsers>: structure : The structure which contains the end-users
 %}
 
 %%
-function endUsers = assignType2endUsers(residentalTypes, endUsers)
-	% Get count of end-users
-	global COUNT_END_USERS;
-	% Get rand method
-	global RAND_METHOD;
-	% Get name of user types from <residentalTypes>
-	typeList = fieldnames(residentalTypes);
+function endUsers = assignType2endUsers(endUsers, baseStructure, COUNT_END_USERS, RAND_METHOD)
+	% Get count of end-user types
+	endUserTypeCount = size(baseStructure.endUserTypes, 2);
 	
-	% Initialize random structure to assign user types
-	% Upper limit of random numbers is determined
-	% according to count of type
-	randStructure_userTypeAssignment = generateRandStructure(RAND_METHOD, 1, numel(typeList));
+	% Define random structure for end-user type
+	if COUNT_END_USERS < 9999
+		poolSize = COUNT_END_USERS;
+	else
+		poolSize = 9999;
+	end
+	rand4endUserTypes = generateRandStructure(1, endUserTypeCount, RAND_METHOD, poolSize);
 	
-	% Assign type for each end-user, randomly
+	% Assign type for each end-user
 	for i = 1:COUNT_END_USERS
 		% Pick a random number
-		[randNumber,randStructure_userTypeAssignment] = pickRandNumber(randStructure_userTypeAssignment);
-		% Assign randomly selected type to end-user
-		endUsers(i).type = string(typeList(randNumber));
-		% Assign properties of the related type, to end-user structure
-		endUsers(i).properties = residentalTypes.(endUsers(i).type);
+		[randTypeID,rand4endUserTypes] = pickRandNumber(rand4endUserTypes);
+		% Assign typeID to the end-user
+		endUsers(i).typeID = randTypeID;
+		% Assign type to the end-user
+		% endUsers(i).type = baseStructure.endUserTypes(randTypeID).type;
 	end
 end
