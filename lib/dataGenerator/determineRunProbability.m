@@ -69,11 +69,6 @@ function runProbability = determineRunProbability(endUserID, baseStructure, appl
 		end
 	end
 	
-	% Get run probability parameters of the appliance
-	if isfield(runProbabilityParameters, endUserType)
-		if isfield(runProbabilityParameters.(endUserType))
-	end
-	
 	%{
 						###############################################
 						########## DETERMINE RUN PROBABILITY ##########
