@@ -20,217 +20,163 @@
 	rules fairly.
 
 >> Inputs:
-	1. <endUsers>: structure : A structure which describes end-users
-	2. <appliancesData> : structure : "appliancesData.json" config structure
-	3. <electricVehicles> : structure : "electricVehicles.json" config structure
-	4. <initialCOnditions> : structure : "initialConditions.json" config structure
+	1. <endUsers> : structure : The structure which contains the end-users
+	2. <baseStructure> : structure : Base structure
+	3. <COUNT_SAMPLE_IN_DAY> : integer : Sample count in a day
+	4. <COUNT_END_USERS> : integer : Count of end-users
+	5. <COUNT_WEEKS> : integer : Count of weeks
+	6. <COUNT_DAYS> : integer : Count of the days
+	7. <DAY_PIECE> : integer : Count of pieces of a day
 
 << Outputs:
-	1. <endUsers>: structure : A structure which describes the end-users
+	1. <endUsers>: structure : The structure which contains the end-users
 %}
 
 %%
-function endUsers = assignWorktimes2appliances(endUsers, appliancesData, initialConditions)
-	% Get week count we will determine
-	global COUNT_WEEKS;
-	% Get sample count for a day
-	global COUNT_SAMPLE_IN_DAY;
-	% Get count of end-users
-	global COUNT_END_USERS;
-	% Get randomization method
-	global RAND_METHOD;
-	% Get global maximum operation duration limit
-	global GLOB_MAX_OPERATION_LIMIT;
-	% Get maximum count of EV battery statuses
-	global BATTERY_LEVEL_RAND_LIMIT;
-
-	% Get run intervals in a day
-	runIntervals_daily = divideUsageVector(COUNT_SAMPLE_IN_DAY);
+function endUsers = assignWorktimes2appliances(endUsers, baseStructure,runProbabilityParameters, defaultCoefficients,...
+																							 SAMPLE_PERIOD, COUNT_SAMPLE_IN_DAY, COUNT_END_USERS, COUNT_WEEKS, DAY_PIECE)
+	% Determine part index' of a usage vector
+	dayPartIndex = divideUsageVector(COUNT_SAMPLE_IN_DAY, DAY_PIECE);
 	
-	% NOTE: In this function an iteration without iteration varible
-	% used. Maybe there is incompability for lower versions of MATLAB.
-	
-	% Generate a random structure to select start sample of appliances
-	randStructure_startSample = generateRandStructure(1, COUNT_SAMPLE_IN_DAY, RAND_METHOD, 5000);
-	% Generate a random structure to determine working duration
-	% for periodic & non-continuous appliaces
-	randStructure_operationDuration = generateRandStructure(1, GLOB_MAX_OPERATION_LIMIT, RAND_METHOD, 5000);
-	% Generate a random structure to get randomnumber between 0 and 100 for comparison with run
-	% probability result. If the selected random number less or equal than run probability then
-	% the appliance will run; otherwise will not.
-	randStructure_4runProbability = generateRandStructure(1, 100, RAND_METHOD, 5000);
-	% Generate a random structure to select battery status of an EV
-	randStructure_EVBatteryLevel = generateRandStructure(1, BATTERY_LEVEL_RAND_LIMIT, RAND_METHOD, 2000);
-	
-	% For each end-user
-	for user_index = 1:COUNT_END_USERS
-		disp("enduser: " + string(user_index));
-		% Get appliances list
-		appliances = transpose(fieldnames(endUsers(user_index).appliances));
-		% Re-sort appliances list randomly (PRNG)
-		appliances = appliances(randperm(numel(appliances)));
+	% For each end-user (parfor optional)
+	parfor endUser_idx = 1:COUNT_END_USERS
+		fprintf("«« End-User: %5d worktime assignment process... »»\n", endUser_idx);
+		% Get user type ID
+		endUserTypeID = endUsers(endUser_idx).typeID;
+		% Get count of EVs
+		evsCount = size(endUsers(endUser_idx).EVs, 2);
+		% Get count of appliances
+		appliancesCount = size(endUsers(endUser_idx).appliances, 2);
 		
-		% Get EV list
-		if isstruct(endUsers(user_index).ev)
-			evList = cellstr(fieldnames(endUsers(user_index).ev));
-		else
-			evList = {};
-		end
+		% Merge <evIndexList> and <applianceIndexList>; but multiply <evIndexList> by -1
+		% to avoid uncertainty
+		mergedAppEvList = [(1:appliancesCount) -(1:evsCount)];
 		
-		% Select periodic and continuous appliances from given list
-		for appliance = appliances
-			if strcmp(appliancesData.(string(appliance)).operation.mode, 'periodic')
-				if appliancesData.(string(appliance)).operation.continuity == 1
-					% Assign worktimes to periodic & continuous appliances
-					endUsers(user_index) = worktime_periodic_continuous(appliancesData, endUsers(user_index), appliance);
-				end
-			end
-		end
-		
+		% ## Assign work times for other appliances ##
 		% For each week
-		for week_index = 1:COUNT_WEEKS
-			% Generate day vector randomly (PRNG)
-			days = randperm(7);
-			
+		for week_idx = 1:COUNT_WEEKS
+			% Get list of week days random sorted
+			dayList = uint8(randperm(7));
 			% For each day
-			for runDay_index = days
-				runDay = (week_index-1)*7 + runDay_index;
-				% Re-sort daily run intervals randomly (PRNG)
-				runIntervals = runIntervals_daily(:,randperm(numel(runIntervals_daily(1,:))));
-				
-				% For each part of day
-				for runInterval = runIntervals
-					% For each appliances
-					for appliance = appliances
-						% For each appliance there is three option:
-						%		1."Periodic and Continuous Appliances": Check for confliction constraints. If there
-						%			is any confliction for previously assigned appliances, the appliances cannot run
-						%			at conflicted samples.
-						%
-						%		2. "Periodic and Non-Continuous Appliances": Firstly, select a start sample
-						%			randomly. After that, check for run probability. If the appliance runable at
-						%			selected sample, randomly assign run duration with given limits (global or local
-						%			limits). Lastly, assign worktime to the appliance with parameters. Confliction check
-						%			will made at worktime assignment function.
-						%
-						%		3. "Non-Periodic Appliances": Firstly, select a start sample randomly. After that,
-						%			check for run probability. If it is positive, assign worktime. Confliction check
-						%			will made at worktime assignment function.
-						
-						% Check for periodicity and continuity for the appliance
-						periodicity = strcmp(appliancesData.(string(appliance)).operation.mode, 'periodic');
-						if periodicity
-							continuity = appliancesData.(string(appliance)).operation.continuity;
-						else
-							continuity = 0;
-						end
-						
-						% OPTIONS
-						% ######### NON-PERIODIC #########
-						if (periodicity == 0)
-							% Generate interval vector from <runInterval>
-							intervalVector = runInterval(1):runInterval(2);
-							
-							% Get a start sample from given "run interval samples" randomly
-							[randomStartSample, randStructure_startSample] = pickRandNumber(randStructure_startSample);
-							randomStartSample = intervalVector(mod(randomStartSample, numel(intervalVector)) + 1);
-							
-							% Determine <runProbability>
-							run_probability = determineRunProbability(appliancesData, endUsers(user_index), initialConditions, appliance, randomStartSample);
-							% Get a random number to compare with <run_probability>
-							[randomNum2compareRunProbability, randStructure_4runProbability] = pickRandNumber(randStructure_4runProbability);
-							
-							% If <randomNum2compareRunProbability> is less than or equal to <run_probability> the
-							% appliance will run
-							if randomNum2compareRunProbability <= run_probability
-								endUsers(user_index) = worktime_nonPeriodic(appliancesData, endUsers(user_index), appliance, runDay, randomStartSample);
-							end
-						% ######### PERIODIC & NON-CONTINUOUS #########
-						elseif (periodicity == 1 && continuity == 0)
-							% Generate interval vector from <runInterval>
-							intervalVector = runInterval(1):runInterval(2);
-							
-							% Get a start sample from given "run interval samples" randomly
-							[randomStartSample, randStructure_startSample] = pickRandNumber(randStructure_startSample);
-							randomStartSample = intervalVector(mod(randomStartSample, numel(intervalVector)) + 1);
-							
-							% Determine <runProbability>
-							run_probability = determineRunProbability(appliancesData, endUsers(user_index), initialConditions, appliance, randomStartSample);
-							% Get a random number to compare with <run_probability>
-							[randomNum2compareRunProbability, randStructure_4runProbability] = pickRandNumber(randStructure_4runProbability);
-							
-							% If <randomNum2compareRunProbability> is less than or equal to <run_probability> the
-							% appliance will run
-							if randomNum2compareRunProbability <= run_probability
-								% Select operation duration randomly
-								% Be sure that operation duration is enough to run the appliance least one period
-								runDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.runDuration, 'inf'), 'inf');
-								waitDuration_sample = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.waitDuration, 'inf'), 'inf');
-								onePeriod_sample = runDuration_sample + waitDuration_sample;
-								while true
-									[randomOperationDuration, randStructure_operationDuration] = pickRandNumber(randStructure_operationDuration);
-									if randomOperationDuration >= runDuration_sample
-										% Limit the <operationDuration>
-										% If there is maximum operation limit belongs to the appliance, <operationDuration> updated with
-										% this limit
-										applianceOperationLimit = duration2sample(timeVector2duration(appliancesData.(string(appliance)).operation.maxOperationLimit, 'inf'), 'inf');
-										
-										if (applianceOperationLimit >= onePeriod_sample) && (randomOperationDuration > applianceOperationLimit)
-											randomOperationDuration = applianceOperationLimit;
-										elseif (applianceOperationLimit ~= 0) && (applianceOperationLimit < onePeriod_sample)
-											error('appliancesData.json:' + string(appliance) + ' <maxOperationLimit> error!');
-										end
-										
-										break;
-									end
+			for day_idx = 1:7
+				% Day in week
+				dayNumber = dayList(day_idx);
+				% Determine day index
+				dayIndex = single((week_idx-1)*7 + dayNumber);
+				% Randomly sort <mergedAppEvList> for each day
+				mergedAppEvList = mergedAppEvList(randperm(numel(mergedAppEvList)));
+				% For each appliance in the list <mergedAppEvList>
+				for applianceEV_idx = 1:numel(mergedAppEvList)
+					% Get index of the selection
+					applianceIndex = mergedAppEvList(applianceEV_idx);
+					% Check for it is an EV or an appliance
+					if applianceIndex < 0
+						% ####### ELECTRIC VEHICLE #######
+						% Take absolute value of <applianceIndex> to find <evIndex>
+						evIndex = abs(applianceIndex);
+						% It is a electric vehicle, get evID
+						evID = endUsers(endUser_idx).EVs(evIndex).evID;
+						% Now check for confliction issue; if there is conflicted
+						% appliances, fill by -1 intersection samples in the electric vehicle
+						% charger usage array
+						endUsers(endUser_idx).EVs(evID).usageArray = conflictionCheck(endUsers(endUser_idx), baseStructure, 'e', evID, evIndex, dayIndex,...
+																																						 1, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
+						% Select battery level randomly (options specified in "electricvehicles.json" configuraiton file)
+						randBatteryLevel = chooseValue(baseStructure.electricVehicles(evID).chargeLevelPercentage.value,...
+																						 baseStructure.electricVehicles(evID).chargeLevelPercentage.format);
+						% Assign work time for the EV
+						endUsers(endUser_idx).EVs(evIndex) = worktime_ev(baseStructure, endUsers(endUser_idx).EVs(evIndex),...
+																																			 dayIndex, randBatteryLevel, SAMPLE_PERIOD, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
+						% ################################
+					elseif applianceIndex > 0
+						% ####### APPLIANCE #######
+						% Get list of day part index' random sorted
+						dayPartList = dayPartIndex(:, randperm(size(dayPartIndex, 2)));
+						% Get applianceID
+						applianceID = endUsers(endUser_idx).appliances(applianceIndex).applianceID;
+						% Get periodicity and continuity values of the appliance
+						periodicity = baseStructure.appliances(applianceID).operation.periodicity;
+						continuity = baseStructure.appliances(applianceID).operation.continuity;
+						% Determine type of the appliance:
+						%		* Non-periodic
+						%		* Periodic & Non-continuous
+						%		* Periodic & Continuous
+						if ~periodicity
+							% <<<<<<< NON-PERIODIC >>>>>>>
+							% Check confliction issue for the "periodic and non-continuous" appliance
+							endUsers(endUser_idx).appliances(applianceIndex).usageArray = conflictionCheck(endUsers(endUser_idx), baseStructure,...
+																					  	'a', applianceID, applianceIndex, dayIndex, 1, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
+							% Each part of day
+							for part_idx = 1:size(dayPartList, 2)
+								% Select a run sample randomly in the interval
+								randomStartSample = randi([dayPartList(1, part_idx) dayPartList(2, part_idx)]);
+								% Determine probability to work the appliance at the selected sample
+								runProbability = determineRunProbability(endUserTypeID, baseStructure, endUsers(endUser_idx).appliances(applianceIndex),...
+																												 runProbabilityParameters, defaultCoefficients.runprobabilityParameters,...
+																												 dayNumber, randomStartSample);
+								% Assign work time for the "non-periodic" appliance if conditions satisfied
+								if runProbability >= randi([1 100])
+									endUsers(endUser_idx).appliances(applianceIndex) = worktime_nonPeriodic(baseStructure,...
+																																													endUsers(endUser_idx).appliances(applianceIndex),...
+																																													dayIndex, randomStartSample,...
+																																													COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
 								end
-								
-								% Assign woktime to the appliance
-								endUsers(user_index) = worktime_periodic_nonContinous(appliancesData, endUsers(user_index), appliance, runDay, randomStartSample, randomOperationDuration);
 							end
-						% ######### PERIODIC % CONTINUOUS #########
-						elseif (periodicity == 1 && continuity == 1)
-							conflictionCheck4periodic_continuous(appliancesData, endUsers(user_index), appliance, runDay, runInterval);
+						elseif periodicity && ~continuity
+							% <<<<<<< PERIODIC & NON-CONTINUOUS >>>>>>>
+							% Check confliction issue for the "periodic and non-continuous" appliance
+							endUsers(endUser_idx).appliances(applianceIndex).usageArray = conflictionCheck(endUsers(endUser_idx), baseStructure,...
+																					  	'a', applianceID, applianceIndex, dayIndex, 1, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
+							% Each part of day
+							for part_idx = 1:size(dayPartList, 2)
+								% Select a run sample randomly ib the interval
+								randomStartSample = randi([dayPartList(1, part_idx) dayPartList(2, part_idx)]);
+								% Determine probability to work the appliance at the selected sample
+								runProbability = determineRunProbability(endUserTypeID, baseStructure, endUsers(endUser_idx).appliances(applianceIndex),...
+																												 runProbabilityParameters, defaultCoefficients.runprobabilityParameters,...
+																												 dayNumber, randomStartSample);
+								% Determine operation duration randomly if the condition satisfied
+								if runProbability >= randi([1 100])
+									% Determine limits of operation
+									minDuration = baseStructure.appliances(applianceID).operation.runDuration + baseStructure.appliances(applianceID).operation.waitDuration;
+									maxDuration = baseStructure.appliances(applianceID).operation.maxOperationLimit;
+									
+									% Select duration randomly
+									operationDuration = randi([minDuration maxDuration]);
+									
+									% Sure that <runtimeSamle> can divided "runDuration + waitDuration" exactly
+									if mod(operationDuration, minDuration) ~= 0
+										operationDuration = operationDuration - (mod(operationDuration, minDuration));
+									end
+									
+									% Assign worktime of the appliance with <randomStartSample> and <runDuration>
+									endUsers(endUser_idx).appliances(applianceIndex) = worktime_periodic_nonContinous(baseStructure,...
+																																		 endUsers(endUser_idx).appliances(applianceIndex), dayIndex,...
+																																		 randomStartSample, operationDuration, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
+								end
+							end
+						elseif periodicity && continuity
+							% <<<<<<< PERIODIC & CONTINUOUS >>>>>>>
+							% Check confliction issue for the "periodic and continuous" appliance
+							endUsers(endUser_idx).appliances(applianceIndex).usageArray = conflictionCheck(endUsers(endUser_idx), baseStructure,...
+																					  	'a', applianceID, applianceIndex, dayIndex, 1, COUNT_SAMPLE_IN_DAY, COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
+							% Assign worktime for the periodic & non-continuous apliance
+							endUsers(endUser_idx).appliances(applianceIndex) = worktime_periodic_continuous(baseStructure,...
+																																 endUsers(endUser_idx).appliances(applianceIndex), dayIndex,...
+																																 COUNT_WEEKS, COUNT_SAMPLE_IN_DAY);
 						else
-							error('<appliancesData.json>:' + string(appliance) + ' operation <mode> and/or <continuity> undefined!');
+							error(strcat("<assignWorkTimes2appliances> : ", "ApplianceID: ", string(applianceID), " operation mode undefined"));
 						end
-					end
-				end
-				% ######### ELECTRIC VEHICLE WORKTIME ASSIGNMENT #########
-				% For each EV, select a battery level randomly; then assign worktime according to battery
-				% level. Run duration determined by battery level and charger power.
-				for evModel = evList
-					batteryLevels = endUsers(user_index).ev.(string(evModel)).chargeLevelPercentage.value;
-					batteryLevel_chooseFormat = endUsers(user_index).ev.(string(evModel)).chargeLevelPercentage.format;
-
-					% Choose battery status randomly
-					if strcmp(batteryLevel_chooseFormat, 'interval')
-						assert(numel(batteryLevels) == 2, 'electrictVehicles.json:' + string(evModel) + ' <chargeLevelPercentage.format> error!');
-						assert(batteryLevels(1) <= batteryLevels(2), 'electrictVehicles.json:' + string(evModel) + ' <chargeLevelPercentage.value> error!');
-
-						batteryLevel_vector = batteryLevels(1):batteryLevels(2);
-						[randomBatteryLevel, randStructure_EVBatteryLevel] = pickRandNumber(randStructure_EVBatteryLevel);
-						randomBatteryLevel = batteryLevel_vector(mod(randomBatteryLevel, numel(batteryLevel_vector)) + 1);
-					elseif strcmp(batteryLevel_chooseFormat, 'choice')
-						assert(numel(batteryLevels) >= 1, 'electrictVehicles.json:' + string(evModel) + ' <chargeLevelPercentage.value> error!');
-
-						[randomBatteryLevel, randStructure_EVBatteryLevel] = pickRandNumber(randStructure_EVBatteryLevel);
-						randomBatteryLevel = batteryLevels(mod(randomBatteryLevel, numel(batteryLevels)) + 1);
+					% ################################
 					else
-						error('electrictVehicles.json:' + string(evModel) + ' <chargeLevelPercentage.format> undefined!');
-					end
-
-					% Assign worktime to the EV if <randomBatteryLevel> is not 100; else charging is not
-					% neccessary.
-					if randomBatteryLevel ~= 100
-						endUsers(user_index) = worktime_ev(evModel, endUsers(user_index), runDay, randomBatteryLevel);
+						error("<assignWorkTimes2appliances> : Appliance/EV index for any end-user cannot be zero");
 					end
 				end
-				% Reset daily usage counter for each appliance belong to the end-user
-				endUsers(user_index) = resetApplianceUsageCounter(endUsers(user_index), 'duc');
+				% Reset <duc> for appliances belong to the end-user
+				endUsers(endUser_idx).appliances = resetApplianceUsageCounter(endUsers(endUser_idx).appliances, 'duc');
 			end
-			% Reset weekly usage counter for each appliance belong to the end-user
-			endUsers(user_index) = resetApplianceUsageCounter(endUsers(user_index), 'wuc');
+			% Reset <wuc> for appliances belong to the end-user
+			endUsers(endUser_idx).appliances = resetApplianceUsageCounter(endUsers(endUser_idx).appliances, 'wuc');
 		end
 	end
 end
