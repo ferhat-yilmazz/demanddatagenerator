@@ -38,8 +38,7 @@ function [chosens, elites] = selectionOperator(fitnessVector, COUNT_CHROMOSOMES,
 	for chosen_index = 1:COUNT_CHOSENS
 		% Calculate probability of each fitness value. Then modify it,
 		% so lower fitness value must have grater probability 
-		cpdVector(:,2) = (cpdVector(:,3) + 1)/(sum(cpdVector(:,3)) + numel(cpdVector(:,3)));
-		cpdVector(:,2) = 1./(cpdVector(:,2));
+		cpdVector(:,2) = numel(cpdVector(:,3)) ./ (cpdVector(:,3) + 1);
 		cpdVector(:,2) = cpdVector(:,2)./sum(cpdVector(:,2));
 		
 		% Build CPD column
