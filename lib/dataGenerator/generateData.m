@@ -24,6 +24,7 @@ endUsers = struct('typeID', uint8(0),...
 									'totalUsage', single([]));
 % Assign types to end-users
 endUsers = assignType2endUsers(endUsers, baseStructure, COUNT_END_USERS, RAND_METHOD);
+% endUsers = assignType2endUsers_special(endUsers, baseStructure, 2000);
 % Assign appliances to end-users
 endUsers = assignAppliances2endUsers(endUsers, baseStructure, COUNT_SAMPLE_IN_DAY, COUNT_END_USERS, COUNT_DAYS, RAND_METHOD);
 % Check for work time constraints
