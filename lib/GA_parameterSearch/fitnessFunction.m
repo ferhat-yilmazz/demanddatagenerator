@@ -19,7 +19,6 @@
 	6. <COUNT_WEEKS> : interger : Week count
 	7. <DAY_PIECE> : integer : Count of day pieces
 	8. <GLOB_MAX_OPERATION_LIMIT> : integer : Global maximum run duration limit in sample
-	9. <RAND_METHOD> : string : Randomization method
 
 << Outputs:
 	1. <fitnessValue> : integer : Fitness value of the applied solution
@@ -33,8 +32,7 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 																				COUNT_SAMPLE_IN_DAY,...
 																				COUNT_WEEKS,...
 																				DAY_PIECE,...
-																				GLOB_MAX_OPERATION_LIMIT,...
-																				RAND_METHOD)
+																				GLOB_MAX_OPERATION_LIMIT)
 	
 	% Define "daily usage count"(duc) and "weekly usage count"(wuc)
 	wuc = single(0);
@@ -106,7 +104,7 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 					% ###############################################
 
 					% Select a random number between [0,100] (TRNG or PRNG)
-					randomRunNumber = getRandomVector(1, 1, 100, RAND_METHOD);
+					randomRunNumber = getRandomVector(1, 1, 100, 'PRNG');
 
 					% Check for the appliance can run or not
 					if randomRunNumber <= runProbability
