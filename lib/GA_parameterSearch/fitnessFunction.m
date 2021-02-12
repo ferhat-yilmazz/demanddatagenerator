@@ -115,7 +115,7 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 						wuc = wuc + 1;
 
 						% Convert start sample according to <day_index>
-						startSample = (runDay-1)*COUNT_SAMPLE_IN_DAY + startSample;
+						startSample = single((runDay-1)*COUNT_SAMPLE_IN_DAY + startSample);
 
 						%{
 							#########################################
