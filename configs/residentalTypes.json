@@ -58,7 +58,7 @@
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": [23,0],
+      "lowerTime": [0,0],
       "upperTime": [6,0]
     }
   },
@@ -122,8 +122,8 @@
         4,
         5
       ],
-      "lowerTime": [7,0],
-      "upperTime": [18,0]
+      "lowerTime": [8,0],
+      "upperTime": [19,0]
     },
     "constraints": {
       "constraintsCount": 0
@@ -158,7 +158,7 @@
         4,
         5
       ],
-      "lowerTime": [7,0],
+      "lowerTime": [8,0],
       "upperTime": [18,0]
     },
     "constraints": {
@@ -166,7 +166,7 @@
     },
     "sleepTime": {
       "case": 1,
-      "lowerTime": [22,0],
+      "lowerTime": [23,0],
       "upperTime": [7,0]
     }
   }

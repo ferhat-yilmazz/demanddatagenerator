@@ -1,6 +1,6 @@
 {
   "endUserCount": 2000,
-  "weekCount": 4,
+  "weekCount": 1,
   "seasonEffect": [
     {
       "id": "winter",
@@ -18,5 +18,5 @@
   "dayPiece": 4,
   "samplePeriod": [0,5],
   "globalMaxOperationLimit": [8,0],
-  "randomizationMethod": "PRNG"
+  "randomizationMethod": "TRNG"
 }

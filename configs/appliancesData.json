@@ -13,7 +13,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [1, 30]
+      "runDuration": [1, 20]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -49,7 +49,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [1, 0]
+      "runDuration": [0, 50]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -90,7 +90,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [0,45]
+      "runDuration": [0,40]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -387,7 +387,7 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [1,0]
+      "runDuration": [1,05]
     },
     "weeklyRunInReal": {
       "case": 1,
@@ -470,8 +470,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [28,0],
-      "additionEachPerson": [0,0]
+      "value": [24,0],
+      "additionEachPerson": [1,0]
     },
     "dependency": {
       "case": 0
@@ -480,7 +480,7 @@
       "workTimeConstraint": {
         "case": 1,
         "lowerTime": [17,0],
-        "upperTime": [5,0]
+        "upperTime": [6,0]
       },
       "applianceConflictionConstraint": {
         "case": 0

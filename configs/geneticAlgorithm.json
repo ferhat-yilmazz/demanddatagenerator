@@ -1,6 +1,6 @@
 {
   "weekCount": 1,
-  "randomizationMethod": "PRNG",
+  "randomizationMethod": "TRNG",
   "population": {
     "chromosomeCount": 16,
     "geneCount": 3,
