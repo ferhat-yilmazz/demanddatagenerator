@@ -22,9 +22,9 @@ PATH_defaultCoefficients = strcat('..', filesep, '..', filesep, 'configs', files
 PATH_initialConditions = strcat('..', filesep, '..', filesep, 'configs', filesep, 'initialConditions.json');
 % "runprobabilityParameters*.json" path
 runProbabilityParametersFiles = dir(strcat('..', filesep, '..', filesep, 'configs', filesep, 'runProbabilityParameters', '*'));
-runProbabilityParametersFileNames = {};
+runProbabilityParametersFileNames = cell(numel(runProbabilityParametersFiles),1);
 for file_idx = 1:numel(runProbabilityParametersFiles)
-	runProbabilityParametersFileNames(file_idx) = {runProbabilityParametersFiles(file_idx).name};
+	runProbabilityParametersFileNames{file_idx} = runProbabilityParametersFiles(file_idx).name;
 end
 runProbabilityParametersFileNames = sort(runProbabilityParametersFileNames);
 PATH_runProbabilityParameters = strcat('..', filesep, '..', filesep, 'configs', filesep, string(runProbabilityParametersFileNames(end)));
