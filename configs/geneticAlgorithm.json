@@ -1,6 +1,6 @@
 {
   "weekCount": 1,
-  "randomizationMethod": "TRNG",
+  "randomizationMethod": "PRNG",
   "population": {
     "chromosomeCount": 16,
     "geneCount": 3,
@@ -19,6 +19,7 @@
     "mutationRate": 5
   },
   "termination": {
+    "generationLimit": 30,
     "terminationPercentage": 15,
     "terminationChromosomeCount": 12
   }
