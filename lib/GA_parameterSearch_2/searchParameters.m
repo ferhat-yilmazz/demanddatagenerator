@@ -84,11 +84,12 @@ for endUser_idx = 1:size(endUserTypesStruct, 2)
 			
 			% ## MUTATION ##
 			% ** Elite chromosomes do not mutated
-			offsprings = mutationOperator( offsprings, generationCounter, GENERATION_LIMIT, designParameter, COUNT_GENES, COUNT_OFFSPRINGS);
+			offsprings = mutationOperator( offsprings, double(generationCounter), double(GENERATION_LIMIT), 1, COUNT_GENES, COUNT_OFFSPRINGS);
+      
       % ## ELITISM ##
 			% Assign elites to <population>
 			if COUNT_ELITES > 0
-				population = [eliteChromosomes offsprings];
+				population = [eliteChromosomes; offsprings];
       else
         population = offsprings;
 			end
