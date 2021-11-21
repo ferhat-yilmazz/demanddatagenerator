@@ -25,8 +25,8 @@
 
 	>> Inputs:
 	1. <offsprings>             : array   : Offspring array which contains new generated chromosomes
-	2. <currentGenerationCount> : integer : Currently generation count
-  3. <totalGenerationCOunt>   : integer : Total generation count
+	2. <currentGenerationCount> : double : Currently generation count
+  3. <totalGenerationCOunt>   : double : Total generation count
   4. <designParameter>        : double  : Design parameter used in the formule
   4. <COUNT_GENES>            : integer : Count of genes in each chromosome (count of parameters)
 	5. <COUNT_OFFSPRINGS>       : integer : Count of offspring chromosomes
