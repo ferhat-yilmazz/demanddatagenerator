@@ -47,8 +47,8 @@ function resultArray = errorPercent(applianceRealUsageData, residentalData, tucD
   
   % ########### RESULT ###############
   % ##################################
-  resultArray = [uint16(realWeeklyUsageInMinute), uint16(generatedWeeklyMeanUsageInMinute),...
-                 single(abs(((realWeeklyUsageInMinute - generatedWeeklyMeanUsageInMinute) * 100)/realWeeklyUsageInMinute))];
+  resultArray = [single(realWeeklyUsageInMinute), single(generatedWeeklyMeanUsageInMinute),...
+                 single(abs(((realWeeklyUsageInMinute - generatedWeeklyMeanUsageInMinute) / realWeeklyUsageInMinute) * 100))];
 end
 
 

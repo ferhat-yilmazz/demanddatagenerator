@@ -16,6 +16,7 @@ initialConditions = loadJSONFile(PATH_initialConditions);
 %% Define read-only variables
 SAMPLE_PERIOD = minutes(timeVector2duration(initialConditions.samplePeriod, 0, '24h'));
 % !!! Load generated data !!!
+processData = endUsers_2k;
 
 %% Proof
 % Residental types
@@ -41,7 +42,7 @@ for residentalType_idx = 1:numel(residentalTypeNames)
   for appliance_idx = 1:numel(applianceNames)
     if (appliancesData.(string(applianceNames(appliance_idx))).operation.continuity == 0) &&...
         ~(sum(strcmpi(neverOwnedAppliances, applianceNames(appliance_idx))))
-      tucData = dataFilter(endUsers_2k, residentalType_idx, string(applianceNames(appliance_idx)));
+      tucData = dataFilter(processData, residentalType_idx, string(applianceNames(appliance_idx)));
       
       % Check for the appliance has a weekly usage statistic; if not assign default values
       if appliancesData.(string(applianceNames(appliance_idx))).weeklyRunInReal.case
