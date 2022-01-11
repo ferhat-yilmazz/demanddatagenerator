@@ -52,12 +52,12 @@ function fitnessValue = fitnessFunction(endUserTypeStruct,...
 			% Update <day_index> according to week
 			runDay = (week_index-1)*7 + day_index;
 			% Sort run intervals randomly
-			runIntervals = runIntervals_daily(:,randperm(numel(runIntervals_daily(1,:))));
+			runIntervals = runIntervals_daily(:,randperm(size(runIntervals_daily, 2)));
 
 			% For each run interval
 			for runInterval = runIntervals
 				% Select a sample randomly (PRNG) from runInterval (it is start sample of the appliance)
-				startSample = datasample(runInterval(1):runInterval(2), 1);
+				startSample = randi([runInterval(1) runInterval(2)]);
 				% Check constraints, it is possible to run at selected sample for the appliance or not
 				if endUserTypeStruct.appliances(applianceID).usageArray(runDay,startSample)
 

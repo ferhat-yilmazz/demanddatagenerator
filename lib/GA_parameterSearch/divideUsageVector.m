@@ -41,5 +41,5 @@ function partIndex = divideUsageVector(usageVectorSize, DAY_PIECE)
 	partIndex(end,2) = partIndex(end,2) + md;
 	
 	% Transpose <partIndex>
-	partIndex = transpose(partIndex);
+	partIndex = uint16(transpose(partIndex));
 end
