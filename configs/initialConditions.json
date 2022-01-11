@@ -15,7 +15,7 @@
       "factor": 1
     }
   ],
-  "dayPiece": 4,
+  "dayPiece": 8,
   "samplePeriod": [0,5],
   "globalMaxOperationLimit": [8,0],
   "randomizationMethod": "PRNG"
