@@ -18,8 +18,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [0,153],
-      "additionEachPerson": [0, 153]
+      "value": [0,213],
+      "additionEachPerson": [0, 25]
     },
     "dependency": {
       "case": 0
@@ -54,8 +54,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [0,102],
-      "additionEachPerson": [0,102]
+      "value": [0,133],
+      "additionEachPerson": [0,14]
     },
     "dependency": {
       "case": 1,
@@ -95,8 +95,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [0,78],
-      "additionEachPerson": [0,78]
+      "value": [0,364],
+      "additionEachPerson": [0,364]
     },
     "dependency": {
       "case": 0
@@ -202,13 +202,13 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [0,30]
+      "runDuration": [0,20]
     },
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 2,
-      "value": [3,0],
-      "additionEachPerson": [0,40]
+      "value": [2,20],
+      "additionEachPerson": [0,70]
     },
     "dependency": {
       "case": 0
@@ -242,8 +242,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [0,30],
-      "additionEachPerson": [0,30]
+      "value": [1,10],
+      "additionEachPerson": [0,5]
     },
     "dependency": {
       "case": 0
@@ -278,8 +278,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [1,0],
-      "additionEachPerson": [1,0]
+      "value": [7,0],
+      "additionEachPerson": [2,20]
     },
     "dependency": {
       "case": 0
@@ -317,8 +317,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [20,0],
-      "additionEachPerson": [20,0]
+      "value": [35,0],
+      "additionEachPerson": [7,0]
     },
     "dependency": {
       "case": 0
@@ -355,8 +355,8 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [20,0],
-      "additionEachPerson": [20,0]
+      "value": [35,0],
+      "additionEachPerson": [7,0]
     },
     "dependency": {
       "case": 0
@@ -387,13 +387,13 @@
     "operation": {
       "mode": "non-periodic",
       "continuity": 0,
-      "runDuration": [1,05]
+      "runDuration": [1,0]
     },
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [0,138],
-      "additionEachPerson": [0,138]
+      "value": [16,1],
+      "additionEachPerson": [2,20]
     },
     "dependency": {
       "case": 0
@@ -465,13 +465,13 @@
       "continuity": 0,
       "runDuration": [-1],
       "waitDuration": [0,0],
-      "maxOperationLimit": [5,0]
+      "maxOperationLimit": [8,0]
     },
     "weeklyRunInReal": {
       "case": 1,
-      "personCount": 1,
-      "value": [24,0],
-      "additionEachPerson": [1,0]
+      "personCount": 2,
+      "value": [28,0],
+      "additionEachPerson": [7,0]
     },
     "dependency": {
       "case": 0
@@ -510,7 +510,7 @@
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [0,1316],
+      "value": [0,1776],
       "additionEachPerson": [0,0]
     },
     "dependency": {
@@ -543,12 +543,12 @@
       "continuity": 0,
       "runDuration": [0,15],
       "waitDuration": [0,10],
-      "maxOperationLimit": [5,0]
+      "maxOperationLimit": [15,0]
     },
     "weeklyRunInReal": {
       "case": 1,
       "personCount": 1,
-      "value": [10,0],
+      "value": [70,0],
       "additionEachPerson": [0,0]
     },
     "dependency": {
