@@ -1,1 +1,412 @@
-{"type1":{"washingMachine":{"userTypeParameter":123.03479,"dailyUsageParameter":156.599518,"weeklyUsageParameter":101.833939},"tumblerDryer":{"userTypeParameter":135.781082,"dailyUsageParameter":78.8817062,"weeklyUsageParameter":105.655228},"dishwashing":{"userTypeParameter":223.131714,"dailyUsageParameter":131.749496,"weeklyUsageParameter":12.4441891},"iron":{"userTypeParameter":64.4582214,"dailyUsageParameter":108.445602,"weeklyUsageParameter":39.7268639},"toaster":{"userTypeParameter":179.329147,"dailyUsageParameter":123.825096,"weeklyUsageParameter":103.985321},"microwave":{"userTypeParameter":157.444687,"dailyUsageParameter":34.3100891,"weeklyUsageParameter":45.1056633},"kettle":{"userTypeParameter":152.012177,"dailyUsageParameter":77.0963898,"weeklyUsageParameter":44.6486359},"oven":{"userTypeParameter":100.56855,"dailyUsageParameter":80.9602,"weeklyUsageParameter":6.00417137},"laptop":{"userTypeParameter":123.037842,"dailyUsageParameter":102.164375,"weeklyUsageParameter":23.2877731},"pc":{"userTypeParameter":135.565109,"dailyUsageParameter":100.205482,"weeklyUsageParameter":22.4290695},"fan":{"userTypeParameter":163.031342,"dailyUsageParameter":118.456108,"weeklyUsageParameter":5.24350262},"hairDryer":{"userTypeParameter":63.5188217,"dailyUsageParameter":45.6297913,"weeklyUsageParameter":5.09498119},"lamp":{"userTypeParameter":134.38208,"dailyUsageParameter":29.1901894,"weeklyUsageParameter":50.3558617},"tv":{"userTypeParameter":90.8988953,"dailyUsageParameter":186.599701,"weeklyUsageParameter":13.7659597},"ac":{"userTypeParameter":124.017143,"dailyUsageParameter":85.1893311,"weeklyUsageParameter":27.2242966},"other":{"userTypeParameter":136.304932,"dailyUsageParameter":72.6930923,"weeklyUsageParameter":71.0579453}},"type2":{"washingMachine":{"userTypeParameter":153.624115,"dailyUsageParameter":171.796631,"weeklyUsageParameter":109.298576},"tumblerDryer":{"userTypeParameter":159,"dailyUsageParameter":104.47509,"weeklyUsageParameter":129.138046},"dishwashing":{"userTypeParameter":226.10379,"dailyUsageParameter":20.8973141,"weeklyUsageParameter":29.1990166},"iron":{"userTypeParameter":104.087799,"dailyUsageParameter":76.9522095,"weeklyUsageParameter":58.3135071},"toaster":{"userTypeParameter":182.20433,"dailyUsageParameter":219.418091,"weeklyUsageParameter":115.266861},"microwave":{"userTypeParameter":178.19783,"dailyUsageParameter":55.0977402,"weeklyUsageParameter":66.2412262},"kettle":{"userTypeParameter":127.767029,"dailyUsageParameter":193.057251,"weeklyUsageParameter":35.5720558},"oven":{"userTypeParameter":188.52916,"dailyUsageParameter":102.290649,"weeklyUsageParameter":25.0054207},"laptop":{"userTypeParameter":148.752823,"dailyUsageParameter":149.219666,"weeklyUsageParameter":21.3097038},"pc":{"userTypeParameter":144.689941,"dailyUsageParameter":127.85128,"weeklyUsageParameter":27.6428089},"fan":{"userTypeParameter":74.3521652,"dailyUsageParameter":52.1299553,"weeklyUsageParameter":0.822118104},"hairDryer":{"userTypeParameter":122.111328,"dailyUsageParameter":56.7862129,"weeklyUsageParameter":16.2987518},"lamp":{"userTypeParameter":148.639038,"dailyUsageParameter":66.0127411,"weeklyUsageParameter":44.5073471},"tv":{"userTypeParameter":140.82811,"dailyUsageParameter":45.9847374,"weeklyUsageParameter":49.3481293},"ac":{"userTypeParameter":99.956543,"dailyUsageParameter":160.183014,"weeklyUsageParameter":8.57993126},"other":{"userTypeParameter":125.506317,"dailyUsageParameter":35.2090874,"weeklyUsageParameter":72.6799164}},"type3":{"washingMachine":{"userTypeParameter":68.334816,"dailyUsageParameter":52.9942627,"weeklyUsageParameter":71.9082184},"tumblerDryer":{"userTypeParameter":106.847466,"dailyUsageParameter":101.251945,"weeklyUsageParameter":136.485947},"dishwashing":{"userTypeParameter":144.137283,"dailyUsageParameter":68.2909927,"weeklyUsageParameter":5.15692139},"iron":{"userTypeParameter":151.573242,"dailyUsageParameter":39.5494,"weeklyUsageParameter":78.3324661},"toaster":{"userTypeParameter":137.436951,"dailyUsageParameter":105.727173,"weeklyUsageParameter":70.5336761},"microwave":{"userTypeParameter":95,"dailyUsageParameter":95.3680878,"weeklyUsageParameter":26.6165791},"kettle":{"userTypeParameter":92.127739,"dailyUsageParameter":41.2959442,"weeklyUsageParameter":35.407196},"oven":{"userTypeParameter":183.219971,"dailyUsageParameter":161.767487,"weeklyUsageParameter":16.3343773},"laptop":{"userTypeParameter":155.447159,"dailyUsageParameter":24.7830639,"weeklyUsageParameter":39.1712189},"pc":{"userTypeParameter":134.847855,"dailyUsageParameter":152.302,"weeklyUsageParameter":29.7291374},"fan":{"userTypeParameter":159.221588,"dailyUsageParameter":161.157608,"weeklyUsageParameter":3.01802182},"hairDryer":{"userTypeParameter":118.308212,"dailyUsageParameter":77.3238907,"weeklyUsageParameter":7.43928194},"lamp":{"userTypeParameter":133.614655,"dailyUsageParameter":177.951752,"weeklyUsageParameter":19.9016247},"tv":{"userTypeParameter":139.659302,"dailyUsageParameter":22.9340534,"weeklyUsageParameter":78.0846405},"ac":{"userTypeParameter":59.6241608,"dailyUsageParameter":73.6589355,"weeklyUsageParameter":21.4052086},"other":{"userTypeParameter":144.314423,"dailyUsageParameter":90.716507,"weeklyUsageParameter":97.4633942}},"type4":{"washingMachine":{"userTypeParameter":102.396431,"dailyUsageParameter":117.131035,"weeklyUsageParameter":129.688538},"tumblerDryer":{"userTypeParameter":148,"dailyUsageParameter":86.5,"weeklyUsageParameter":157},"dishwashing":{"userTypeParameter":217.148102,"dailyUsageParameter":51.5600128,"weeklyUsageParameter":33.6524734},"iron":{"userTypeParameter":38.0903549,"dailyUsageParameter":46.342308,"weeklyUsageParameter":18.7473869},"toaster":{"userTypeParameter":158.902191,"dailyUsageParameter":46.111187,"weeklyUsageParameter":81.4013672},"microwave":{"userTypeParameter":167.204254,"dailyUsageParameter":145.928406,"weeklyUsageParameter":41.4309654},"kettle":{"userTypeParameter":126.5,"dailyUsageParameter":95,"weeklyUsageParameter":58.3994408},"oven":{"userTypeParameter":152.947723,"dailyUsageParameter":32.8166428,"weeklyUsageParameter":26.5438957},"laptop":{"userTypeParameter":104.66243,"dailyUsageParameter":125.931511,"weeklyUsageParameter":17.8372326},"pc":{"userTypeParameter":184.82991,"dailyUsageParameter":160.606888,"weeklyUsageParameter":40.6867752},"fan":{"userTypeParameter":171,"dailyUsageParameter":-2.675915,"weeklyUsageParameter":20.4820061},"hairDryer":{"userTypeParameter":172.174637,"dailyUsageParameter":33.4112549,"weeklyUsageParameter":15.6891661},"lamp":{"userTypeParameter":136.86351,"dailyUsageParameter":85.1403885,"weeklyUsageParameter":38.7949219},"tv":{"userTypeParameter":163.48056,"dailyUsageParameter":83.8631821,"weeklyUsageParameter":105.852425},"ac":{"userTypeParameter":256.821472,"dailyUsageParameter":149.989182,"weeklyUsageParameter":126.342957},"other":{"userTypeParameter":113.400856,"dailyUsageParameter":-15.1477213,"weeklyUsageParameter":117.725189}},"type5":{"washingMachine":{"userTypeParameter":72.7704163,"dailyUsageParameter":29.8064384,"weeklyUsageParameter":92.7755508},"tumblerDryer":{"userTypeParameter":89.7431107,"dailyUsageParameter":153.050735,"weeklyUsageParameter":114.276016},"dishwashing":{"userTypeParameter":81.7984543,"dailyUsageParameter":44.2678871,"weeklyUsageParameter":-49.7780495},"iron":{"userTypeParameter":115,"dailyUsageParameter":109,"weeklyUsageParameter":68.9511108},"toaster":{"userTypeParameter":166.819138,"dailyUsageParameter":22.1314335,"weeklyUsageParameter":84.2205429},"microwave":{"userTypeParameter":152.011841,"dailyUsageParameter":157.72258,"weeklyUsageParameter":34.0751},"kettle":{"userTypeParameter":79.6043549,"dailyUsageParameter":119.327705,"weeklyUsageParameter":39.9705963},"oven":{"userTypeParameter":160.071426,"dailyUsageParameter":171.411987,"weeklyUsageParameter":12.7679129},"laptop":{"userTypeParameter":146.879379,"dailyUsageParameter":147.314987,"weeklyUsageParameter":36.9057617},"pc":{"userTypeParameter":118.730804,"dailyUsageParameter":175.088333,"weeklyUsageParameter":20.9570503},"fan":{"userTypeParameter":144.755463,"dailyUsageParameter":73.8576355,"weeklyUsageParameter":21.8483887},"hairDryer":{"userTypeParameter":195.108017,"dailyUsageParameter":148.556381,"weeklyUsageParameter":6.6758213},"lamp":{"userTypeParameter":148.310013,"dailyUsageParameter":92.9911804,"weeklyUsageParameter":79.5032806},"tv":{"userTypeParameter":120.205643,"dailyUsageParameter":162.124649,"weeklyUsageParameter":75.804985},"ac":{"userTypeParameter":162.508972,"dailyUsageParameter":112.825508,"weeklyUsageParameter":96.8427429},"other":{"userTypeParameter":111.924599,"dailyUsageParameter":105.640976,"weeklyUsageParameter":122.729027}}}
+{
+  "type1": {
+    "washingMachine": {
+      "userTypeParameter": 123.03479,
+      "dailyUsageParameter": 156.599518,
+      "weeklyUsageParameter": 101.833939
+    },
+    "tumblerDryer": {
+      "userTypeParameter": 135.781082,
+      "dailyUsageParameter": 78.8817062,
+      "weeklyUsageParameter": 105.655228
+    },
+    "dishwashing": {
+      "userTypeParameter": 223.131714,
+      "dailyUsageParameter": 131.749496,
+      "weeklyUsageParameter": 12.4441891
+    },
+    "iron": {
+      "userTypeParameter": 64.4582214,
+      "dailyUsageParameter": 108.445602,
+      "weeklyUsageParameter": 39.7268639
+    },
+    "toaster": {
+      "userTypeParameter": 179.329147,
+      "dailyUsageParameter": 123.825096,
+      "weeklyUsageParameter": 103.985321
+    },
+    "microwave": {
+      "userTypeParameter": 157.444687,
+      "dailyUsageParameter": 34.3100891,
+      "weeklyUsageParameter": 45.1056633
+    },
+    "kettle": {
+      "userTypeParameter": 152.012177,
+      "dailyUsageParameter": 77.0963898,
+      "weeklyUsageParameter": 44.6486359
+    },
+    "oven": {
+      "userTypeParameter": 100.56855,
+      "dailyUsageParameter": 80.9602,
+      "weeklyUsageParameter": 6.00417137
+    },
+    "laptop": {
+      "userTypeParameter": 123.037842,
+      "dailyUsageParameter": 102.164375,
+      "weeklyUsageParameter": 23.2877731
+    },
+    "pc": {
+      "userTypeParameter": 135.565109,
+      "dailyUsageParameter": 100.205482,
+      "weeklyUsageParameter": 22.4290695
+    },
+    "fan": {
+      "userTypeParameter": 163.031342,
+      "dailyUsageParameter": 118.456108,
+      "weeklyUsageParameter": 5.24350262
+    },
+    "hairDryer": {
+      "userTypeParameter": 63.5188217,
+      "dailyUsageParameter": 45.6297913,
+      "weeklyUsageParameter": 5.09498119
+    },
+    "lamp": {
+      "userTypeParameter": 134.38208,
+      "dailyUsageParameter": 29.1901894,
+      "weeklyUsageParameter": 50.3558617
+    },
+    "tv": {
+      "userTypeParameter": 90.8988953,
+      "dailyUsageParameter": 186.599701,
+      "weeklyUsageParameter": 13.7659597
+    },
+    "ac": {
+      "userTypeParameter": 124.017143,
+      "dailyUsageParameter": 85.1893311,
+      "weeklyUsageParameter": 27.2242966
+    },
+    "other": {
+      "userTypeParameter": 136.304932,
+      "dailyUsageParameter": 72.6930923,
+      "weeklyUsageParameter": 71.0579453
+    }
+  },
+  "type2": {
+    "washingMachine": {
+      "userTypeParameter": 153.624115,
+      "dailyUsageParameter": 171.796631,
+      "weeklyUsageParameter": 109.298576
+    },
+    "tumblerDryer": {
+      "userTypeParameter": 159,
+      "dailyUsageParameter": 104.47509,
+      "weeklyUsageParameter": 129.138046
+    },
+    "dishwashing": {
+      "userTypeParameter": 226.10379,
+      "dailyUsageParameter": 20.8973141,
+      "weeklyUsageParameter": 29.1990166
+    },
+    "iron": {
+      "userTypeParameter": 104.087799,
+      "dailyUsageParameter": 76.9522095,
+      "weeklyUsageParameter": 58.3135071
+    },
+    "toaster": {
+      "userTypeParameter": 182.20433,
+      "dailyUsageParameter": 219.418091,
+      "weeklyUsageParameter": 115.266861
+    },
+    "microwave": {
+      "userTypeParameter": 178.19783,
+      "dailyUsageParameter": 55.0977402,
+      "weeklyUsageParameter": 66.2412262
+    },
+    "kettle": {
+      "userTypeParameter": 127.767029,
+      "dailyUsageParameter": 193.057251,
+      "weeklyUsageParameter": 35.5720558
+    },
+    "oven": {
+      "userTypeParameter": 188.52916,
+      "dailyUsageParameter": 102.290649,
+      "weeklyUsageParameter": 25.0054207
+    },
+    "laptop": {
+      "userTypeParameter": 148.752823,
+      "dailyUsageParameter": 149.219666,
+      "weeklyUsageParameter": 21.3097038
+    },
+    "pc": {
+      "userTypeParameter": 144.689941,
+      "dailyUsageParameter": 127.85128,
+      "weeklyUsageParameter": 27.6428089
+    },
+    "fan": {
+      "userTypeParameter": 74.3521652,
+      "dailyUsageParameter": 52.1299553,
+      "weeklyUsageParameter": 0.822118104
+    },
+    "hairDryer": {
+      "userTypeParameter": 122.111328,
+      "dailyUsageParameter": 56.7862129,
+      "weeklyUsageParameter": 16.2987518
+    },
+    "lamp": {
+      "userTypeParameter": 148.639038,
+      "dailyUsageParameter": 66.0127411,
+      "weeklyUsageParameter": 44.5073471
+    },
+    "tv": {
+      "userTypeParameter": 140.82811,
+      "dailyUsageParameter": 45.9847374,
+      "weeklyUsageParameter": 49.3481293
+    },
+    "ac": {
+      "userTypeParameter": 99.956543,
+      "dailyUsageParameter": 160.183014,
+      "weeklyUsageParameter": 8.57993126
+    },
+    "other": {
+      "userTypeParameter": 125.506317,
+      "dailyUsageParameter": 35.2090874,
+      "weeklyUsageParameter": 72.6799164
+    }
+  },
+  "type3": {
+    "washingMachine": {
+      "userTypeParameter": 68.334816,
+      "dailyUsageParameter": 52.9942627,
+      "weeklyUsageParameter": 71.9082184
+    },
+    "tumblerDryer": {
+      "userTypeParameter": 106.847466,
+      "dailyUsageParameter": 101.251945,
+      "weeklyUsageParameter": 136.485947
+    },
+    "dishwashing": {
+      "userTypeParameter": 144.137283,
+      "dailyUsageParameter": 68.2909927,
+      "weeklyUsageParameter": 5.15692139
+    },
+    "iron": {
+      "userTypeParameter": 151.573242,
+      "dailyUsageParameter": 39.5494,
+      "weeklyUsageParameter": 78.3324661
+    },
+    "toaster": {
+      "userTypeParameter": 137.436951,
+      "dailyUsageParameter": 105.727173,
+      "weeklyUsageParameter": 70.5336761
+    },
+    "microwave": {
+      "userTypeParameter": 95,
+      "dailyUsageParameter": 95.3680878,
+      "weeklyUsageParameter": 26.6165791
+    },
+    "kettle": {
+      "userTypeParameter": 92.127739,
+      "dailyUsageParameter": 41.2959442,
+      "weeklyUsageParameter": 35.407196
+    },
+    "oven": {
+      "userTypeParameter": 183.219971,
+      "dailyUsageParameter": 161.767487,
+      "weeklyUsageParameter": 16.3343773
+    },
+    "laptop": {
+      "userTypeParameter": 155.447159,
+      "dailyUsageParameter": 24.7830639,
+      "weeklyUsageParameter": 39.1712189
+    },
+    "pc": {
+      "userTypeParameter": 134.847855,
+      "dailyUsageParameter": 152.302,
+      "weeklyUsageParameter": 29.7291374
+    },
+    "fan": {
+      "userTypeParameter": 159.221588,
+      "dailyUsageParameter": 161.157608,
+      "weeklyUsageParameter": 3.01802182
+    },
+    "hairDryer": {
+      "userTypeParameter": 118.308212,
+      "dailyUsageParameter": 77.3238907,
+      "weeklyUsageParameter": 7.43928194
+    },
+    "lamp": {
+      "userTypeParameter": 133.614655,
+      "dailyUsageParameter": 177.951752,
+      "weeklyUsageParameter": 19.9016247
+    },
+    "tv": {
+      "userTypeParameter": 139.659302,
+      "dailyUsageParameter": 22.9340534,
+      "weeklyUsageParameter": 78.0846405
+    },
+    "ac": {
+      "userTypeParameter": 59.6241608,
+      "dailyUsageParameter": 73.6589355,
+      "weeklyUsageParameter": 21.4052086
+    },
+    "other": {
+      "userTypeParameter": 144.314423,
+      "dailyUsageParameter": 90.716507,
+      "weeklyUsageParameter": 97.4633942
+    }
+  },
+  "type4": {
+    "washingMachine": {
+      "userTypeParameter": 102.396431,
+      "dailyUsageParameter": 117.131035,
+      "weeklyUsageParameter": 129.688538
+    },
+    "tumblerDryer": {
+      "userTypeParameter": 148,
+      "dailyUsageParameter": 86.5,
+      "weeklyUsageParameter": 157
+    },
+    "dishwashing": {
+      "userTypeParameter": 217.148102,
+      "dailyUsageParameter": 51.5600128,
+      "weeklyUsageParameter": 33.6524734
+    },
+    "iron": {
+      "userTypeParameter": 38.0903549,
+      "dailyUsageParameter": 46.342308,
+      "weeklyUsageParameter": 18.7473869
+    },
+    "toaster": {
+      "userTypeParameter": 158.902191,
+      "dailyUsageParameter": 46.111187,
+      "weeklyUsageParameter": 81.4013672
+    },
+    "microwave": {
+      "userTypeParameter": 167.204254,
+      "dailyUsageParameter": 145.928406,
+      "weeklyUsageParameter": 41.4309654
+    },
+    "kettle": {
+      "userTypeParameter": 126.5,
+      "dailyUsageParameter": 95,
+      "weeklyUsageParameter": 58.3994408
+    },
+    "oven": {
+      "userTypeParameter": 152.947723,
+      "dailyUsageParameter": 32.8166428,
+      "weeklyUsageParameter": 26.5438957
+    },
+    "laptop": {
+      "userTypeParameter": 104.66243,
+      "dailyUsageParameter": 125.931511,
+      "weeklyUsageParameter": 17.8372326
+    },
+    "pc": {
+      "userTypeParameter": 184.82991,
+      "dailyUsageParameter": 160.606888,
+      "weeklyUsageParameter": 40.6867752
+    },
+    "fan": {
+      "userTypeParameter": 171,
+      "dailyUsageParameter": -2.675915,
+      "weeklyUsageParameter": 20.4820061
+    },
+    "hairDryer": {
+      "userTypeParameter": 172.174637,
+      "dailyUsageParameter": 33.4112549,
+      "weeklyUsageParameter": 15.6891661
+    },
+    "lamp": {
+      "userTypeParameter": 136.86351,
+      "dailyUsageParameter": 85.1403885,
+      "weeklyUsageParameter": 38.7949219
+    },
+    "tv": {
+      "userTypeParameter": 163.48056,
+      "dailyUsageParameter": 83.8631821,
+      "weeklyUsageParameter": 105.852425
+    },
+    "ac": {
+      "userTypeParameter": 256.821472,
+      "dailyUsageParameter": 149.989182,
+      "weeklyUsageParameter": 126.342957
+    },
+    "other": {
+      "userTypeParameter": 113.400856,
+      "dailyUsageParameter": -15.1477213,
+      "weeklyUsageParameter": 117.725189
+    }
+  },
+  "type5": {
+    "washingMachine": {
+      "userTypeParameter": 72.7704163,
+      "dailyUsageParameter": 29.8064384,
+      "weeklyUsageParameter": 92.7755508
+    },
+    "tumblerDryer": {
+      "userTypeParameter": 89.7431107,
+      "dailyUsageParameter": 153.050735,
+      "weeklyUsageParameter": 114.276016
+    },
+    "dishwashing": {
+      "userTypeParameter": 81.7984543,
+      "dailyUsageParameter": 44.2678871,
+      "weeklyUsageParameter": -49.7780495
+    },
+    "iron": {
+      "userTypeParameter": 115,
+      "dailyUsageParameter": 109,
+      "weeklyUsageParameter": 68.9511108
+    },
+    "toaster": {
+      "userTypeParameter": 166.819138,
+      "dailyUsageParameter": 22.1314335,
+      "weeklyUsageParameter": 84.2205429
+    },
+    "microwave": {
+      "userTypeParameter": 152.011841,
+      "dailyUsageParameter": 157.72258,
+      "weeklyUsageParameter": 34.0751
+    },
+    "kettle": {
+      "userTypeParameter": 79.6043549,
+      "dailyUsageParameter": 119.327705,
+      "weeklyUsageParameter": 39.9705963
+    },
+    "oven": {
+      "userTypeParameter": 160.071426,
+      "dailyUsageParameter": 171.411987,
+      "weeklyUsageParameter": 12.7679129
+    },
+    "laptop": {
+      "userTypeParameter": 146.879379,
+      "dailyUsageParameter": 147.314987,
+      "weeklyUsageParameter": 36.9057617
+    },
+    "pc": {
+      "userTypeParameter": 118.730804,
+      "dailyUsageParameter": 175.088333,
+      "weeklyUsageParameter": 20.9570503
+    },
+    "fan": {
+      "userTypeParameter": 144.755463,
+      "dailyUsageParameter": 73.8576355,
+      "weeklyUsageParameter": 21.8483887
+    },
+    "hairDryer": {
+      "userTypeParameter": 195.108017,
+      "dailyUsageParameter": 148.556381,
+      "weeklyUsageParameter": 6.6758213
+    },
+    "lamp": {
+      "userTypeParameter": 148.310013,
+      "dailyUsageParameter": 92.9911804,
+      "weeklyUsageParameter": 79.5032806
+    },
+    "tv": {
+      "userTypeParameter": 120.205643,
+      "dailyUsageParameter": 162.124649,
+      "weeklyUsageParameter": 75.804985
+    },
+    "ac": {
+      "userTypeParameter": 162.508972,
+      "dailyUsageParameter": 112.825508,
+      "weeklyUsageParameter": 96.8427429
+    },
+    "other": {
+      "userTypeParameter": 111.924599,
+      "dailyUsageParameter": 105.640976,
+      "weeklyUsageParameter": 122.729027
+    }
+  }
+}
