@@ -96,7 +96,7 @@
       "case": 1,
       "personCount": 1,
       "value": [0,364],
-      "additionEachPerson": [0,364]
+      "additionEachPerson": [0,70]
     },
     "dependency": {
       "case": 0
@@ -132,7 +132,7 @@
       "case": 1,
       "personCount": 1,
       "value": [1,0],
-      "additionEachPerson": [1,0]
+      "additionEachPerson": [0,30]
     },
     "dependency": {
       "case": 1,
@@ -172,7 +172,7 @@
       "case": 1,
       "personCount": 1,
       "value": [1,0],
-      "additionEachPerson": [1,0]
+      "additionEachPerson": [0,30]
     },
     "dependency": {
       "case": 0
@@ -543,7 +543,7 @@
       "continuity": 0,
       "runDuration": [0,15],
       "waitDuration": [0,10],
-      "maxOperationLimit": [15,0]
+      "maxOperationLimit": [24,0]
     },
     "weeklyRunInReal": {
       "case": 1,
