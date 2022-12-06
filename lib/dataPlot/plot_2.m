@@ -30,7 +30,7 @@ function plot_2(endUsersData, endUserProfileCount)
 	ticks_x = cellstr(string(tickAx));
 	
 	% Define ytick values
-	tickAy = 0:0.1:1.6;
+	tickAy = 0:0.1:2;
 	ticks_y = cellstr(string(tickAy)); % {'0.0', '0.5', '1.0', '1.5', '2.0', '2.5', '3.0'};
 	
 	% Define colors
@@ -108,7 +108,7 @@ function plot_2(endUsersData, endUserProfileCount)
 
 	yticks(tickAy);
 	yticklabels(ticks_y);
-	ax.YLim = [0, 1.6];
+	ax.YLim = [0, 2];
 
 	xticks(tickAx);
 	xticklabels(ticks_x);

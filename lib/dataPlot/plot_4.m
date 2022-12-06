@@ -31,7 +31,7 @@ function plot_4(endUsersData, endUserProfileCount)
 	tickslabel_x = cellstr(string(tickAx));
 	
 	% Define ytick values
-	tickAy = 0:0.2:2.0;
+	tickAy = 0:0.2:2.2;
 	tickslabel_y = cellstr(string(tickAy));
 
 	% Define colors
@@ -95,7 +95,7 @@ function plot_4(endUsersData, endUserProfileCount)
 		
 		yticks(tickAy);
 		yticklabels(tickslabel_y);
-		ax.YLim = [0, 2.0];
+		ax.YLim = [0, 2.2];
 		
 		xticks(tickAx);
 		xticklabels(tickslabel_x);
