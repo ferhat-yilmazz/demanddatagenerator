@@ -5,8 +5,8 @@
 
 %% Description
 %{
-	Script to define read-only variables. These variables are used
-	in all program and they are never changed in runtime.
+  Script to define read-only variables. These variables are used
+  in all program and they are never changed in runtime.
 %}
 
 %% Definition of variables
@@ -14,8 +14,8 @@ COUNT_WEEKS = uint16(geneticAlgorithm.weekCount);
 DAY_PIECE = uint16(initialConditions.dayPiece);
 SAMPLE_PERIOD = minutes(timeVector2duration(initialConditions.samplePeriod, '24h', 0)); % Sample period is not necessary here!
 GLOB_MAX_OPERATION_LIMIT = duration2sample(timeVector2duration(initialConditions.globalMaxOperationLimit, 'inf', SAMPLE_PERIOD),...
-																					 'inf',...
-																					 SAMPLE_PERIOD);
+                                           'inf',...
+                                           SAMPLE_PERIOD);
 % Check for <GLOB_MAX_OPERATION_LIMIT> is greater that <SAMPLE_PERIOD>
 assert(GLOB_MAX_OPERATION_LIMIT >= SAMPLE_PERIOD, '<GLOB_MAX_OPERATION_LIMIT> cannot less than <SAMPLE_PERIOD>');
 % Check for sample period sub-multiple of minutes in a day.

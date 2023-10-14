@@ -50,7 +50,7 @@ if ~isempty(colorlist)
   [colors,colori] = nextnonbw(0,colorlist,bits);
 else
   colors = (bits(:,:,1) ~= bits(:,:,2)) | ...
-	   (bits(:,:,1) ~= bits(:,:,3));
+     (bits(:,:,1) ~= bits(:,:,3));
 end
 pati = 1;
 colorind = find(colors);
@@ -79,15 +79,15 @@ while ~isempty(colorind)
   end
   bigpattern = repmat(bigpattern,[1 1 3]);
   color = (bits(:,:,1) == colorval(1)) & ...
-	  (bits(:,:,2) == colorval(2)) & ...
-	  (bits(:,:,3) == colorval(3));
+    (bits(:,:,2) == colorval(2)) & ...
+    (bits(:,:,3) == colorval(3));
   color = repmat(color,[1 1 3]);
   bits(color) = bigpattern(color);
   if ~isempty(colorlist)
     [colors,colori] = nextnonbw(colori,colorlist,bits);
   else
     colors = (bits(:,:,1) ~= bits(:,:,2)) | ...
-	     (bits(:,:,1) ~= bits(:,:,3));
+       (bits(:,:,1) ~= bits(:,:,3));
   end
   colorind = find(colors);
   pati = (pati + 1);
@@ -109,12 +109,12 @@ out = ind+1;
 colors = [];
 while out <= size(colorlist,1)
   if isequal(colorlist(out,:),[255 255 255]) | ...
-	isequal(colorlist(out,:),[0 0 0])
+  isequal(colorlist(out,:),[0 0 0])
     out = out+1;
   else
     colors = (colorlist(out,1) == bits(:,:,1)) & ...
-	     (colorlist(out,2) == bits(:,:,2)) & ...
-	     (colorlist(out,3) == bits(:,:,3));
+       (colorlist(out,2) == bits(:,:,2)) & ...
+       (colorlist(out,3) == bits(:,:,3));
     return
   end
 end

@@ -5,18 +5,18 @@
 
 %% Description
 %{
-	Function to filter generated data according to selected residental type
+  Function to filter generated data according to selected residental type
   and selected appliance name. Filtered data must only contain the total
   usage cycle (tuc) values of the selected appliance belongs to the each
   related residental type.
 
 >> Inputs:
-	1. <generatedData>    : structure : Generated data by te program
-	2. <residentalTypeID> : integer   : ID of the selected residental type
-	3. <applianceName>    : string    : Name of the selected appliance
+  1. <generatedData>    : structure : Generated data by te program
+  2. <residentalTypeID> : integer   : ID of the selected residental type
+  3. <applianceName>    : string    : Name of the selected appliance
 
 << Outputs:
-	1. <tucData>          : array     : Filtered data
+  1. <tucData>          : array     : Filtered data
 %}
 
 %%

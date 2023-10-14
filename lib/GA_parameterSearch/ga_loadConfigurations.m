@@ -5,8 +5,8 @@
 
 %% Description
 %{
-	Script to load configuration files. Paths are also defined in
-	this script.
+  Script to load configuration files. Paths are also defined in
+  this script.
 %}
 
 %% Define PATH variables

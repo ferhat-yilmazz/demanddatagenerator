@@ -5,24 +5,24 @@
 
 %% Description
 %{
-	Function to represents selection operator of the genetic
-	algorithm. 3-way tournament selection algorithm is used. 
+  Function to represents selection operator of the genetic
+  algorithm. 3-way tournament selection algorithm is used. 
 
-	>> Inputs:
-	1. <fitnessVector> : vector : Vector which contains fitness values
-	2. <COUNT_CHROMOSOMES> : integer : Count of chromosomes(count of individuals in a population)
-	3. <COUNT_CHOSENS> : integer : Count of chosens
-	4. <COUNT_ELITES> : integer : Count of elites
+  >> Inputs:
+  1. <fitnessVector> : vector : Vector which contains fitness values
+  2. <COUNT_CHROMOSOMES> : integer : Count of chromosomes(count of individuals in a population)
+  3. <COUNT_CHOSENS> : integer : Count of chosens
+  4. <COUNT_ELITES> : integer : Count of elites
 
 << Outputs:
-	1. <chosens> : vector : IDs of chosen individuals
-	2. <elistes> : vector : IDs of elistes individuals
+  1. <chosens> : vector : IDs of chosen individuals
+  2. <elistes> : vector : IDs of elistes individuals
 %}
 
 %%
 function [chosens, elites] = selectionOperator(fitnessVector, COUNT_CHOSENS, COUNT_ELITES)
   % Define vector for chosens
-	chosens = zeros(COUNT_CHOSENS, 1);
+  chosens = zeros(COUNT_CHOSENS, 1);
   
   % Firstly sort <fitnessVector> ascending order,
   % lower fitness value is better

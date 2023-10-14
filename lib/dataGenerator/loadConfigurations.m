@@ -5,8 +5,8 @@
 
 %% Description
 %{
-	Script to load configuration files. Paths are also defined in
-	this script.
+  Script to load configuration files. Paths are also defined in
+  this script.
 %}
 
 %% Define PATH variables
@@ -24,7 +24,7 @@ PATH_initialConditions = strcat('..', filesep, '..', filesep, 'configs', filesep
 runProbabilityParametersFiles = dir(strcat('..', filesep, '..', filesep, 'configs', filesep, 'runProbabilityParameters', '*'));
 runProbabilityParametersFileNames = cell(numel(runProbabilityParametersFiles),1);
 for file_idx = 1:numel(runProbabilityParametersFiles)
-	runProbabilityParametersFileNames{file_idx} = runProbabilityParametersFiles(file_idx).name;
+  runProbabilityParametersFileNames{file_idx} = runProbabilityParametersFiles(file_idx).name;
 end
 runProbabilityParametersFileNames = sort(runProbabilityParametersFileNames);
 PATH_runProbabilityParameters = strcat('..', filesep, '..', filesep, 'configs', filesep, string(runProbabilityParametersFileNames(end)));

@@ -5,14 +5,14 @@
 
 %% Description
 %{
-	Function to read and load given JSON file and
-	return data in the file
+  Function to read and load given JSON file and
+  return data in the file
 
 >> Inputs:
-	1. <dataFilePath> : string :  path of JSON file
+  1. <dataFilePath> : string :  path of JSON file
 
 << Outputs:
-	1. <loadedData> : structure : data in the JSON file
+  1. <loadedData> : structure : data in the JSON file
 %}
 
 %%

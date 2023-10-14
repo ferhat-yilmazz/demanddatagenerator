@@ -5,8 +5,8 @@
 
 %% Description
 %{
-	Script to define read-only variables. These variables are used
-	in all program and they are never changed in runtime.
+  Script to define read-only variables. These variables are used
+  in all program and they are never changed in runtime.
 %}
 
 %% Definition of variables

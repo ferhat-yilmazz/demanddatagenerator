@@ -5,7 +5,7 @@
 
 %% Description
 %{
-	Function to realise mutation process fo population. Non-uniform mutation
+  Function to realise mutation process fo population. Non-uniform mutation
   method will be used. Thus, there will be increasing mutation rate for each
   generation. Two chromosomes will be selected random for mutation.
 
@@ -23,21 +23,21 @@
     g_max   : maximum generation count
     b       : design parameter (selected as 1)
 
-	>> Inputs:
-	1. <offsprings>             : array   : Offspring array which contains new generated chromosomes
-	2. <currentGenerationCount> : double : Currently generation count
+  >> Inputs:
+  1. <offsprings>             : array   : Offspring array which contains new generated chromosomes
+  2. <currentGenerationCount> : double : Currently generation count
   3. <totalGenerationCOunt>   : double : Total generation count
   4. <designParameter>        : double  : Design parameter used in the formule
   4. <COUNT_GENES>            : integer : Count of genes in each chromosome (count of parameters)
-	5. <COUNT_OFFSPRINGS>       : integer : Count of offspring chromosomes
+  5. <COUNT_OFFSPRINGS>       : integer : Count of offspring chromosomes
 
 << Outputs:
-	1. <offsprings> : array     : Mutant offsprings array
+  1. <offsprings> : array     : Mutant offsprings array
 %}
 
 %%
 function offsprings = mutationOperator(offsprings, currentGenerationCount, totalGenerationCount, designParameter, COUNT_GENES, COUNT_OFFSPRINGS)
-	% Find maximum end minimum values for each gene
+  % Find maximum end minimum values for each gene
   maxValues = single(zeros(1, COUNT_GENES));
   minValues = single(zeros(1, COUNT_GENES));
   
