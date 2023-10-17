@@ -1,5 +1,4 @@
 # .m files temporary backups:
 *.m~
-
-# Todo file
-Cluster_to_do_list_27_04_20.txt
+# generated demand data files
+generatedData/
