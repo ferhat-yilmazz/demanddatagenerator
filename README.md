@@ -1,29 +1,9 @@
-# README #
+## Household Load Profile Generator by Using Genetic Algorithm
 
-This README would normally document whatever steps are necessary to get your application up and running.
+The documentation will be completed soon.
 
-### What is this repository for? ###
+For brief information about the project, you can check following paper:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+:paperclip: [A novel load profile generation method based on the estimation of regional usage habit parameters with genetic algorithm](https://doi.org/10.1016/j.epsr.2023.109165)
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+For any question or any comment you can use [ferhatyilmaz.me@pm.me](mailto:ferhatyilmaz.me@pm.me)
